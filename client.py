@@ -556,6 +556,9 @@ top_left_earth_map = pygame.transform.scale(top_left_earth_map, (625, 625))
 top_right_earth_map = pygame.image.load("Maps/TopRightEarthMap.png")
 top_right_earth_map = pygame.transform.scale(top_right_earth_map, (625, 625))
 
+tank1 = pygame.image.load("Tank1.png")
+tank1 = pygame.transform.scale(tank1, (200, 200))
+
 run = True
 while run:
     for event in pygame.event.get():
@@ -911,7 +914,7 @@ while run:
       display.blit(purple_bullet_five, (positionX + 10, positionY - 15))
       display.blit(f_hb[health],(positionX, positionY - 15))
       for player, (x, y) in positions.items():
-        display.blit(purple_spike_gun, (x, y))
+        display.blit(tank1, (x, y))
       positionX += speedX
       positionY += speedY
     else:
