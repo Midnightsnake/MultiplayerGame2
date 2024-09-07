@@ -534,13 +534,13 @@ levels_ninetyone_hundred = pygame.transform.scale(levels_ninetyone_hundred, (100
 
 
 lobby_one_map = pygame.image.load("Maps/LobbyMaps/Lobby1.png")
-lobby_one_map = pygame.image.transform.scale(lobby_one_map, (625, 625))
+lobby_one_map = pygame.transform.scale(lobby_one_map, (625, 625))
 lobby_two_map = pygame.image.load("Maps/LobbyMaps/Lobby2.png")
-lobby_two_map = pygame.image.transform.scale(lobby_two_map, (625, 625))
+lobby_two_map = pygame.transform.scale(lobby_two_map, (625, 625))
 lobby_three_map = pygame.image.load("Maps/LobbyMaps/Lobby3.png")
-lobby_three_map = pygame.image.transform.scale(lobby_three_map, (625, 625))
+lobby_three_map = pygame.transform.scale(lobby_three_map, (625, 625))
 lobby_four_map = pygame.image.load("Maps/LobbyMaps/Lobby4.png")
-lobby_four_map = pygame.image.transform.scale(lobby_four_map, (625, 625))
+lobby_four_map = pygame.transform.scale(lobby_four_map, (625, 625))
 bottom_left_earth_map = pygame.image.load("Maps/BottomLeftEarthMap.png")
 bottom_left_earth_map = pygame.transform.scale(bottom_left_earth_map, (625, 625))
 bottom_right_earth_map = pygame.image.load("Maps/BottomRightEarthMap.png")
