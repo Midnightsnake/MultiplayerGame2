@@ -896,7 +896,7 @@ while run:
               signed_in = True
     if gamestatus == 1:
       display.fill((0, 255, 255))
-      display.blit(lobby_one_map, 330, 110)
+      display.blit(lobby_one_map, (330, 110))
     if gamestatus == 2:
       display.fill((0, 255, 255))
       display.blit(bottom_left_earth_map, (330, 345))
