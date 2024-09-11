@@ -208,6 +208,9 @@ diamond_bullet_four = pygame.transform.scale(diamond_bullet_four, (30, 30))
 diamond_bullet_five = pygame.image.load("Bullets/DiamondBullets/DiamondBulletLevelFive.png")
 diamond_bullet_five = pygame.transform.scale(diamond_bullet_five, (30, 30))
 
+diamond_shield_five = pygame.image.load("Shields-75.png.png")
+diamond_shield_five = pygame.transform.scale(diamond_shield_five, (50, 50))
+
 red_default_gun = pygame.image.load("Guns/DefaultGuns/RedDefaultGun.png")
 red_default_gun = pygame.transform.scale(red_default_gun, (200, 200))
 orange_default_gun = pygame.image.load("Guns/DefaultGuns/OrangeDefaultGun.png")
@@ -906,6 +909,7 @@ while run:
       bullettype = 1
       display.blit(purple_bullet_five, (positionX + 10, positionY - 15))
       display.blit(f_hb[health],(positionX, positionY - 15))
+      display.blit(diamond_shield_five, (positionX, positionY)
       positionX += speedX
       positionY += speedY
     else:
