@@ -33,11 +33,28 @@ health = 40
 bullettype = 1
 rapidfiretype = 1
 shieldtype = 1
+minetype = 1
 nuketype = 1
 homingtype = 1
 ancientbullettype = 1
 flaktype = 1
 equippedguntype = 1
+bulletactive = True
+bulletkey = pygame.K_1
+rapidfireactive = False
+rapidfirekey = pygame.K_2
+shieldactive = False
+shieldkey = pygame.K_3
+mineactive = False
+minekey = pygame.K_4
+nukeactive = False
+nukekey = pygame.K_5
+homingactive = False
+homingkey = pygame.K_6
+ancientbulletactive = False
+ancientbulletkey = pygame.K_7
+flakactive = False
+flakkey = pygame.K_8
 level = 1
 xp = 0
 signed_in = False
@@ -573,6 +590,22 @@ while run:
             speedY = -1
           if event.key == pygame.K_s:
             speedY = 1
+          if event.key == bulletkey:
+            bulletactive == True
+          if event.key == rapidfirekey:
+            rapidfireactive == True
+          if event.key == shieldkey:
+            shieldactive == True
+          if event.key == minekey:
+            mineactive == True
+          if event.key == nukekey:
+            nukeactive == True
+          if event.key == homingkey:
+            homingactive == True
+          if event.key == ancientbulletkey:
+            ancientbulletactive == True
+          if event.key == flakkey:
+            flakactive == True
           if event.key == pygame.K_EQUALS:
             health += 1
           if event.key == pygame.K_MINUS:
