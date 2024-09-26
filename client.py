@@ -573,7 +573,7 @@ top_left_earth_map = pygame.transform.scale(top_left_earth_map, (625, 625))
 top_right_earth_map = pygame.image.load("Maps/TopRightEarthMap.png")
 top_right_earth_map = pygame.transform.scale(top_right_earth_map, (625, 625))
 
-tank1 = pygame.image.load("Tank1.png")
+tank1 = pygame.image.load("Tanks2/PlasmaTank.png")
 tank1 = pygame.transform.scale(tank1, (200, 200))
 
 run = True
