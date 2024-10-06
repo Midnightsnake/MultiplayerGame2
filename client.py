@@ -2,6 +2,7 @@ import pygame
 import pygame.draw_py
 import socket
 import threading
+import time
 player_id = 1
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect(("127.0.0.1", 12345))
@@ -33,6 +34,8 @@ health = 40
 bullettype = 1
 rapidfiretype = 1
 shieldtype = 1
+shieldtime = 0
+shieldduration = 10
 minetype = 1
 nuketype = 1
 homingtype = 1
@@ -590,6 +593,9 @@ watertank = pygame.transform.scale(watertank, (40, 40))
 windtank = pygame.image.load("Tanks2/WindTank.png")
 windtank = pygame.transform.scale(windtank, (40, 40))
 
+diamond_shield_five = pygame.image.load("Shields-75.png.png")
+diamond_shield_five = pygame.transform.scale(diamond_shield_five, (60, 60))
+
 run = True
 while run:
     for event in pygame.event.get():
@@ -610,6 +616,7 @@ while run:
             rapidfireactive == True
           if event.key == shieldkey:
             shieldactive == True
+            shieldtime = time.time()
           if event.key == minekey:
             mineactive == True
           if event.key == nukekey:
@@ -957,6 +964,16 @@ while run:
       display.blit(bottom_right_earth_map, (955, 345))
       display.blit(top_left_earth_map, (330, 110))
       display.blit(top_right_earth_map, (955, 110))
+      if shieldactive == True:
+        print("shieldactive")
+        shieldtimedifference = time.time() - shieldtime
+        print(shieldtimedifference)
+        if shieldtimedifference > shieldduration:
+          shieldactive = False
+          print("shield2")
+        else:
+          display.blit(diamond_shield_five, (positionX, positionY))
+          print("shield3")
       bullettype = 1
       display.blit(purple_bullet_five, (positionX + 10, positionY - 15))
       display.blit(f_hb[health],(positionX, positionY - 20))
