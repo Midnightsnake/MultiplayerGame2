@@ -612,10 +612,12 @@ while run:
             speedY = 1
           if event.key == bulletkey:
             bulletactive == True
+            shieldactive == False
           if event.key == rapidfirekey:
             rapidfireactive == True
           if event.key == shieldkey:
             shieldactive == True
+            bulletactive == False
             shieldtime = time.time()
           if event.key == minekey:
             mineactive == True
