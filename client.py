@@ -611,11 +611,12 @@ while run:
           if event.key == pygame.K_s:
             speedY = 1
           if event.key == bulletkey:
-            bulletactive = True
+            bulletactive == True
+            shieldactive == False
           if event.key == rapidfirekey:
             rapidfireactive == True
           if event.key == shieldkey:
-            shieldactive = True
+            shieldactive == True
             shieldtime = time.time()
           if event.key == minekey:
             mineactive = True
