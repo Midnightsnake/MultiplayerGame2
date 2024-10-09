@@ -615,7 +615,7 @@ while run:
             shieldactive = False
           if event.key == rapidfirekey:
             rapidfireactive = True
-          if event.key == shieldkey:
+          if event.key == shieldkey and shieldactive == False:
             shieldactive = True
             shieldtime = time.time()
           if event.key == minekey:
@@ -966,18 +966,13 @@ while run:
       display.blit(top_left_earth_map, (330, 110))
       display.blit(top_right_earth_map, (955, 110))
       if shieldactive == True:
-        print("shieldactive")
         shieldtimedifference = time.time() - shieldtime
-        print(shieldtimedifference)
         if shieldtimedifference > shieldduration:
           shieldactive = False
-          print("shield2")
         else:
-          display.blit(diamond_shield_five, (positionX, positionY))
-          print("shield3")
-      bullettype = 1
-      display.blit(purple_bullet_five, (positionX + 10, positionY - 15))
-      display.blit(f_hb[health],(positionX, positionY - 20))
+          display.blit(diamond_shield_five, (positionX - 10, positionY - 10))
+      display.blit(purple_bullet_five, (positionX + 5, positionY - 35))
+      display.blit(f_hb[health],(positionX, positionY - 25))
       for player, (x, y) in positions.items():
         display.blit(plasmatank, (x, y))
       positionX += speedX
@@ -985,7 +980,7 @@ while run:
     else:
       display.fill((255, 255, 255))
       pygame.draw.rect(display, pygame.Color(colors["Gold"]), (0, 0, 960, 972))
-      pygame.draw.rect(display, pygame.Color(colors["Diamond"]), (960, 0, 960, 972))
+      pygame.draw.rect(display, pygame.Color(colors["Silver"]), (960, 0, 960, 972))
       pygame.draw.rect(display, pygame.Color(0, 0, 0), (220, 345, 210, 410))
       pygame.draw.rect(display, pygame.Color(0, 0, 0), (470, 345, 210, 410))
       pygame.draw.rect(display, pygame.Color(0, 0, 0), (720, 345, 210, 410))
@@ -1000,14 +995,14 @@ while run:
       pygame.draw.rect(display, pygame.Color(colors["Blue"]), (225, 350, 200, 400))
       pygame.draw.rect(display, pygame.Color(colors["Yellow"]), (475, 350, 200, 400))
       pygame.draw.rect(display, pygame.Color(colors["Green"]), (725, 350, 200, 400))
-      pygame.draw.rect(display, pygame.Color(colors["Bronze"]), (1010, 150, 150, 150))
-      pygame.draw.rect(display, pygame.Color(colors["Bronze"]), (1180, 150, 150, 150))
-      pygame.draw.rect(display, pygame.Color(colors["Bronze"]), (1350, 150, 150, 150))
-      pygame.draw.rect(display, pygame.Color(colors["Bronze"]), (1520, 150, 150, 150))
-      pygame.draw.rect(display, pygame.Color(colors["Bronze"]), (1010, 320, 150, 150))
-      pygame.draw.rect(display, pygame.Color(colors["Bronze"]), (1180, 320, 150, 150))
-      pygame.draw.rect(display, pygame.Color(colors["Bronze"]), (1350, 320, 150, 150))
-      pygame.draw.rect(display, pygame.Color(colors["Light Bronze"]), (1010, 490, 660, 455))
+      pygame.draw.rect(display, pygame.Color(colors["Diamond"]), (1010, 150, 150, 150))
+      pygame.draw.rect(display, pygame.Color(colors["Diamond"]), (1180, 150, 150, 150))
+      pygame.draw.rect(display, pygame.Color(colors["Diamond"]), (1350, 150, 150, 150))
+      pygame.draw.rect(display, pygame.Color(colors["Diamond"]), (1520, 150, 150, 150))
+      pygame.draw.rect(display, pygame.Color(colors["Diamond"]), (1010, 320, 150, 150))
+      pygame.draw.rect(display, pygame.Color(colors["Diamond"]), (1180, 320, 150, 150))
+      pygame.draw.rect(display, pygame.Color(colors["Diamond"]), (1350, 320, 150, 150))
+      pygame.draw.rect(display, pygame.Color(colors["Light Diamond"]), (1010, 490, 660, 455))
       pygame.draw.rect(display, pygame.Color(0, 0, 0), (1120, 645, 80, 80))
       pygame.draw.rect(display, pygame.Color(0, 0, 0), (1210, 645, 80, 80))
       pygame.draw.rect(display, pygame.Color(0, 0, 0), (1300, 645, 80, 80))
@@ -1038,6 +1033,8 @@ while run:
       pygame.draw.rect(display, pygame.Color(colors["Silver"]), (1305, 830, 70, 70))
       pygame.draw.rect(display, pygame.Color(colors["Gold"]), (1395, 830, 70, 70))
       pygame.draw.rect(display, pygame.Color(colors["Diamond"]), (1485, 830, 70, 70))
+      pygame.draw.rect(display, pygame.Color(0, 0, 0), (1410, 565, 220, 50))
+      pygame.draw.rect(display, pygame.Color(colors["Bronze"]), (1415, 570, 210, 40))
       text1 = font1.render("PLAY SOLO", False, pygame.Color(colors["White"]))
       text2 = font1.render("PLAY RANKED", False, pygame.Color(colors["White"]))
       text3 = font1.render("PLAY SQUADS", False, pygame.Color(colors["White"]))
@@ -1052,6 +1049,8 @@ while run:
       text12 = font3.render("Password", False, (255, 255, 255))
       text13 = font4.render("X", False, (255, 255, 255))
       text14 = font5.render(">", False, (0, 0, 0))
+      text15 = font2.render("Gun Customization", False, (0, 0, 0))
+      text16 = font2.render("Tank Customization", False, (0, 0, 0))
       display.blit(red_default_gun, (985, 130))
       display.blit(red_short_gun, (1155, 130))
       display.blit(red_long_gun, (1325, 130))
@@ -1066,15 +1065,23 @@ while run:
       display.blit(text3, (725, 525))
       display.blit(text4, (1020, 505))
       display.blit(text5, (1020, 545))
-      display.blit(text6, (1420, 505))
+      display.blit(text6, (1450, 505))
       display.blit(text7, (243, 153))
+      display.blit(text16, (1420, 580))
       if signed_in == False:
+        pygame.draw.rect(display, pygame.Color(0, 0, 0), (313, 138, 124, 54))
+        pygame.draw.rect(display, pygame.Color(0, 0, 0), (443, 138, 99, 54))
         pygame.draw.rect(display, pygame.Color(colors["Bronze"]), (315, 140, 120, 50))
         pygame.draw.rect(display, pygame.Color(colors["Silver"]), (445, 140, 95, 50))
         display.blit(text8, (320, 150))
         display.blit(text9, (450, 150))
         display.blit(text10, (320, 300))
         if signing_up == True:
+          pygame.draw.rect(display, pygame.Color(0, 0, 0), (548, 138, 404, 154))
+          pygame.draw.rect(display, pygame.Color(0, 0, 0), (548, 138, 54, 54))
+          pygame.draw.rect(display, pygame.Color(0, 0, 0), (613, 183, 274, 34))
+          pygame.draw.rect(display, pygame.Color(0, 0, 0), (613, 233, 274, 34))
+          pygame.draw.rect(display, pygame.Color(0, 0, 0), (888, 183, 59, 84))
           pygame.draw.rect(display, pygame.Color(colors["Bronze"]), (550, 140, 400, 150))
           pygame.draw.rect(display, pygame.Color(colors["Red"]), (550, 140, 50, 50))
           pygame.draw.rect(display, pygame.Color(colors["Black"]), (615, 185, 270, 30))
@@ -1089,6 +1096,11 @@ while run:
           display.blit(text13, (560, 145))
           display.blit(text14, (900, 185))
         if logging_in == True:
+          pygame.draw.rect(display, pygame.Color(0, 0, 0), (548, 138, 404, 154))
+          pygame.draw.rect(display, pygame.Color(0, 0, 0), (548, 138, 54, 54))
+          pygame.draw.rect(display, pygame.Color(0, 0, 0), (613, 183, 274, 34))
+          pygame.draw.rect(display, pygame.Color(0, 0, 0), (613, 233, 274, 34))
+          pygame.draw.rect(display, pygame.Color(0, 0, 0), (888, 183, 59, 84))
           pygame.draw.rect(display, pygame.Color(colors["Silver"]), (550, 140, 400, 150))
           pygame.draw.rect(display, pygame.Color(colors["Red"]), (550, 140, 50, 50))
           pygame.draw.rect(display, pygame.Color(colors["Black"]), (615, 185, 270, 30))
