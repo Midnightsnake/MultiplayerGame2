@@ -30,8 +30,8 @@ speedY = 0
 speed1 = 1
 positionX = 1000
 positionY = 700
-health = 20
-healthtype = 3
+health = 40
+healthtype = 1
 bullettype = 1
 rapidfiretype = 1
 shieldtype = 1
@@ -654,6 +654,8 @@ diamond_shield_four = pygame.transform.scale(diamond_shield_four, (60, 60))
 diamond_shield_five = pygame.image.load("Shields/DiamondShields/DiamondShieldLevelFive.png")
 diamond_shield_five = pygame.transform.scale(diamond_shield_five, (60, 60))
 
+equippedshield = red_shield_one
+
 earthtank = pygame.image.load("Tanks/EarthTank.png")
 earthtank = pygame.transform.scale(earthtank, (40, 40))
 electrictank = pygame.image.load("Tanks/ElectricTank.png")
@@ -1042,7 +1044,7 @@ while run:
         if shieldtimedifference > shieldduration:
           shieldactive = False
         else:
-          display.blit(diamond_shield_five, (positionX - 10, positionY - 10))
+          display.blit(equippedshield, (positionX - 10, positionY - 10))
       display.blit(purple_bullet_five, (positionX + 5, positionY - 35))
       display.blit(health_bars[healthtype][health - 1],(positionX, positionY - 25))
       for player, (x, y) in positions.items():
