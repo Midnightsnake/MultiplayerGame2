@@ -72,7 +72,7 @@ logging_in = False
 username_text = ""
 password_text = ""
 password_text_hide = ""
-username_typing = False
+username_typing = False 
 password_typing = False
 cash = 0
 colors = {"Red": "#ff0000",
@@ -743,25 +743,25 @@ while run:
               print("Ranked Game")
             if pos[0] >= 725 and pos[0] <= 925 and pos[1] >= 350 and pos[1] <= 750:
               print("Squads Game")
-            if customization == 0:
-              if pos[0] >= 1430 and pos[0] <= 2000 and pos[1] >= 210 and pos[1] <= 250:
-                customization = 1
-              if pos[0] >= 1010 and pos[0] <= 1160 and pos[1] >= 150 and pos[1] <= 300:
-                equippedtank = earthtank
-              if pos[0] >= 1180 and pos[0] <= 1330 and pos[1] >= 150 and pos[1] <= 300:
-                equippedtank = electrictank
-              if pos[0] >= 1350 and pos[0] <= 1500 and pos[1] >= 150 and pos[1] <= 300:
-                equippedtank = firetank
-              if pos[0] >= 1520 and pos[0] <= 1670 and pos[1] >= 150 and pos[1] <= 300:
-                equippedtank = grasstank
-              if pos[0] >= 1010 and pos[0] <= 1160 and pos[1] >= 320 and pos[1] <= 470:
-                equippedtank = icetank
-              if pos[0] >= 1180 and pos[0] <= 1330 and pos[1] >= 320 and pos[1] <= 470:
-                equippedtank = plasmatank
-              if pos[0] >= 1350 and pos[0] <= 1500 and pos[1] >= 320 and pos[1] <= 470:
-                equippedtank = watertank
-              if pos[0] >= 1520 and pos[0] <= 1670 and pos[1] >= 320 and pos[1] <= 470:
-                equippedtank = windtank
+            if pos[0] >= 1430 and pos[0] <= 2000 and pos[1] >= 210 and pos[1] <= 250 and customization == 0:
+              customization = 1
+              print("1")
+            if pos[0] >= 1010 and pos[0] <= 1160 and pos[1] >= 150 and pos[1] <= 300 and customization == 0:
+              equippedtank = earthtank
+            if pos[0] >= 1180 and pos[0] <= 1330 and pos[1] >= 150 and pos[1] <= 300 and customization == 0:
+              equippedtank = electrictank
+            if pos[0] >= 1350 and pos[0] <= 1500 and pos[1] >= 150 and pos[1] <= 300 and customization == 0:
+              equippedtank = firetank
+            if pos[0] >= 1520 and pos[0] <= 1670 and pos[1] >= 150 and pos[1] <= 300 and customization == 0:
+              equippedtank = grasstank
+            if pos[0] >= 1010 and pos[0] <= 1160 and pos[1] >= 320 and pos[1] <= 470 and customization == 0:
+              equippedtank = icetank
+            if pos[0] >= 1180 and pos[0] <= 1330 and pos[1] >= 320 and pos[1] <= 470 and customization == 0:
+              equippedtank = plasmatank
+            if pos[0] >= 1350 and pos[0] <= 1500 and pos[1] >= 320 and pos[1] <= 470 and customization == 0:
+              equippedtank = watertank
+            if pos[0] >= 1520 and pos[0] <= 1670 and pos[1] >= 320 and pos[1] <= 470 and customization == 0:
+              equippedtank = windtank
             if customization == 1:
               if pos[0] >= 1430 and pos[0] <= 2000 and pos[1] >= 210 and pos[1] <= 250:
                 customization = 0
@@ -1171,7 +1171,7 @@ while run:
         display.blit(watertank, (1350, 320))
         display.blit(windtank, (1520, 320))
         display.blit(equippedtank, (1265, 490))
-      elif customization == 1:
+      if customization == 1:
         pygame.draw.rect(display, pygame.Color(0, 0, 0), (1425, 565, 220, 50))
         pygame.draw.rect(display, pygame.Color(colors["Bronze"]), (1430, 570, 210, 40))
         display.blit(text4, (1020, 505))
