@@ -1270,8 +1270,23 @@ while run:
       text16 = font2.render("Gun Customization", False, (0, 0, 0))
       display.blit(levels_ninetyone_hundred, (200, 115))
       if customization == 0:
-        pygame.draw.rect(display, pygame.Color(0, 0, 0), (1515, 315, 160, 160))
         pygame.draw.rect(display, pygame.Color(colors["Bronze"]), (960, 0, 960, 972))
+        if equippedtank == earthtank:
+          pygame.draw.rect(display, pygame.Color(255, 255, 255), (1000, 140, 170, 170))
+        elif equippedtank == electrictank:
+          pygame.draw.rect(display, pygame.Color(255, 255, 255), (1170, 140, 170, 170))
+        elif equippedtank == firetank:
+          pygame.draw.rect(display, pygame.Color(255, 255, 255), (1340, 140, 170, 170))
+        elif equippedtank == grasstank:
+          pygame.draw.rect(display, pygame.Color(255, 255, 255), (1510, 140, 170, 170))
+        elif equippedtank == icetank:
+          pygame.draw.rect(display, pygame.Color(255, 255, 255), (1000, 310, 170, 170))
+        elif equippedtank == plasmatank:
+          pygame.draw.rect(display, pygame.Color(255, 255, 255), (1170, 310, 170, 170))
+        elif equippedtank == watertank:
+          pygame.draw.rect(display, pygame.Color(255, 255, 255), (1340, 310, 170, 170))
+        elif equippedtank == windtank:
+          pygame.draw.rect(display, pygame.Color(255, 255, 255), (1510, 310, 170, 170))
         pygame.draw.rect(display, pygame.Color(0, 0, 0), (220, 345, 210, 410))
         pygame.draw.rect(display, pygame.Color(0, 0, 0), (470, 345, 210, 410))
         pygame.draw.rect(display, pygame.Color(0, 0, 0), (720, 345, 210, 410))
@@ -1282,11 +1297,11 @@ while run:
         pygame.draw.rect(display, pygame.Color(0, 0, 0), (1005, 315, 160, 160))
         pygame.draw.rect(display, pygame.Color(0, 0, 0), (1175, 315, 160, 160))
         pygame.draw.rect(display, pygame.Color(0, 0, 0), (1345, 315, 160, 160))
+        pygame.draw.rect(display, pygame.Color(0, 0, 0), (1515, 315, 160, 160))
         pygame.draw.rect(display, pygame.Color(0, 0, 0), (1005, 485, 670, 465))
         pygame.draw.rect(display, pygame.Color(colors["Blue"]), (225, 350, 200, 400))
         pygame.draw.rect(display, pygame.Color(colors["Yellow"]), (475, 350, 200, 400))
         pygame.draw.rect(display, pygame.Color(colors["Green"]), (725, 350, 200, 400))
-        pygame.draw.rect(display, pygame.Color(colors["Gold"]), (1520, 320, 150, 150))
         pygame.draw.rect(display, pygame.Color(colors["Gold"]), (1010, 150, 150, 150))
         pygame.draw.rect(display, pygame.Color(colors["Gold"]), (1180, 150, 150, 150))
         pygame.draw.rect(display, pygame.Color(colors["Gold"]), (1350, 150, 150, 150))
@@ -1294,6 +1309,7 @@ while run:
         pygame.draw.rect(display, pygame.Color(colors["Gold"]), (1010, 320, 150, 150))
         pygame.draw.rect(display, pygame.Color(colors["Gold"]), (1180, 320, 150, 150))
         pygame.draw.rect(display, pygame.Color(colors["Gold"]), (1350, 320, 150, 150))
+        pygame.draw.rect(display, pygame.Color(colors["Gold"]), (1520, 320, 150, 150))
         pygame.draw.rect(display, pygame.Color(colors["Light Gold"]), (1010, 490, 660, 455))
         pygame.draw.rect(display, pygame.Color(0, 0, 0), (1425, 565, 220, 50))
         pygame.draw.rect(display, pygame.Color(colors["Silver"]), (1430, 570, 210, 40))
@@ -1314,6 +1330,20 @@ while run:
         display.blit(equippedtank, (1265, 490))
       if customization == 1:
         pygame.draw.rect(display, pygame.Color(colors["Silver"]), (960, 0, 960, 972))
+        if equippedguntype == 1:
+          pygame.draw.rect(display, pygame.Color(255, 255, 255), (1000, 140, 170, 170))
+        elif equippedguntype == 2:
+          pygame.draw.rect(display, pygame.Color(255, 255, 255), (1170, 140, 170, 170))
+        elif equippedguntype == 3:
+          pygame.draw.rect(display, pygame.Color(255, 255, 255), (1340, 140, 170, 170))
+        elif equippedguntype == 4:
+          pygame.draw.rect(display, pygame.Color(255, 255, 255), (1510, 140, 170, 170))
+        elif equippedguntype == 5:
+          pygame.draw.rect(display, pygame.Color(255, 255, 255), (1000, 310, 170, 170))
+        elif equippedguntype == 6:
+          pygame.draw.rect(display, pygame.Color(255, 255, 255), (1170, 310, 170, 170))
+        elif equippedguntype == 7:
+          pygame.draw.rect(display, pygame.Color(255, 255, 255), (1340, 310, 170, 170))
         pygame.draw.rect(display, pygame.Color(0, 0, 0), (220, 345, 210, 410))
         pygame.draw.rect(display, pygame.Color(0, 0, 0), (470, 345, 210, 410))
         pygame.draw.rect(display, pygame.Color(0, 0, 0), (720, 345, 210, 410))
