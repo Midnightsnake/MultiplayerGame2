@@ -404,6 +404,8 @@ diamond_flak_four = pygame.transform.scale(diamond_flak_four, (200, 200))
 diamond_flak_five = pygame.image.load("Flaks/DiamondFlaks/DiamondFlakLevelFive.png")
 diamond_flak_five = pygame.transform.scale(diamond_flak_five, (200, 200))
 
+equippedflak = red_flak_one
+
 red_default_gun = pygame.image.load("Guns/DefaultGuns/RedDefaultGun.png")
 red_default_gun = pygame.transform.scale(red_default_gun, (200, 200))
 orange_default_gun = pygame.image.load("Guns/DefaultGuns/OrangeDefaultGun.png")
@@ -633,6 +635,7 @@ for i in range(1, 4):
   for j in range(1, h + 1):
       health_bars[i].append(pygame.image.load("HealthBars/HealthBarsType" + str(i) + "/HealthBars" + str(i) + "-" + str(j) + ".png.png"))
   h += 10
+  
 levels_one_ten = pygame.image.load("LevelIcons/Levels1-10.png")
 levels_one_ten = pygame.transform.scale(levels_one_ten, (100, 100))
 levels_eleven_twenty = pygame.image.load("LevelIcons/Levels11-20.png")
