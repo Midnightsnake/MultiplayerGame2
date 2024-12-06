@@ -921,7 +921,9 @@ while run:
             speedY = 0
         if event.type == pygame.MOUSEBUTTONUP:
             pos = pygame.mouse.get_pos()
-            if pos[0] >= 370 and pos[0] <= 825 and pos[1] >= 790 and pos[1] <= 915:
+            if pos[0] >= 370 and pos[0] <= 790 and pos[1] >= 825 and pos[1] <= 915 and gamestatus == 0:
+              run = False
+            elif pos[0] >= 1455 and pos[0] <= 1705 and pos[1] >= 135 and pos[1] <= 195 and gamestatus == 1:
               run = False
             if pos[0] >= 225 and pos[0] <= 425 and pos[1] >= 350 and pos[1] <= 750 and signed_in == True:
               gamestatus = 1
@@ -1300,6 +1302,7 @@ while run:
       text15 = font2.render("Tank Customization", False, (0, 0, 0))
       text16 = font2.render("Gun Customization", False, (0, 0, 0))
       text17 = font4.render("Exit Game", False, (0, 0, 0))
+      text18 = font3.render("Exit Game", False, (0, 0, 0))
       display.blit(levels_ninetyone_hundred, (200, 115))
       if customization == 0:
         pygame.draw.rect(display, pygame.Color(colors["Bronze"]), (960, 0, 960, 972))
@@ -1495,7 +1498,12 @@ while run:
       else:
         username_surface = font3.render(username_text, True, (0, 0, 0))
         display.blit(username_surface, (300, 153))
-    pygame.draw.rect(display, pygame.Color(0, 0, 0), (365, 820, 430, 100))
-    pygame.draw.rect(display, pygame.Color(colors["Red"]), (370, 825, 420, 90))
-    display.blit(text17, (485, 850))
+    if gamestatus == 0:
+      pygame.draw.rect(display, pygame.Color(0, 0, 0), (365, 820, 430, 100))
+      pygame.draw.rect(display, pygame.Color(colors["Red"]), (370, 825, 420, 90))
+      display.blit(text17, (485, 850))
+    elif gamestatus == 1:
+      pygame.draw.rect(display, pygame.Color(0, 0, 0), (1450, 130, 260, 70))
+      pygame.draw.rect(display, pygame.Color(colors["Red"]), (1455, 135, 250, 60))
+      display.blit(text18, (1515, 152.5))
     pygame.display.flip()
