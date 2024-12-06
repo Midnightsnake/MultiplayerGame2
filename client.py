@@ -37,8 +37,8 @@ bulletpositionX = -1000
 bulletpositionY = -1000
 bulletspeedX = 0
 bulletspeedY = 0
-health = 60
-healthtype = 3
+health = 40
+healthtype = 1
 bullettype = 1
 rapidfiretype = 1
 shieldtype = 1
@@ -828,23 +828,40 @@ diamond_shield_five = pygame.transform.scale(diamond_shield_five, (60, 60))
 equippedshield = red_shield_one
 
 earthtank = pygame.image.load("Tanks/EarthTank.png")
-earthtank = pygame.transform.scale(earthtank, (150, 150))
+earthtank = pygame.transform.scale(earthtank, (40, 40))
 electrictank = pygame.image.load("Tanks/ElectricTank.png")
-electrictank = pygame.transform.scale(electrictank, (150, 150))
+electrictank = pygame.transform.scale(electrictank, (40, 40))
 firetank = pygame.image.load("Tanks/FireTank.png")
-firetank = pygame.transform.scale(firetank, (150, 150))
+firetank = pygame.transform.scale(firetank, (40, 40))
 grasstank = pygame.image.load("Tanks/GrassTank.png")
-grasstank = pygame.transform.scale(grasstank, (150, 150))
+grasstank = pygame.transform.scale(grasstank, (40, 40))
 icetank = pygame.image.load("Tanks/IceTank.png")
-icetank = pygame.transform.scale(icetank, (150, 150))
+icetank = pygame.transform.scale(icetank, (40, 40))
 plasmatank = pygame.image.load("Tanks/PlasmaTank.png")
-plasmatank = pygame.transform.scale(plasmatank, (150, 150))
+plasmatank = pygame.transform.scale(plasmatank, (40, 40))
 watertank = pygame.image.load("Tanks/WaterTank.png")
-watertank = pygame.transform.scale(watertank, (150, 150))
+watertank = pygame.transform.scale(watertank, (40, 40))
 windtank = pygame.image.load("Tanks/WindTank.png")
-windtank = pygame.transform.scale(windtank, (150, 150))
+windtank = pygame.transform.scale(windtank, (40, 40))
+earthtankpreview = pygame.image.load("Tanks/EarthTank.png")
+earthtankpreview = pygame.transform.scale(earthtankpreview, (150, 150))
+electrictankpreview = pygame.image.load("Tanks/ElectricTank.png")
+electrictankpreview = pygame.transform.scale(electrictankpreview, (150, 150))
+firetankpreview = pygame.image.load("Tanks/FireTank.png")
+firetankpreview = pygame.transform.scale(firetankpreview, (150, 150))
+grasstankpreview = pygame.image.load("Tanks/GrassTank.png")
+grasstankpreview = pygame.transform.scale(grasstankpreview, (150, 150))
+icetankpreview = pygame.image.load("Tanks/IceTank.png")
+icetankpreview = pygame.transform.scale(icetankpreview, (150, 150))
+plasmatankpreview = pygame.image.load("Tanks/PlasmaTank.png")
+plasmatankpreview = pygame.transform.scale(plasmatankpreview, (150, 150))
+watertankpreview = pygame.image.load("Tanks/WaterTank.png")
+watertankpreview = pygame.transform.scale(watertankpreview, (150, 150))
+windtankpreview = pygame.image.load("Tanks/WindTank.png")
+windtankpreview = pygame.transform.scale(windtankpreview, (150, 150))
 
 equippedtank = earthtank
+equippedtankpreview = earthtankpreview
 
 
 run = True
@@ -926,20 +943,28 @@ while run:
                 bulletspeedY - gravity
             if pos[0] >= 1010 and pos[0] <= 1160 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 0:
               equippedtank = earthtank
+              equippedtankpreview = earthtankpreview
             if pos[0] >= 1180 and pos[0] <= 1330 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 0:
               equippedtank = electrictank
+              equippedtankpreview = electrictankpreview
             if pos[0] >= 1350 and pos[0] <= 1500 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 0:
               equippedtank = firetank
+              equippedtankpreview = firetankpreview
             if pos[0] >= 1520 and pos[0] <= 1670 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 0:
               equippedtank = grasstank
+              equippedtankpreview = grasstankpreview
             if pos[0] >= 1010 and pos[0] <= 1160 and pos[1] >= 320 and pos[1] <= 470 and gamestatus == 0 and customization == 0:
               equippedtank = icetank
+              equippedtankpreview = icetankpreview
             if pos[0] >= 1180 and pos[0] <= 1330 and pos[1] >= 320 and pos[1] <= 470 and gamestatus == 0 and customization == 0:
               equippedtank = plasmatank
+              equippedtankpreview = plasmatankpreview
             if pos[0] >= 1350 and pos[0] <= 1500 and pos[1] >= 320 and pos[1] <= 470 and gamestatus == 0 and customization == 0:
               equippedtank = watertank
+              equippedtankpreview = watertankpreview
             if pos[0] >= 1520 and pos[0] <= 1670 and pos[1] >= 320 and pos[1] <= 470 and gamestatus == 0 and customization == 0:
               equippedtank = windtank
+              equippedtankpreview = windtankpreview
             if pos[0] >= 1010 and pos[0] <= 1160 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 1:
               equippedguntype = 1
               equippedgun = red_default_gun
@@ -1326,15 +1351,15 @@ while run:
         display.blit(text6, (1475, 515))
         display.blit(text7, (243, 153))
         display.blit(text16, (1435, 580))
-        display.blit(earthtank, (1010, 150))
-        display.blit(electrictank, (1180, 150))
-        display.blit(firetank, (1350, 150))
-        display.blit(grasstank, (1520, 150))
-        display.blit(icetank, (1010, 320))
-        display.blit(plasmatank, (1180, 320))
-        display.blit(watertank, (1350, 320))
-        display.blit(windtank, (1520, 320))
-        display.blit(equippedtank, (1265, 490))
+        display.blit(earthtankpreview, (1010, 150))
+        display.blit(electrictankpreview, (1180, 150))
+        display.blit(firetankpreview, (1350, 150))
+        display.blit(grasstankpreview, (1520, 150))
+        display.blit(icetankpreview, (1010, 320))
+        display.blit(plasmatankpreview, (1180, 320))
+        display.blit(watertankpreview, (1350, 320))
+        display.blit(windtankpreview, (1520, 320))
+        display.blit(equippedtankpreview, (1265, 490))
       if customization == 1:
         pygame.draw.rect(display, pygame.Color(colors["Silver"]), (960, 0, 960, 972))
         if equippedguntype == 1:
