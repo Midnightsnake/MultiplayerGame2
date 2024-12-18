@@ -27,7 +27,8 @@ font6 = pygame.font.SysFont("Lexend", 100)
 display = pygame.display.set_mode((1920, 1080))
 gamestatus = 0
 customization = 0
-gravity = 0.1
+playergravity = 0.1
+bulletgravity = 0.1
 speedX = 0
 speedY = 0
 speed1 = 1
@@ -942,7 +943,7 @@ while run:
               bulletspeedX = 5
               bulletspeedY = -5
               if bulletpositionX > -100 and bulletpositionY > -100:
-                bulletspeedY - gravity
+                bulletspeedY - bulletgravity
             if pos[0] >= 1010 and pos[0] <= 1160 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 0:
               equippedtank = earthtank
               equippedtankpreview = earthtankpreview
@@ -1268,6 +1269,7 @@ while run:
       display.blit(bottom_right_earth_map, (955, 345))
       display.blit(top_left_earth_map, (330, 110))
       display.blit(top_right_earth_map, (955, 110))
+      positionY += playergravity
       if shieldactive == True:
         shieldtimedifference = time.time() - shieldtime
         if shieldtimedifference > shieldduration:
@@ -1278,8 +1280,9 @@ while run:
       bulletpositionX += bulletspeedX
       bulletpositionY += bulletspeedY
       display.blit(health_bars[healthtype][health - 1],(positionX - 12, positionY - 35))
-      for player, (x, y) in positions.items():
-        display.blit(equippedtank, (x, y))
+      #for player, (x, y) in positions.items():
+        #display.blit(equippedtank, (x, y))
+      display.blit(equippedtank,(positionX, positionY))
       positionX += speedX
       positionY += speedY
     else:
