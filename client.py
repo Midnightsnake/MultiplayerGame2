@@ -1269,6 +1269,12 @@ while run:
       display.blit(bottom_right_earth_map, (955, 345))
       display.blit(top_left_earth_map, (330, 110))
       display.blit(top_right_earth_map, (955, 110))
+      pygame.draw.rect(display, pygame.Color(0, 0, 0), (200, 130, 610, 70))
+      pygame.draw.rect(display, pygame.Color(colors["White"]), (205, 135, 600, 60))
+      text19 = font2.render("Time Remaining: 5:00", False, (0, 0, 0))
+      text20 = font2.render("Players Remaining: 12", False, (0, 0, 0))
+      display.blit(text19, (220, 155))
+      display.blit(text20, (470, 155))
       positionY += playergravity
       if positionX >= 300 and positionX <= 1575 and positionY >= 868:
         positionY = 868
