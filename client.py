@@ -1270,6 +1270,8 @@ while run:
       display.blit(top_left_earth_map, (330, 110))
       display.blit(top_right_earth_map, (955, 110))
       positionY += playergravity
+      if positionX >= 300 and positionX <= 1575 and positionY >= 868:
+        positionY = 868
       if shieldactive == True:
         shieldtimedifference = time.time() - shieldtime
         if shieldtimedifference > shieldduration:
