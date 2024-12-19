@@ -634,7 +634,7 @@ health_bars = {
 }
 h = 40
 for i in range(1, 4):
-  for j in range(1, h + 1):
+  for j in range(0, h + 1):
       health_bars[i].append(pygame.image.load("HealthBars/HealthBarsType" + str(i) + "/HealthBars" + str(i) + "-" + str(j) + ".png.png"))
   h += 10
   
@@ -1270,6 +1270,13 @@ while run:
       lavaY -= 0.06
       if positionY >= lavaY:
         health = 0
+        pygame.draw.rect(display, pygame.Color(colors["Silver"]), (400, 200, 1200, 700))
+        s = pygame.Surface((1200,700), pygame.SRCALPHA)
+        s.set_alpha(128)
+        s.fill((255, 255, 255))
+        display.blit(s, (400, 200))
+        text21 = font3.render("Game Over", False, (0, 0, 0))
+        s.blit(text21, (400, 300))
       pygame.draw.rect(display, pygame.Color(0, 0, 0), (200, 130, 610, 70))
       pygame.draw.rect(display, pygame.Color(colors["White"]), (205, 135, 600, 60))
       text19 = font2.render("Time Remaining: 5:00", False, (0, 0, 0))
