@@ -27,7 +27,7 @@ font6 = pygame.font.SysFont("Lexend", 100)
 display = pygame.display.set_mode((1920, 1080))
 gamestatus = 0
 customization = 0
-playergravity = 0.1
+playergravity = 1
 bulletgravity = 0.1
 speedX = 0
 speedY = 0
@@ -38,6 +38,7 @@ bulletpositionX = -1000
 bulletpositionY = -1000
 bulletspeedX = 0
 bulletspeedY = 0
+lavaY = 950
 health = 40
 healthtype = 1
 bullettype = 1
@@ -875,10 +876,6 @@ while run:
             speedX = -speed1
           if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
             speedX = speed1
-          if event.key == pygame.K_w:
-            speedY = -1
-          if event.key == pygame.K_s:
-            speedY = 1
           if event.key == bulletkey:
             bulletactive = True
             shieldactive = False
@@ -1269,6 +1266,10 @@ while run:
       display.blit(bottom_right_earth_map, (955, 345))
       display.blit(top_left_earth_map, (330, 110))
       display.blit(top_right_earth_map, (955, 110))
+      pygame.draw.rect(display, pygame.Color(colors["Blue"]), (190, lavaY, 1550, 1100))
+      lavaY -= 0.06
+      if positionY >= lavaY:
+        health = 0
       pygame.draw.rect(display, pygame.Color(0, 0, 0), (200, 130, 610, 70))
       pygame.draw.rect(display, pygame.Color(colors["White"]), (205, 135, 600, 60))
       text19 = font2.render("Time Remaining: 5:00", False, (0, 0, 0))
