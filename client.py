@@ -1268,7 +1268,7 @@ while run:
       display.blit(top_right_earth_map, (955, 110))
       pygame.draw.rect(display, pygame.Color(colors["Blue"]), (190, lavaY, 1550, 1100))
       lavaY -= 0.06
-      if positionY >= lavaY:
+      if positionY >= lavaY - 35:
         health = 0
         pygame.draw.rect(display, pygame.Color(colors["Silver"]), (400, 200, 1200, 700))
         s = pygame.Surface((1200,700), pygame.SRCALPHA)
