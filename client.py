@@ -173,26 +173,10 @@ for i in range(1, 4):
       health_bars[i].append(pygame.image.load("HealthBars/HealthBarsType" + str(i) + "/HealthBars" + str(i) + "-" + str(j) + ".png.png"))
   h += 10
   
-levels_one_ten = pygame.image.load("LevelIcons/Levels1-10.png")
-levels_one_ten = pygame.transform.scale(levels_one_ten, (100, 100))
-levels_eleven_twenty = pygame.image.load("LevelIcons/Levels11-20.png")
-levels_eleven_twenty = pygame.transform.scale(levels_eleven_twenty, (100, 100))
-levels_twentyone_thirty = pygame.image.load("LevelIcons/Levels21-30.png")
-levels_twentyone_thirty = pygame.transform.scale(levels_twentyone_thirty, (100, 100))
-levels_thirtyone_forty = pygame.image.load("LevelIcons/Levels31-40.png")
-levels_thirtyone_forty = pygame.transform.scale(levels_thirtyone_forty, (100, 100))
-levels_fortyone_fifty = pygame.image.load("LevelIcons/Levels41-50.png")
-levels_fortyone_fifty = pygame.transform.scale(levels_fortyone_fifty, (100, 100))
-levels_fiftyone_sixty = pygame.image.load("LevelIcons/Levels51-60.png")
-levels_fiftyone_sixty = pygame.transform.scale(levels_fiftyone_sixty, (100, 100))
-levels_sixtyone_seventy = pygame.image.load("LevelIcons/Levels61-70.png")
-levels_sixtyone_seventy = pygame.transform.scale(levels_sixtyone_seventy, (100, 100))
-levels_seventyone_eighty = pygame.image.load("LevelIcons/Levels71-80.png")
-levels_seventyone_eighty = pygame.transform.scale(levels_seventyone_eighty, (100, 100))
-levels_eightyone_ninety = pygame.image.load("LevelIcons/Levels81-90.png")
-levels_eightyone_ninety = pygame.transform.scale(levels_eightyone_ninety, (100, 100))
-levels_ninetyone_hundred = pygame.image.load("LevelIcons/Levels91-100.png")
-levels_ninetyone_hundred = pygame.transform.scale(levels_ninetyone_hundred, (100, 100))
+levels_icons = {}
+for i in range(0, 10):
+  levels_icons[i * 10 + 1] = pygame.image.load(f"LevelIcons/Levels{i * 10 + 1}-{i * 10 + 10}.png")
+  levels_icons[i * 10 + 1] = pygame.transform.scale(levels_icons[i * 10 + 1], (100, 100))
 
 lobby_one_map = pygame.image.load("Maps/LobbyMaps/Lobby1.png")
 lobby_one_map = pygame.transform.scale(lobby_one_map, (625, 625))
@@ -624,7 +608,7 @@ while run:
       text16 = font2.render("Gun Customization", False, (0, 0, 0))
       text17 = font4.render("Exit Game", False, (0, 0, 0))
       text18 = font3.render("Exit Game", False, (0, 0, 0))
-      display.blit(levels_ninetyone_hundred, (200, 115))
+      display.blit(levels_icons[11], (200, 115))
       if customization == 0:
         pygame.draw.rect(display, pygame.Color(colors["Bronze"]), (960, 0, 960, 972))
         if equippedtank == earthtank:
