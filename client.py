@@ -206,42 +206,16 @@ for color in colors_names:
 
 equippedshield = shields["Red"]["One"]
 
-earthtank = pygame.image.load("Tanks/EarthTank.png")
-earthtank = pygame.transform.scale(earthtank, (40, 40))
-electrictank = pygame.image.load("Tanks/ElectricTank.png")
-electrictank = pygame.transform.scale(electrictank, (40, 40))
-firetank = pygame.image.load("Tanks/FireTank.png")
-firetank = pygame.transform.scale(firetank, (40, 40))
-grasstank = pygame.image.load("Tanks/GrassTank.png")
-grasstank = pygame.transform.scale(grasstank, (40, 40))
-icetank = pygame.image.load("Tanks/IceTank.png")
-icetank = pygame.transform.scale(icetank, (40, 40))
-plasmatank = pygame.image.load("Tanks/PlasmaTank.png")
-plasmatank = pygame.transform.scale(plasmatank, (40, 40))
-watertank = pygame.image.load("Tanks/WaterTank.png")
-watertank = pygame.transform.scale(watertank, (40, 40))
-windtank = pygame.image.load("Tanks/WindTank.png")
-windtank = pygame.transform.scale(windtank, (40, 40))
-earthtankpreview = pygame.image.load("Tanks/EarthTank.png")
-earthtankpreview = pygame.transform.scale(earthtankpreview, (150, 150))
-electrictankpreview = pygame.image.load("Tanks/ElectricTank.png")
-electrictankpreview = pygame.transform.scale(electrictankpreview, (150, 150))
-firetankpreview = pygame.image.load("Tanks/FireTank.png")
-firetankpreview = pygame.transform.scale(firetankpreview, (150, 150))
-grasstankpreview = pygame.image.load("Tanks/GrassTank.png")
-grasstankpreview = pygame.transform.scale(grasstankpreview, (150, 150))
-icetankpreview = pygame.image.load("Tanks/IceTank.png")
-icetankpreview = pygame.transform.scale(icetankpreview, (150, 150))
-plasmatankpreview = pygame.image.load("Tanks/PlasmaTank.png")
-plasmatankpreview = pygame.transform.scale(plasmatankpreview, (150, 150))
-watertankpreview = pygame.image.load("Tanks/WaterTank.png")
-watertankpreview = pygame.transform.scale(watertankpreview, (150, 150))
-windtankpreview = pygame.image.load("Tanks/WindTank.png")
-windtankpreview = pygame.transform.scale(windtankpreview, (150, 150))
+tank_types = ["Earth", "Electric", "Fire", "Grass", "Ice", "Plasma", "Water", "Wind"]
+tanks = {}
+for t in tank_types:
+  tanks[t] = {}
+  tanks[t][0] = pygame.image.load(f"Tanks/{t}Tank.png")
+  tanks[t][0] = pygame.transform.scale(tanks[t][0], (40, 40))
+  tanks[t][1] = pygame.transform.scale(tanks[t][0], (150, 150))
 
-equippedtank = earthtank
-equippedtankpreview = earthtankpreview
-
+equippedtank = tanks["Earth"][0]
+equippedtankpreview = tanks["Earth"][1]
 
 run = True
 while run:
@@ -319,29 +293,29 @@ while run:
               if bulletpositionX > -100 and bulletpositionY > -100:
                 bulletspeedY - bulletgravity
             if pos[0] >= 1010 and pos[0] <= 1160 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 0:
-              equippedtank = earthtank
-              equippedtankpreview = earthtankpreview
+              equippedtank = tanks["Earth"][0]
+              equippedtankpreview = tanks["Earth"][1]
             if pos[0] >= 1180 and pos[0] <= 1330 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 0:
-              equippedtank = electrictank
-              equippedtankpreview = electrictankpreview
+              equippedtank = tanks["Electric"][0]
+              equippedtankpreview = tanks["Electric"][1]
             if pos[0] >= 1350 and pos[0] <= 1500 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 0:
-              equippedtank = firetank
-              equippedtankpreview = firetankpreview
+              equippedtank = tanks["Fire"][0]
+              equippedtankpreview = tanks["Fire"][1]
             if pos[0] >= 1520 and pos[0] <= 1670 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 0:
-              equippedtank = grasstank
-              equippedtankpreview = grasstankpreview
+              equippedtank = tanks["Grass"][0]
+              equippedtankpreview = tanks["Grass"][1]
             if pos[0] >= 1010 and pos[0] <= 1160 and pos[1] >= 320 and pos[1] <= 470 and gamestatus == 0 and customization == 0:
-              equippedtank = icetank
-              equippedtankpreview = icetankpreview
+              equippedtank = tanks["Ice"][0]
+              equippedtankpreview = tanks["Ice"][1]
             if pos[0] >= 1180 and pos[0] <= 1330 and pos[1] >= 320 and pos[1] <= 470 and gamestatus == 0 and customization == 0:
-              equippedtank = plasmatank
-              equippedtankpreview = plasmatankpreview
+              equippedtank = tanks["Plasma"][0]
+              equippedtankpreview = tanks["Plasma"][1]
             if pos[0] >= 1350 and pos[0] <= 1500 and pos[1] >= 320 and pos[1] <= 470 and gamestatus == 0 and customization == 0:
-              equippedtank = watertank
-              equippedtankpreview = watertankpreview
+              equippedtank = tanks["Water"][0]
+              equippedtankpreview = tanks["Water"][1]
             if pos[0] >= 1520 and pos[0] <= 1670 and pos[1] >= 320 and pos[1] <= 470 and gamestatus == 0 and customization == 0:
-              equippedtank = windtank
-              equippedtankpreview = windtankpreview
+              equippedtank = tanks["Wind"][0]
+              equippedtankpreview = tanks["Wind"][1]
             if pos[0] >= 1010 and pos[0] <= 1160 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 1:
               equipped_gun_type = 1
               equipped_gun = guns["DefaultGuns"]["Red"]
@@ -469,21 +443,21 @@ while run:
       display.blit(levels_icons[1], (200, 115))
       if customization == 0:
         pygame.draw.rect(display, pygame.Color(colors["Bronze"]), (960, 0, 960, 972))
-        if equippedtank == earthtank:
+        if equippedtank == tanks["Earth"][0]:
           pygame.draw.rect(display, pygame.Color(255, 255, 255), (1000, 140, 170, 170))
-        elif equippedtank == electrictank:
+        elif equippedtank == tanks["Electric"][0]:
           pygame.draw.rect(display, pygame.Color(255, 255, 255), (1170, 140, 170, 170))
-        elif equippedtank == firetank:
+        elif equippedtank == tanks["Fire"][0]:
           pygame.draw.rect(display, pygame.Color(255, 255, 255), (1340, 140, 170, 170))
-        elif equippedtank == grasstank:
+        elif equippedtank == tanks["Grass"][0]:
           pygame.draw.rect(display, pygame.Color(255, 255, 255), (1510, 140, 170, 170))
-        elif equippedtank == icetank:
+        elif equippedtank == tanks["Ice"][0]:
           pygame.draw.rect(display, pygame.Color(255, 255, 255), (1000, 310, 170, 170))
-        elif equippedtank == plasmatank:
+        elif equippedtank == tanks["Plasma"][0]:
           pygame.draw.rect(display, pygame.Color(255, 255, 255), (1170, 310, 170, 170))
-        elif equippedtank == watertank:
+        elif equippedtank == tanks["Water"][0]:
           pygame.draw.rect(display, pygame.Color(255, 255, 255), (1340, 310, 170, 170))
-        elif equippedtank == windtank:
+        elif equippedtank == tanks["Wind"][0]:
           pygame.draw.rect(display, pygame.Color(255, 255, 255), (1510, 310, 170, 170))
         pygame.draw.rect(display, pygame.Color(0, 0, 0), (220, 345, 210, 410))
         pygame.draw.rect(display, pygame.Color(0, 0, 0), (470, 345, 210, 410))
@@ -517,14 +491,14 @@ while run:
         display.blit(text6, (1475, 515))
         display.blit(text7, (243, 153))
         display.blit(text16, (1435, 580))
-        display.blit(earthtankpreview, (1010, 150))
-        display.blit(electrictankpreview, (1180, 150))
-        display.blit(firetankpreview, (1350, 150))
-        display.blit(grasstankpreview, (1520, 150))
-        display.blit(icetankpreview, (1010, 320))
-        display.blit(plasmatankpreview, (1180, 320))
-        display.blit(watertankpreview, (1350, 320))
-        display.blit(windtankpreview, (1520, 320))
+        display.blit(tanks["Earth"][1], (1010, 150))
+        display.blit(tanks["Electric"][1], (1180, 150))
+        display.blit(tanks["Fire"][1], (1350, 150))
+        display.blit(tanks["Grass"][1], (1520, 150))
+        display.blit(tanks["Ice"][1], (1010, 320))
+        display.blit(tanks["Plasma"][1], (1180, 320))
+        display.blit(tanks["Water"][1], (1350, 320))
+        display.blit(tanks["Wind"][1], (1520, 320))
         display.blit(equippedtankpreview, (1265, 490))
       if customization == 1:
         pygame.draw.rect(display, pygame.Color(colors["Silver"]), (960, 0, 960, 972))
