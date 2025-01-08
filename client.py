@@ -51,7 +51,7 @@ nuketype = 1
 homingtype = 1
 ancientbullettype = 1
 flaktype = 1
-equippedguntype = 1
+equipped_gun_type = 1
 bulletactive = True
 bulletkey = pygame.K_1
 rapidfireactive = False
@@ -71,8 +71,8 @@ flakkey = pygame.K_8
 level = 1
 xp = 0
 signed_in = False
-DamageGun = 1
-SpeedGun = 1
+damage_gun = 1
+speed_gun = 1
 signing_up = False
 logging_in = False
 username_text = ""
@@ -102,530 +102,65 @@ colors = {"Red": "#ff0000",
 "Light Diamond": "#b9f2ff",
 }
 
-red_bullet_one = pygame.image.load("Bullets/RedBullets/RedBulletLevelOne.png")
-red_bullet_one = pygame.transform.scale(red_bullet_one, (30, 30))
-red_bullet_two = pygame.image.load("Bullets/RedBullets/RedBulletLevelTwo.png")
-red_bullet_two = pygame.transform.scale(red_bullet_two, (30, 30))
-red_bullet_three = pygame.image.load("Bullets/RedBullets/RedBulletLevelThree.png")
-red_bullet_three = pygame.transform.scale(red_bullet_three, (30, 30))
-red_bullet_four = pygame.image.load("Bullets/RedBullets/RedBulletLevelFour.png")
-red_bullet_four = pygame.transform.scale(red_bullet_four, (30, 30))
-red_bullet_five = pygame.image.load("Bullets/RedBullets/RedBulletLevelFive.png")
-red_bullet_five = pygame.transform.scale(red_bullet_five, (30, 30))
-orange_bullet_one = pygame.image.load("Bullets/OrangeBullets/OrangeBulletLevelOne.png")
-orange_bullet_one = pygame.transform.scale(orange_bullet_one, (30, 30))
-orange_bullet_two = pygame.image.load("Bullets/OrangeBullets/OrangeBulletLevelTwo.png")
-orange_bullet_two = pygame.transform.scale(orange_bullet_two, (30, 30))
-orange_bullet_three = pygame.image.load("Bullets/OrangeBullets/OrangeBulletLevelThree.png")
-orange_bullet_three = pygame.transform.scale(orange_bullet_three, (30, 30))
-orange_bullet_four = pygame.image.load("Bullets/OrangeBullets/OrangeBulletLevelFour.png")
-orange_bullet_four = pygame.transform.scale(orange_bullet_four, (30, 30))
-orange_bullet_five = pygame.image.load("Bullets/OrangeBullets/OrangeBulletLevelFive.png")
-orange_bullet_five = pygame.transform.scale(orange_bullet_five, (30, 30))
-yellow_bullet_one = pygame.image.load("Bullets/YellowBullets/YellowBulletLevelOne.png")
-yellow_bullet_one = pygame.transform.scale(yellow_bullet_one, (30, 30))
-yellow_bullet_two = pygame.image.load("Bullets/YellowBullets/YellowBulletLevelTwo.png")
-yellow_bullet_two = pygame.transform.scale(yellow_bullet_two, (30, 30))
-yellow_bullet_three = pygame.image.load("Bullets/YellowBullets/YellowBulletLevelThree.png")
-yellow_bullet_three = pygame.transform.scale(yellow_bullet_three, (30, 30))
-yellow_bullet_four = pygame.image.load("Bullets/YellowBullets/YellowBulletLevelFour.png")
-yellow_bullet_four = pygame.transform.scale(yellow_bullet_four, (30, 30))
-yellow_bullet_five = pygame.image.load("Bullets/YellowBullets/YellowBulletLevelFive.png")
-yellow_bullet_five = pygame.transform.scale(yellow_bullet_five, (30, 30))
-green_bullet_one = pygame.image.load("Bullets/GreenBullets/GreenBulletLevelOne.png")
-green_bullet_one = pygame.transform.scale(green_bullet_one, (30, 30))
-green_bullet_two = pygame.image.load("Bullets/GreenBullets/GreenBulletLevelTwo.png")
-green_bullet_two = pygame.transform.scale(green_bullet_two, (30, 30))
-green_bullet_three = pygame.image.load("Bullets/GreenBullets/GreenBulletLevelThree.png")
-green_bullet_three = pygame.transform.scale(green_bullet_three, (30, 30))
-green_bullet_four = pygame.image.load("Bullets/GreenBullets/GreenBulletLevelFour.png")
-green_bullet_four = pygame.transform.scale(green_bullet_four, (30, 30))
-green_bullet_five = pygame.image.load("Bullets/GreenBullets/GreenBulletLevelFive.png")
-green_bullet_five = pygame.transform.scale(green_bullet_five, (30, 30))
-teal_bullet_one = pygame.image.load("Bullets/TealBullets/TealBulletLevelOne.png")
-teal_bullet_one = pygame.transform.scale(teal_bullet_one, (30, 30))
-teal_bullet_two = pygame.image.load("Bullets/TealBullets/TealBulletLevelTwo.png")
-teal_bullet_two = pygame.transform.scale(teal_bullet_two, (30, 30))
-teal_bullet_three = pygame.image.load("Bullets/TealBullets/TealBulletLevelThree.png")
-teal_bullet_three = pygame.transform.scale(teal_bullet_three, (30, 30))
-teal_bullet_four = pygame.image.load("Bullets/TealBullets/TealBulletLevelFour.png")
-teal_bullet_four = pygame.transform.scale(teal_bullet_four, (30, 30))
-teal_bullet_five = pygame.image.load("Bullets/TealBullets/TealBulletLevelFive.png")
-teal_bullet_five = pygame.transform.scale(teal_bullet_five, (30, 30))
-blue_bullet_one = pygame.image.load("Bullets/BlueBullets/BlueBulletLevelOne.png")
-blue_bullet_one = pygame.transform.scale(blue_bullet_one, (30, 30))
-blue_bullet_two = pygame.image.load("Bullets/BlueBullets/BlueBulletLevelTwo.png")
-blue_bullet_two = pygame.transform.scale(blue_bullet_two, (30, 30))
-blue_bullet_three = pygame.image.load("Bullets/BlueBullets/BlueBulletLevelThree.png")
-blue_bullet_three = pygame.transform.scale(blue_bullet_three, (30, 30))
-blue_bullet_four = pygame.image.load("Bullets/BlueBullets/BlueBulletLevelFour.png")
-blue_bullet_four = pygame.transform.scale(blue_bullet_four, (30, 30))
-blue_bullet_five = pygame.image.load("Bullets/BlueBullets/BlueBulletLevelFive.png")
-blue_bullet_five = pygame.transform.scale(blue_bullet_five, (30, 30))
-purple_bullet_one = pygame.image.load("Bullets/PurpleBullets/PurpleBulletLevelOne.png")
-purple_bullet_one = pygame.transform.scale(purple_bullet_one, (30, 30))
-purple_bullet_two = pygame.image.load("Bullets/PurpleBullets/PurpleBulletLevelTwo.png")
-purple_bullet_two = pygame.transform.scale(purple_bullet_two, (30, 30))
-purple_bullet_three = pygame.image.load("Bullets/PurpleBullets/PurpleBulletLevelThree.png")
-purple_bullet_three = pygame.transform.scale(purple_bullet_three, (30, 30))
-purple_bullet_four = pygame.image.load("Bullets/PurpleBullets/PurpleBulletLevelFour.png")
-purple_bullet_four = pygame.transform.scale(purple_bullet_four, (30, 30))
-purple_bullet_five = pygame.image.load("Bullets/PurpleBullets/PurpleBulletLevelFive.png")
-purple_bullet_five = pygame.transform.scale(purple_bullet_five, (30, 30))
-pink_bullet_one = pygame.image.load("Bullets/PinkBullets/PinkBulletLevelOne.png")
-pink_bullet_one = pygame.transform.scale(pink_bullet_one, (30, 30))
-pink_bullet_two = pygame.image.load("Bullets/PinkBullets/PinkBulletLevelTwo.png")
-pink_bullet_two = pygame.transform.scale(pink_bullet_two, (30, 30))
-pink_bullet_three = pygame.image.load("Bullets/PinkBullets/PinkBulletLevelThree.png")
-pink_bullet_three = pygame.transform.scale(pink_bullet_three, (30, 30))
-pink_bullet_four = pygame.image.load("Bullets/PinkBullets/PinkBulletLevelFour.png")
-pink_bullet_four = pygame.transform.scale(pink_bullet_four, (30, 30))
-pink_bullet_five = pygame.image.load("Bullets/PinkBullets/PinkBulletLevelFive.png")
-pink_bullet_five = pygame.transform.scale(pink_bullet_five, (30, 30))
-brown_bullet_one = pygame.image.load("Bullets/BrownBullets/BrownBulletLevelOne.png")
-brown_bullet_one = pygame.transform.scale(brown_bullet_one, (30, 30))
-brown_bullet_two = pygame.image.load("Bullets/BrownBullets/BrownBulletLevelTwo.png")
-brown_bullet_two = pygame.transform.scale(brown_bullet_two, (30, 30))
-brown_bullet_three = pygame.image.load("Bullets/BrownBullets/BrownBulletLevelThree.png")
-brown_bullet_three = pygame.transform.scale(brown_bullet_three, (30, 30))
-brown_bullet_four = pygame.image.load("Bullets/BrownBullets/BrownBulletLevelFour.png")
-brown_bullet_four = pygame.transform.scale(brown_bullet_four, (30, 30))
-brown_bullet_five = pygame.image.load("Bullets/BrownBullets/BrownBulletLevelFive.png")
-brown_bullet_five = pygame.transform.scale(brown_bullet_five, (30, 30))
-white_bullet_one = pygame.image.load("Bullets/WhiteBullets/WhiteBulletLevelOne.png")
-white_bullet_one = pygame.transform.scale(white_bullet_one, (30, 30))
-white_bullet_two = pygame.image.load("Bullets/WhiteBullets/WhiteBulletLevelTwo.png")
-white_bullet_two = pygame.transform.scale(white_bullet_two, (30, 30))
-white_bullet_three = pygame.image.load("Bullets/WhiteBullets/WhiteBulletLevelThree.png")
-white_bullet_three = pygame.transform.scale(white_bullet_three, (30, 30))
-white_bullet_four = pygame.image.load("Bullets/WhiteBullets/WhiteBulletLevelFour.png")
-white_bullet_four = pygame.transform.scale(white_bullet_four, (30, 30))
-white_bullet_five = pygame.image.load("Bullets/WhiteBullets/WhiteBulletLevelFive.png")
-white_bullet_five = pygame.transform.scale(white_bullet_five, (30, 30))
-black_bullet_one = pygame.image.load("Bullets/BlackBullets/BlackBulletLevelOne.png")
-black_bullet_one = pygame.transform.scale(black_bullet_one, (30, 30))
-black_bullet_two = pygame.image.load("Bullets/BlackBullets/BlackBulletLevelTwo.png")
-black_bullet_two = pygame.transform.scale(black_bullet_two, (30, 30))
-black_bullet_three = pygame.image.load("Bullets/BlackBullets/BlackBulletLevelThree.png")
-black_bullet_three = pygame.transform.scale(black_bullet_three, (30, 30))
-black_bullet_four = pygame.image.load("Bullets/BlackBullets/BlackBulletLevelFour.png")
-black_bullet_four = pygame.transform.scale(black_bullet_four, (30, 30))
-black_bullet_five = pygame.image.load("Bullets/BlackBullets/BlackBulletLevelFive.png")
-black_bullet_five = pygame.transform.scale(black_bullet_five, (30, 30))
-bronze_bullet_one = pygame.image.load("Bullets/BronzeBullets/BronzeBulletLevelOne.png")
-bronze_bullet_one = pygame.transform.scale(bronze_bullet_one, (30, 30))
-bronze_bullet_two = pygame.image.load("Bullets/BronzeBullets/BronzeBulletLevelTwo.png")
-bronze_bullet_two = pygame.transform.scale(bronze_bullet_two, (30, 30))
-bronze_bullet_three = pygame.image.load("Bullets/BronzeBullets/BronzeBulletLevelThree.png")
-bronze_bullet_three = pygame.transform.scale(bronze_bullet_three, (30, 30))
-bronze_bullet_four = pygame.image.load("Bullets/BronzeBullets/BronzeBulletLevelFour.png")
-bronze_bullet_four = pygame.transform.scale(bronze_bullet_four, (30, 30))
-bronze_bullet_five = pygame.image.load("Bullets/BronzeBullets/BronzeBulletLevelFive.png")
-bronze_bullet_five = pygame.transform.scale(bronze_bullet_five, (30, 30))
-silver_bullet_one = pygame.image.load("Bullets/SilverBullets/SilverBulletLevelOne.png")
-silver_bullet_one = pygame.transform.scale(silver_bullet_one, (30, 30))
-silver_bullet_two = pygame.image.load("Bullets/SilverBullets/SilverBulletLevelTwo.png")
-silver_bullet_two = pygame.transform.scale(silver_bullet_two, (30, 30))
-silver_bullet_three = pygame.image.load("Bullets/SilverBullets/SilverBulletLevelThree.png")
-silver_bullet_three = pygame.transform.scale(silver_bullet_three, (30, 30))
-silver_bullet_four = pygame.image.load("Bullets/SilverBullets/SilverBulletLevelFour.png")
-silver_bullet_four = pygame.transform.scale(silver_bullet_four, (30, 30))
-silver_bullet_five = pygame.image.load("Bullets/SilverBullets/SilverBulletLevelFive.png")
-silver_bullet_five = pygame.transform.scale(silver_bullet_five, (30, 30))
-gold_bullet_one = pygame.image.load("Bullets/GoldBullets/GoldBulletLevelOne.png")
-gold_bullet_one = pygame.transform.scale(gold_bullet_one, (30, 30))
-gold_bullet_two = pygame.image.load("Bullets/GoldBullets/GoldBulletLevelTwo.png")
-gold_bullet_two = pygame.transform.scale(gold_bullet_two, (30, 30))
-gold_bullet_three = pygame.image.load("Bullets/GoldBullets/GoldBulletLevelThree.png")
-gold_bullet_three = pygame.transform.scale(gold_bullet_three, (30, 30))
-gold_bullet_four = pygame.image.load("Bullets/GoldBullets/GoldBulletLevelFour.png")
-gold_bullet_four = pygame.transform.scale(gold_bullet_four, (30, 30))
-gold_bullet_five = pygame.image.load("Bullets/GoldBullets/GoldBulletLevelFive.png")
-gold_bullet_five = pygame.transform.scale(gold_bullet_five, (30, 30))
-diamond_bullet_one = pygame.image.load("Bullets/DiamondBullets/DiamondBulletLevelOne.png")
-diamond_bullet_one = pygame.transform.scale(diamond_bullet_one, (30, 30))
-diamond_bullet_two = pygame.image.load("Bullets/DiamondBullets/DiamondBulletLevelTwo.png")
-diamond_bullet_two = pygame.transform.scale(diamond_bullet_two, (30, 30))
-diamond_bullet_three = pygame.image.load("Bullets/DiamondBullets/DiamondBulletLevelThree.png")
-diamond_bullet_three = pygame.transform.scale(diamond_bullet_three, (30, 30))
-diamond_bullet_four = pygame.image.load("Bullets/DiamondBullets/DiamondBulletLevelFour.png")
-diamond_bullet_four = pygame.transform.scale(diamond_bullet_four, (30, 30))
-diamond_bullet_five = pygame.image.load("Bullets/DiamondBullets/DiamondBulletLevelFive.png")
-diamond_bullet_five = pygame.transform.scale(diamond_bullet_five, (30, 30))
+import pygame
 
-equippedbullet = red_bullet_one
+# Define bullet colors and levels
+colors_names = [
+    "Red", "Orange", "Yellow", "Green", "Teal", "Blue", 
+    "Purple", "Pink", "Brown", "White", "Black", 
+    "Bronze", "Silver", "Gold", "Diamond"
+]
+levels = ["One", "Two", "Three", "Four", "Five"]
 
-red_flak_one = pygame.image.load("Flaks/RedFlaks/RedFlakLevelOne.png")
-red_flak_one = pygame.transform.scale(red_flak_one, (200, 200))
-red_flak_two = pygame.image.load("Flaks/RedFlaks/RedFlakLevelTwo.png")
-red_flak_two = pygame.transform.scale(red_flak_two, (200, 200))
-red_flak_three = pygame.image.load("Flaks/RedFlaks/RedFlakLevelThree.png")
-red_flak_three = pygame.transform.scale(red_flak_three, (200, 200))
-red_flak_four = pygame.image.load("Flaks/RedFlaks/RedFlakLevelFour.png")
-red_flak_four = pygame.transform.scale(red_flak_four, (200, 200))
-red_flak_five = pygame.image.load("Flaks/RedFlaks/RedFlakLevelFive.png")
-red_flak_five = pygame.transform.scale(red_flak_five, (200, 200))
-orange_flak_one = pygame.image.load("Flaks/OrangeFlaks/OrangeFlakLevelOne.png")
-orange_flak_one = pygame.transform.scale(orange_flak_one, (200, 200))
-orange_flak_two = pygame.image.load("Flaks/OrangeFlaks/OrangeFlakLevelTwo.png")
-orange_flak_two = pygame.transform.scale(orange_flak_two, (200, 200))
-orange_flak_three = pygame.image.load("Flaks/OrangeFlaks/OrangeFlakLevelThree.png")
-orange_flak_three = pygame.transform.scale(orange_flak_three, (200, 200))
-orange_flak_four = pygame.image.load("Flaks/OrangeFlaks/OrangeFlakLevelFour.png")
-orange_flak_four = pygame.transform.scale(orange_flak_four, (200, 200))
-orange_flak_five = pygame.image.load("Flaks/OrangeFlaks/OrangeFlakLevelFive.png")
-orange_flak_five = pygame.transform.scale(orange_flak_five, (200, 200))
-yellow_flak_one = pygame.image.load("Flaks/YellowFlaks/YellowFlakLevelOne.png")
-yellow_flak_one = pygame.transform.scale(yellow_flak_one, (200, 200))
-yellow_flak_two = pygame.image.load("Flaks/YellowFlaks/YellowFlakLevelTwo.png")
-yellow_flak_two = pygame.transform.scale(yellow_flak_two, (200, 200))
-yellow_flak_three = pygame.image.load("Flaks/YellowFlaks/YellowFlakLevelThree.png")
-yellow_flak_three = pygame.transform.scale(yellow_flak_three, (200, 200))
-yellow_flak_four = pygame.image.load("Flaks/YellowFlaks/YellowFlakLevelFour.png")
-yellow_flak_four = pygame.transform.scale(yellow_flak_four, (200, 200))
-yellow_flak_five = pygame.image.load("Flaks/YellowFlaks/YellowFlakLevelFive.png")
-yellow_flak_five = pygame.transform.scale(yellow_flak_five, (200, 200))
-green_flak_one = pygame.image.load("Flaks/GreenFlaks/GreenFlakLevelOne.png")
-green_flak_one = pygame.transform.scale(green_flak_one, (200, 200))
-green_flak_two = pygame.image.load("Flaks/GreenFlaks/GreenFlakLevelTwo.png")
-green_flak_two = pygame.transform.scale(green_flak_two, (200, 200))
-green_flak_three = pygame.image.load("Flaks/GreenFlaks/GreenFlakLevelThree.png")
-green_flak_three = pygame.transform.scale(green_flak_three, (200, 200))
-green_flak_four = pygame.image.load("Flaks/GreenFlaks/GreenFlakLevelFour.png")
-green_flak_four = pygame.transform.scale(green_flak_four, (200, 200))
-green_flak_five = pygame.image.load("Flaks/GreenFlaks/GreenFlakLevelFive.png")
-green_flak_five = pygame.transform.scale(green_flak_five, (200, 200))
-teal_flak_one = pygame.image.load("Flaks/TealFlaks/TealFlakLevelOne.png")
-teal_flak_one = pygame.transform.scale(teal_flak_one, (200, 200))
-teal_flak_two = pygame.image.load("Flaks/TealFlaks/TealFlakLevelTwo.png")
-teal_flak_two = pygame.transform.scale(teal_flak_two, (200, 200))
-teal_flak_three = pygame.image.load("Flaks/TealFlaks/TealFlakLevelThree.png")
-teal_flak_three = pygame.transform.scale(teal_flak_three, (200, 200))
-teal_flak_four = pygame.image.load("Flaks/TealFlaks/TealFlakLevelFour.png")
-teal_flak_four = pygame.transform.scale(teal_flak_four, (200, 200))
-teal_flak_five = pygame.image.load("Flaks/TealFlaks/TealFlakLevelFive.png")
-teal_flak_five = pygame.transform.scale(teal_flak_five, (200, 200))
-blue_flak_one = pygame.image.load("Flaks/BlueFlaks/BlueFlakLevelOne.png")
-blue_flak_one = pygame.transform.scale(blue_flak_one, (200, 200))
-blue_flak_two = pygame.image.load("Flaks/BlueFlaks/BlueFlakLevelTwo.png")
-blue_flak_two = pygame.transform.scale(blue_flak_two, (200, 200))
-blue_flak_three = pygame.image.load("Flaks/BlueFlaks/BlueFlakLevelThree.png")
-blue_flak_three = pygame.transform.scale(blue_flak_three, (200, 200))
-blue_flak_four = pygame.image.load("Flaks/BlueFlaks/BlueFlakLevelFour.png")
-blue_flak_four = pygame.transform.scale(blue_flak_four, (200, 200))
-blue_flak_five = pygame.image.load("Flaks/BlueFlaks/BlueFlakLevelFive.png")
-blue_flak_five = pygame.transform.scale(blue_flak_five, (200, 200))
-purple_flak_one = pygame.image.load("Flaks/PurpleFlaks/PurpleFlakLevelOne.png")
-purple_flak_one = pygame.transform.scale(purple_flak_one, (200, 200))
-purple_flak_two = pygame.image.load("Flaks/PurpleFlaks/PurpleFlakLevelTwo.png")
-purple_flak_two = pygame.transform.scale(purple_flak_two, (200, 200))
-purple_flak_three = pygame.image.load("Flaks/PurpleFlaks/PurpleFlakLevelThree.png")
-purple_flak_three = pygame.transform.scale(purple_flak_three, (200, 200))
-purple_flak_four = pygame.image.load("Flaks/PurpleFlaks/PurpleFlakLevelFour.png")
-purple_flak_four = pygame.transform.scale(purple_flak_four, (200, 200))
-purple_flak_five = pygame.image.load("Flaks/PurpleFlaks/PurpleFlakLevelFive.png")
-purple_flak_five = pygame.transform.scale(purple_flak_five, (200, 200))
-pink_flak_one = pygame.image.load("Flaks/PinkFlaks/PinkFlakLevelOne.png")
-pink_flak_one = pygame.transform.scale(pink_flak_one, (200, 200))
-pink_flak_two = pygame.image.load("Flaks/PinkFlaks/PinkFlakLevelTwo.png")
-pink_flak_two = pygame.transform.scale(pink_flak_two, (200, 200))
-pink_flak_three = pygame.image.load("Flaks/PinkFlaks/PinkFlakLevelThree.png")
-pink_flak_three = pygame.transform.scale(pink_flak_three, (200, 200))
-pink_flak_four = pygame.image.load("Flaks/PinkFlaks/PinkFlakLevelFour.png")
-pink_flak_four = pygame.transform.scale(pink_flak_four, (200, 200))
-pink_flak_five = pygame.image.load("Flaks/PinkFlaks/PinkFlakLevelFive.png")
-pink_flak_five = pygame.transform.scale(pink_flak_five, (200, 200))
-brown_flak_one = pygame.image.load("Flaks/BrownFlaks/BrownFlakLevelOne.png")
-brown_flak_one = pygame.transform.scale(brown_flak_one, (200, 200))
-brown_flak_two = pygame.image.load("Flaks/BrownFlaks/BrownFlakLevelTwo.png")
-brown_flak_two = pygame.transform.scale(brown_flak_two, (200, 200))
-brown_flak_three = pygame.image.load("Flaks/BrownFlaks/BrownFlakLevelThree.png")
-brown_flak_three = pygame.transform.scale(brown_flak_three, (200, 200))
-brown_flak_four = pygame.image.load("Flaks/BrownFlaks/BrownFlakLevelFour.png")
-brown_flak_four = pygame.transform.scale(brown_flak_four, (200, 200))
-brown_flak_five = pygame.image.load("Flaks/BrownFlaks/BrownFlakLevelFive.png")
-brown_flak_five = pygame.transform.scale(brown_flak_five, (200, 200))
-white_flak_one = pygame.image.load("Flaks/WhiteFlaks/WhiteFlakLevelOne.png")
-white_flak_one = pygame.transform.scale(white_flak_one, (200, 200))
-white_flak_two = pygame.image.load("Flaks/WhiteFlaks/WhiteFlakLevelTwo.png")
-white_flak_two = pygame.transform.scale(white_flak_two, (200, 200))
-white_flak_three = pygame.image.load("Flaks/WhiteFlaks/WhiteFlakLevelThree.png")
-white_flak_three = pygame.transform.scale(white_flak_three, (200, 200))
-white_flak_four = pygame.image.load("Flaks/WhiteFlaks/WhiteFlakLevelFour.png")
-white_flak_four = pygame.transform.scale(white_flak_four, (200, 200))
-white_flak_five = pygame.image.load("Flaks/WhiteFlaks/WhiteFlakLevelFive.png")
-white_flak_five = pygame.transform.scale(white_flak_five, (200, 200))
-black_flak_one = pygame.image.load("Flaks/BlackFlaks/BlackFlakLevelOne.png")
-black_flak_one = pygame.transform.scale(black_flak_one, (200, 200))
-black_flak_two = pygame.image.load("Flaks/BlackFlaks/BlackFlakLevelTwo.png")
-black_flak_two = pygame.transform.scale(black_flak_two, (200, 200))
-black_flak_three = pygame.image.load("Flaks/BlackFlaks/BlackFlakLevelThree.png")
-black_flak_three = pygame.transform.scale(black_flak_three, (200, 200))
-black_flak_four = pygame.image.load("Flaks/BlackFlaks/BlackFlakLevelFour.png")
-black_flak_four = pygame.transform.scale(black_flak_four, (200, 200))
-black_flak_five = pygame.image.load("Flaks/BlackFlaks/BlackFlakLevelFive.png")
-black_flak_five = pygame.transform.scale(black_flak_five, (200, 200))
-bronze_flak_one = pygame.image.load("Flaks/BronzeFlaks/BronzeFlakLevelOne.png")
-bronze_flak_one = pygame.transform.scale(bronze_flak_one, (200, 200))
-bronze_flak_two = pygame.image.load("Flaks/BronzeFlaks/BronzeFlakLevelTwo.png")
-bronze_flak_two = pygame.transform.scale(bronze_flak_two, (200, 200))
-bronze_flak_three = pygame.image.load("Flaks/BronzeFlaks/BronzeFlakLevelThree.png")
-bronze_flak_three = pygame.transform.scale(bronze_flak_three, (200, 200))
-bronze_flak_four = pygame.image.load("Flaks/BronzeFlaks/BronzeFlakLevelFour.png")
-bronze_flak_four = pygame.transform.scale(bronze_flak_four, (200, 200))
-bronze_flak_five = pygame.image.load("Flaks/BronzeFlaks/BronzeFlakLevelFive.png")
-bronze_flak_five = pygame.transform.scale(bronze_flak_five, (200, 200))
-silver_flak_one = pygame.image.load("Flaks/SilverFlaks/SilverFlakLevelOne.png")
-silver_flak_one = pygame.transform.scale(silver_flak_one, (200, 200))
-silver_flak_two = pygame.image.load("Flaks/SilverFlaks/SilverFlakLevelTwo.png")
-silver_flak_two = pygame.transform.scale(silver_flak_two, (200, 200))
-silver_flak_three = pygame.image.load("Flaks/SilverFlaks/SilverFlakLevelThree.png")
-silver_flak_three = pygame.transform.scale(silver_flak_three, (200, 200))
-silver_flak_four = pygame.image.load("Flaks/SilverFlaks/SilverFlakLevelFour.png")
-silver_flak_four = pygame.transform.scale(silver_flak_four, (200, 200))
-silver_flak_five = pygame.image.load("Flaks/SilverFlaks/SilverFlakLevelFive.png")
-silver_flak_five = pygame.transform.scale(silver_flak_five, (200, 200))
-gold_flak_one = pygame.image.load("Flaks/GoldFlaks/GoldFlakLevelOne.png")
-gold_flak_one = pygame.transform.scale(gold_flak_one, (200, 200))
-gold_flak_two = pygame.image.load("Flaks/GoldFlaks/GoldFlakLevelTwo.png")
-gold_flak_two = pygame.transform.scale(gold_flak_two, (200, 200))
-gold_flak_three = pygame.image.load("Flaks/GoldFlaks/GoldFlakLevelThree.png")
-gold_flak_three = pygame.transform.scale(gold_flak_three, (200, 200))
-gold_flak_four = pygame.image.load("Flaks/GoldFlaks/GoldFlakLevelFour.png")
-gold_flak_four = pygame.transform.scale(gold_flak_four, (200, 200))
-gold_flak_five = pygame.image.load("Flaks/GoldFlaks/GoldFlakLevelFive.png")
-gold_flak_five = pygame.transform.scale(gold_flak_five, (200, 200))
-diamond_flak_one = pygame.image.load("Flaks/DiamondFlaks/DiamondFlakLevelOne.png")
-diamond_flak_one = pygame.transform.scale(diamond_flak_one, (200, 200))
-diamond_flak_two = pygame.image.load("Flaks/DiamondFlaks/DiamondFlakLevelTwo.png")
-diamond_flak_two = pygame.transform.scale(diamond_flak_two, (200, 200))
-diamond_flak_three = pygame.image.load("Flaks/DiamondFlaks/DiamondFlakLevelThree.png")
-diamond_flak_three = pygame.transform.scale(diamond_flak_three, (200, 200))
-diamond_flak_four = pygame.image.load("Flaks/DiamondFlaks/DiamondFlakLevelFour.png")
-diamond_flak_four = pygame.transform.scale(diamond_flak_four, (200, 200))
-diamond_flak_five = pygame.image.load("Flaks/DiamondFlaks/DiamondFlakLevelFive.png")
-diamond_flak_five = pygame.transform.scale(diamond_flak_five, (200, 200))
+# Dictionary to store bullets
+bullets = {}
 
-equippedflak = red_flak_one
+# Load and scale bullets
+for color in colors_names:
+    bullets[color] = {}
+    for level in levels:
+        filename = f"Bullets/{color}Bullets/{color}BulletLevel{level}.png"
+        bullet_image = pygame.image.load(filename)
+        scaled_bullet = pygame.transform.scale(bullet_image, (30, 30))
+        bullets[color][level] = scaled_bullet
 
-red_default_gun = pygame.image.load("Guns/DefaultGuns/RedDefaultGun.png")
-red_default_gun = pygame.transform.scale(red_default_gun, (200, 200))
-orange_default_gun = pygame.image.load("Guns/DefaultGuns/OrangeDefaultGun.png")
-orange_default_gun = pygame.transform.scale(orange_default_gun, (200, 200))
-yellow_default_gun = pygame.image.load("Guns/DefaultGuns/YellowDefaultGun.png")
-yellow_default_gun = pygame.transform.scale(yellow_default_gun, (200, 200))
-green_default_gun = pygame.image.load("Guns/DefaultGuns/GreenDefaultGun.png")
-green_default_gun = pygame.transform.scale(green_default_gun, (200, 200))
-teal_default_gun = pygame.image.load("Guns/DefaultGuns/TealDefaultGun.png")
-teal_default_gun = pygame.transform.scale(teal_default_gun, (200, 200))
-blue_default_gun = pygame.image.load("Guns/DefaultGuns/BlueDefaultGun.png")
-blue_default_gun = pygame.transform.scale(blue_default_gun, (200, 200))
-purple_default_gun = pygame.image.load("Guns/DefaultGuns/PurpleDefaultGun.png")
-purple_default_gun = pygame.transform.scale(purple_default_gun, (200, 200))
-pink_default_gun = pygame.image.load("Guns/DefaultGuns/PinkDefaultGun.png")
-pink_default_gun = pygame.transform.scale(pink_default_gun, (200, 200))
-brown_default_gun = pygame.image.load("Guns/DefaultGuns/BrownDefaultGun.png")
-brown_default_gun = pygame.transform.scale(brown_default_gun, (200, 200))
-white_default_gun = pygame.image.load("Guns/DefaultGuns/WhiteDefaultGun.png")
-white_default_gun = pygame.transform.scale(white_default_gun, (200, 200))
-black_default_gun = pygame.image.load("Guns/DefaultGuns/BlackDefaultGun.png")
-black_default_gun = pygame.transform.scale(black_default_gun, (200, 200))
-bronze_default_gun = pygame.image.load("Guns/DefaultGuns/BronzeDefaultGun.png")
-bronze_default_gun = pygame.transform.scale(bronze_default_gun, (200, 200))
-silver_default_gun = pygame.image.load("Guns/DefaultGuns/SilverDefaultGun.png")
-silver_default_gun = pygame.transform.scale(silver_default_gun, (200, 200))
-gold_default_gun = pygame.image.load("Guns/DefaultGuns/GoldDefaultGun.png")
-gold_default_gun = pygame.transform.scale(gold_default_gun, (200, 200))
-diamond_default_gun = pygame.image.load("Guns/DefaultGuns/DiamondDefaultGun.png")
-diamond_default_gun = pygame.transform.scale(diamond_default_gun, (200, 200))
+equippedbullet = bullets["Red"]["One"]
 
-red_short_gun = pygame.image.load("Guns/ShortGuns/RedShortGun.png")
-red_short_gun = pygame.transform.scale(red_short_gun, (200, 200))
-orange_short_gun = pygame.image.load("Guns/ShortGuns/OrangeShortGun.png")
-orange_short_gun = pygame.transform.scale(orange_short_gun, (200, 200))
-yellow_short_gun = pygame.image.load("Guns/ShortGuns/YellowShortGun.png")
-yellow_short_gun = pygame.transform.scale(yellow_short_gun, (200, 200))
-green_short_gun = pygame.image.load("Guns/ShortGuns/GreenShortGun.png")
-green_short_gun = pygame.transform.scale(green_short_gun, (200, 200))
-teal_short_gun = pygame.image.load("Guns/ShortGuns/TealShortGun.png")
-teal_short_gun = pygame.transform.scale(teal_short_gun, (200, 200))
-blue_short_gun = pygame.image.load("Guns/ShortGuns/BlueShortGun.png")
-blue_short_gun = pygame.transform.scale(blue_short_gun, (200, 200))
-purple_short_gun = pygame.image.load("Guns/ShortGuns/PurpleShortGun.png")
-purple_short_gun = pygame.transform.scale(purple_short_gun, (200, 200))
-pink_short_gun = pygame.image.load("Guns/ShortGuns/PinkShortGun.png")
-pink_short_gun = pygame.transform.scale(pink_short_gun, (200, 200))
-brown_short_gun = pygame.image.load("Guns/ShortGuns/BrownShortGun.png")
-brown_short_gun = pygame.transform.scale(brown_short_gun, (200, 200))
-white_short_gun = pygame.image.load("Guns/ShortGuns/WhiteShortGun.png")
-white_short_gun = pygame.transform.scale(white_short_gun, (200, 200))
-black_short_gun = pygame.image.load("Guns/ShortGuns/BlackShortGun.png")
-black_short_gun = pygame.transform.scale(black_short_gun, (200, 200))
-bronze_short_gun = pygame.image.load("Guns/ShortGuns/BronzeShortGun.png")
-bronze_short_gun = pygame.transform.scale(bronze_short_gun, (200, 200))
-silver_short_gun = pygame.image.load("Guns/ShortGuns/SilverShortGun.png")
-silver_short_gun = pygame.transform.scale(silver_short_gun, (200, 200))
-gold_short_gun = pygame.image.load("Guns/ShortGuns/GoldShortGun.png")
-gold_short_gun = pygame.transform.scale(gold_short_gun, (200, 200))
-diamond_short_gun = pygame.image.load("Guns/ShortGuns/DiamondShortGun.png")
-diamond_short_gun = pygame.transform.scale(diamond_short_gun, (200, 200))
+# Dictionary to store flaks
+flaks = {}
 
-red_long_gun = pygame.image.load("Guns/LongGuns/RedLongGun.png")
-red_long_gun = pygame.transform.scale(red_long_gun, (200, 200))
-orange_long_gun = pygame.image.load("Guns/LongGuns/OrangeLongGun.png")
-orange_long_gun = pygame.transform.scale(orange_long_gun, (200, 200))
-yellow_long_gun = pygame.image.load("Guns/LongGuns/YellowLongGun.png")
-yellow_long_gun = pygame.transform.scale(yellow_long_gun, (200, 200))
-green_long_gun = pygame.image.load("Guns/LongGuns/GreenLongGun.png")
-green_long_gun = pygame.transform.scale(green_long_gun, (200, 200))
-teal_long_gun = pygame.image.load("Guns/LongGuns/TealLongGun.png")
-teal_long_gun = pygame.transform.scale(teal_long_gun, (200, 200))
-blue_long_gun = pygame.image.load("Guns/LongGuns/BlueLongGun.png")
-blue_long_gun = pygame.transform.scale(blue_long_gun, (200, 200))
-purple_long_gun = pygame.image.load("Guns/LongGuns/PurpleLongGun.png")
-purple_long_gun = pygame.transform.scale(purple_long_gun, (200, 200))
-pink_long_gun = pygame.image.load("Guns/LongGuns/PinkLongGun.png")
-pink_long_gun = pygame.transform.scale(pink_long_gun, (200, 200))
-brown_long_gun = pygame.image.load("Guns/LongGuns/BrownLongGun.png")
-brown_long_gun = pygame.transform.scale(brown_long_gun, (200, 200))
-white_long_gun = pygame.image.load("Guns/LongGuns/WhiteLongGun.png")
-white_long_gun = pygame.transform.scale(white_long_gun, (200, 200))
-black_long_gun = pygame.image.load("Guns/LongGuns/BlackLongGun.png")
-black_long_gun = pygame.transform.scale(black_long_gun, (200, 200))
-bronze_long_gun = pygame.image.load("Guns/LongGuns/BronzeLongGun.png")
-bronze_long_gun = pygame.transform.scale(bronze_long_gun, (200, 200))
-silver_long_gun = pygame.image.load("Guns/LongGuns/SilverLongGun.png")
-silver_long_gun = pygame.transform.scale(silver_long_gun, (200, 200))
-gold_long_gun = pygame.image.load("Guns/LongGuns/GoldLongGun.png")
-gold_long_gun = pygame.transform.scale(gold_long_gun, (200, 200))
-diamond_long_gun = pygame.image.load("Guns/LongGuns/DiamondLongGun.png")
-diamond_long_gun = pygame.transform.scale(diamond_long_gun, (200, 200))
+# Load and scale flaks
+for color in colors_names:
+    flaks[color] = {}
+    for level in levels:
+        filename = f"Flaks/{color}Flaks/{color}FlakLevel{level}.png"
+        flak_image = pygame.image.load(filename)
+        scaled_flak = pygame.transform.scale(flak_image, (200, 200))
+        flaks[color][level] = scaled_flak
 
-red_spike_gun = pygame.image.load("Guns/SpikeGuns/RedSpikeGun.png")
-red_spike_gun = pygame.transform.scale(red_spike_gun, (200, 200))
-orange_spike_gun = pygame.image.load("Guns/SpikeGuns/OrangeSpikeGun.png")
-orange_spike_gun = pygame.transform.scale(orange_spike_gun, (200, 200))
-yellow_spike_gun = pygame.image.load("Guns/SpikeGuns/YellowSpikeGun.png")
-yellow_spike_gun = pygame.transform.scale(yellow_spike_gun, (200, 200))
-green_spike_gun = pygame.image.load("Guns/SpikeGuns/GreenSpikeGun.png")
-green_spike_gun = pygame.transform.scale(green_spike_gun, (200, 200))
-teal_spike_gun = pygame.image.load("Guns/SpikeGuns/TealSpikeGun.png")
-teal_spike_gun = pygame.transform.scale(teal_spike_gun, (200, 200))
-blue_spike_gun = pygame.image.load("Guns/SpikeGuns/BlueSpikeGun.png")
-blue_spike_gun = pygame.transform.scale(blue_spike_gun, (200, 200))
-purple_spike_gun = pygame.image.load("Guns/SpikeGuns/PurpleSpikeGun.png")
-purple_spike_gun = pygame.transform.scale(purple_spike_gun, (200, 200))
-pink_spike_gun = pygame.image.load("Guns/SpikeGuns/PinkSpikeGun.png")
-pink_spike_gun = pygame.transform.scale(pink_spike_gun, (200, 200))
-brown_spike_gun = pygame.image.load("Guns/SpikeGuns/BrownSpikeGun.png")
-brown_spike_gun = pygame.transform.scale(brown_spike_gun, (200, 200))
-white_spike_gun = pygame.image.load("Guns/SpikeGuns/WhiteSpikeGun.png")
-white_spike_gun = pygame.transform.scale(white_spike_gun, (200, 200))
-black_spike_gun = pygame.image.load("Guns/SpikeGuns/BlackSpikeGun.png")
-black_spike_gun = pygame.transform.scale(black_spike_gun, (200, 200))
-bronze_spike_gun = pygame.image.load("Guns/SpikeGuns/BronzeSpikeGun.png")
-bronze_spike_gun = pygame.transform.scale(bronze_spike_gun, (200, 200))
-silver_spike_gun = pygame.image.load("Guns/SpikeGuns/SilverSpikeGun.png")
-silver_spike_gun = pygame.transform.scale(silver_spike_gun, (200, 200))
-gold_spike_gun = pygame.image.load("Guns/SpikeGuns/GoldSpikeGun.png")
-gold_spike_gun = pygame.transform.scale(gold_spike_gun, (200, 200))
-diamond_spike_gun = pygame.image.load("Guns/SpikeGuns/DiamondSpikeGun.png")
-diamond_spike_gun = pygame.transform.scale(diamond_spike_gun, (200, 200))
+# Example of equipping a specific flak
+equipped_flak = flaks["Red"]["One"]
 
-red_blade_gun = pygame.image.load("Guns/BladeGuns/RedBladeGun.png")
-red_blade_gun = pygame.transform.scale(red_blade_gun, (200, 200))
-orange_blade_gun = pygame.image.load("Guns/BladeGuns/OrangeBladeGun.png")
-orange_blade_gun = pygame.transform.scale(orange_blade_gun, (200, 200))
-yellow_blade_gun = pygame.image.load("Guns/BladeGuns/YellowBladeGun.png")
-yellow_blade_gun = pygame.transform.scale(yellow_blade_gun, (200, 200))
-green_blade_gun = pygame.image.load("Guns/BladeGuns/GreenBladeGun.png")
-green_blade_gun = pygame.transform.scale(green_blade_gun, (200, 200))
-teal_blade_gun = pygame.image.load("Guns/BladeGuns/TealBladeGun.png")
-teal_blade_gun = pygame.transform.scale(teal_blade_gun, (200, 200))
-blue_blade_gun = pygame.image.load("Guns/BladeGuns/BlueBladeGun.png")
-blue_blade_gun = pygame.transform.scale(blue_blade_gun, (200, 200))
-purple_blade_gun = pygame.image.load("Guns/BladeGuns/PurpleBladeGun.png")
-purple_blade_gun = pygame.transform.scale(purple_blade_gun, (200, 200))
-pink_blade_gun = pygame.image.load("Guns/BladeGuns/PinkBladeGun.png")
-pink_blade_gun = pygame.transform.scale(pink_blade_gun, (200, 200))
-brown_blade_gun = pygame.image.load("Guns/BladeGuns/BrownBladeGun.png")
-brown_blade_gun = pygame.transform.scale(brown_blade_gun, (200, 200))
-white_blade_gun = pygame.image.load("Guns/BladeGuns/WhiteBladeGun.png")
-white_blade_gun = pygame.transform.scale(white_blade_gun, (200, 200))
-black_blade_gun = pygame.image.load("Guns/BladeGuns/BlackBladeGun.png")
-black_blade_gun = pygame.transform.scale(black_blade_gun, (200, 200))
-bronze_blade_gun = pygame.image.load("Guns/BladeGuns/BronzeBladeGun.png")
-bronze_blade_gun = pygame.transform.scale(bronze_blade_gun, (200, 200))
-silver_blade_gun = pygame.image.load("Guns/BladeGuns/SilverBladeGun.png")
-silver_blade_gun = pygame.transform.scale(silver_blade_gun, (200, 200))
-gold_blade_gun = pygame.image.load("Guns/BladeGuns/GoldBladeGun.png")
-gold_blade_gun = pygame.transform.scale(gold_blade_gun, (200, 200))
-diamond_blade_gun = pygame.image.load("Guns/BladeGuns/DiamondBladeGun.png")
-diamond_blade_gun = pygame.transform.scale(diamond_blade_gun, (200, 200))
+categories = [
+    "DefaultGuns", "ShortGuns", "LongGuns", "SpikeGuns",
+    "BladeGuns", "AncientGuns", "ModernGuns"
+]
 
-red_ancient_gun = pygame.image.load("Guns/AncientGuns/RedAncientGun.png")
-red_ancient_gun = pygame.transform.scale(red_ancient_gun, (200, 200))
-orange_ancient_gun = pygame.image.load("Guns/AncientGuns/OrangeAncientGun.png")
-orange_ancient_gun = pygame.transform.scale(orange_ancient_gun, (200, 200))
-yellow_ancient_gun = pygame.image.load("Guns/AncientGuns/YellowAncientGun.png")
-yellow_ancient_gun = pygame.transform.scale(yellow_ancient_gun, (200, 200))
-green_ancient_gun = pygame.image.load("Guns/AncientGuns/GreenAncientGun.png")
-green_ancient_gun = pygame.transform.scale(green_ancient_gun, (200, 200))
-teal_ancient_gun = pygame.image.load("Guns/AncientGuns/TealAncientGun.png")
-teal_ancient_gun = pygame.transform.scale(teal_ancient_gun, (200, 200))
-blue_ancient_gun = pygame.image.load("Guns/AncientGuns/BlueAncientGun.png")
-blue_ancient_gun = pygame.transform.scale(blue_ancient_gun, (200, 200))
-purple_ancient_gun = pygame.image.load("Guns/AncientGuns/PurpleAncientGun.png")
-purple_ancient_gun = pygame.transform.scale(purple_ancient_gun, (200, 200))
-pink_ancient_gun = pygame.image.load("Guns/AncientGuns/PinkAncientGun.png")
-pink_ancient_gun = pygame.transform.scale(pink_ancient_gun, (200, 200))
-brown_ancient_gun = pygame.image.load("Guns/AncientGuns/BrownAncientGun.png")
-brown_ancient_gun = pygame.transform.scale(brown_ancient_gun, (200, 200))
-white_ancient_gun = pygame.image.load("Guns/AncientGuns/WhiteAncientGun.png")
-white_ancient_gun = pygame.transform.scale(white_ancient_gun, (200, 200))
-black_ancient_gun = pygame.image.load("Guns/AncientGuns/BlackAncientGun.png")
-black_ancient_gun = pygame.transform.scale(black_ancient_gun, (200, 200))
-bronze_ancient_gun = pygame.image.load("Guns/AncientGuns/BronzeAncientGun.png")
-bronze_ancient_gun = pygame.transform.scale(bronze_ancient_gun, (200, 200))
-silver_ancient_gun = pygame.image.load("Guns/AncientGuns/SilverAncientGun.png")
-silver_ancient_gun = pygame.transform.scale(silver_ancient_gun, (200, 200))
-gold_ancient_gun = pygame.image.load("Guns/AncientGuns/GoldAncientGun.png")
-gold_ancient_gun = pygame.transform.scale(gold_ancient_gun, (200, 200))
-diamond_ancient_gun = pygame.image.load("Guns/AncientGuns/DiamondAncientGun.png")
-diamond_ancient_gun = pygame.transform.scale(diamond_ancient_gun, (200, 200))
+# Dictionary to store guns
+guns = {}
 
-red_modern_gun = pygame.image.load("Guns/ModernGuns/RedModernGun.png")
-red_modern_gun = pygame.transform.scale(red_modern_gun, (200, 200))
-orange_modern_gun = pygame.image.load("Guns/ModernGuns/OrangeModernGun.png")
-orange_modern_gun = pygame.transform.scale(orange_modern_gun, (200, 200))
-yellow_modern_gun = pygame.image.load("Guns/ModernGuns/YellowModernGun.png")
-yellow_modern_gun = pygame.transform.scale(yellow_modern_gun, (200, 200))
-green_modern_gun = pygame.image.load("Guns/ModernGuns/GreenModernGun.png")
-green_modern_gun = pygame.transform.scale(green_modern_gun, (200, 200))
-teal_modern_gun = pygame.image.load("Guns/ModernGuns/TealModernGun.png")
-teal_modern_gun = pygame.transform.scale(teal_modern_gun, (200, 200))
-blue_modern_gun = pygame.image.load("Guns/ModernGuns/BlueModernGun.png")
-blue_modern_gun = pygame.transform.scale(blue_modern_gun, (200, 200))
-purple_modern_gun = pygame.image.load("Guns/ModernGuns/PurpleModernGun.png")
-purple_modern_gun = pygame.transform.scale(purple_modern_gun, (200, 200))
-pink_modern_gun = pygame.image.load("Guns/ModernGuns/PinkModernGun.png")
-pink_modern_gun = pygame.transform.scale(pink_modern_gun, (200, 200))
-brown_modern_gun = pygame.image.load("Guns/ModernGuns/BrownModernGun.png")
-brown_modern_gun = pygame.transform.scale(brown_modern_gun, (200, 200))
-white_modern_gun = pygame.image.load("Guns/ModernGuns/WhiteModernGun.png")
-white_modern_gun = pygame.transform.scale(white_modern_gun, (200, 200))
-black_modern_gun = pygame.image.load("Guns/ModernGuns/BlackModernGun.png")
-black_modern_gun = pygame.transform.scale(black_modern_gun, (200, 200))
-bronze_modern_gun = pygame.image.load("Guns/ModernGuns/BronzeModernGun.png")
-bronze_modern_gun = pygame.transform.scale(bronze_modern_gun, (200, 200))
-silver_modern_gun = pygame.image.load("Guns/ModernGuns/SilverModernGun.png")
-silver_modern_gun = pygame.transform.scale(silver_modern_gun, (200, 200))
-gold_modern_gun = pygame.image.load("Guns/ModernGuns/GoldModernGun.png")
-gold_modern_gun = pygame.transform.scale(gold_modern_gun, (200, 200))
-diamond_modern_gun = pygame.image.load("Guns/ModernGuns/DiamondModernGun.png")
-diamond_modern_gun = pygame.transform.scale(diamond_modern_gun, (200, 200))
+# Load and scale guns
+for category in categories:
+    guns[category] = {}
+    for color in colors_names:
+        filename = f"Guns/{category}/{color}{category[:-4]}Gun.png"
+        gun_image = pygame.image.load(filename)
+        scaled_gun = pygame.transform.scale(gun_image, (200, 200))
+        guns[category][color] = scaled_gun
 
-equippedgun = red_default_gun
+# Example of equipping a gun
+equipped_gun = guns["DefaultGuns"]["Red"]
+
 
 health_bars = {
 1: [],
@@ -966,276 +501,43 @@ while run:
               equippedtank = windtank
               equippedtankpreview = windtankpreview
             if pos[0] >= 1010 and pos[0] <= 1160 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 1:
-              equippedguntype = 1
-              equippedgun = red_default_gun
-              DamageGun = 1
-              SpeedGun = 1
+              equipped_gun_type = 1
+              equipped_gun = guns["DefaultGuns"]["Red"]
+              damage_gun = 1
+              speed_gun = 1
             if pos[0] >= 1180 and pos[0] <= 1330 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 1:
-              equippedguntype = 2
-              equippedgun = red_short_gun
-              DamageGun = 0.75
-              SpeedGun = 1.25
+              equipped_gun_type = 2
+              equipped_gun = guns["ShortGuns"]["Red"]
+              damage_gun = 0.75
+              speed_gun = 1.25
             if pos[0] >= 1350 and pos[0] <= 1500 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 1:
-              equippedguntype = 3
-              equippedgun = red_long_gun
-              DamageGun = 1.25
-              SpeedGun = 0.75
+              equipped_gun_type = 3
+              equipped_gun = guns["LongGuns"]["Red"]
+              damage_gun = 1.25
+              speed_gun = 0.75
             if pos[0] >= 1520 and pos[0] <= 1670 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 1:
-              equippedguntype = 4
-              equippedgun = red_spike_gun
-              DamageGun = 1.5
-              SpeedGun = 1.25
+              equipped_gun_type = 4
+              equipped_gun = guns["SpikeGuns"]["Red"]
+              damage_gun = 1.5
+              speed_gun = 1.25
             if pos[0] >= 1010 and pos[0] <= 1160 and pos[1] >= 320 and pos[1] <= 470 and gamestatus == 0 and customization == 1:
-              equippedguntype = 5
-              equippedgun = red_blade_gun
-              DamageGun = 1.25
-              SpeedGun = 1.5
+              equipped_gun_type = 5
+              equipped_gun = guns["BladeGuns"]["Red"]
+              damage_gun = 1.25
+              speed_gun = 1.5
             if pos[0] >= 1180 and pos[0] <= 1330 and pos[1] >= 320 and pos[1] <= 470 and gamestatus == 0 and customization == 1:
-              equippedguntype = 6
-              equippedgun = red_ancient_gun
-              DamageGun = 0.5
-              SpeedGun = 2
+              equipped_gun_type = 6
+              equipped_gun = guns["AncientGuns"]["Red"]
+              damage_gun = 0.5
+              speed_gun = 2
             if pos[0] >= 1350 and pos[0] <= 1500 and pos[1] >= 320 and pos[1] <= 470 and gamestatus == 0 and customization == 1:
-              equippedguntype = 7
-              equippedgun = red_modern_gun
-              DamageGun = 2
-              SpeedGun = 0.5
-            if pos[0] >= 1125 and pos[0] <= 1195 and pos[1] >= 650 and pos[1] <= 720 and gamestatus == 0 and customization == 1:
-              if equippedguntype == 1:
-                equippedgun = red_default_gun
-              elif equippedguntype == 2:
-                equippedgun = red_short_gun
-              elif equippedguntype == 3:
-                equippedgun = red_long_gun
-              elif equippedguntype == 4:
-                equippedgun = red_spike_gun
-              elif equippedguntype == 5:
-                equippedgun = red_blade_gun
-              elif equippedguntype == 6:
-                equippedgun = red_ancient_gun
-              elif equippedguntype == 7:
-                equippedgun = red_modern_gun
-            if pos[0] >= 1215 and pos[0] <= 1285 and pos[1] >= 650 and pos[1] <= 720 and gamestatus == 0 and customization == 1:
-              if equippedguntype == 1:
-                equippedgun = orange_default_gun
-              elif equippedguntype == 2:
-                equippedgun = orange_short_gun
-              elif equippedguntype == 3:
-                equippedgun = orange_long_gun
-              elif equippedguntype == 4:
-                equippedgun = orange_spike_gun
-              elif equippedguntype == 5:
-                equippedgun = orange_blade_gun
-              elif equippedguntype == 6:
-                equippedgun = orange_ancient_gun
-              elif equippedguntype == 7:
-                equippedgun = orange_modern_gun
-            if pos[0] >= 1305 and pos[0] <= 1375 and pos[1] >= 650 and pos[1] <= 720 and gamestatus == 0 and customization == 1:
-              if equippedguntype == 1:
-                equippedgun = yellow_default_gun
-              elif equippedguntype == 2:
-                equippedgun = yellow_short_gun
-              elif equippedguntype == 3:
-                equippedgun = yellow_long_gun
-              elif equippedguntype == 4:
-                equippedgun = yellow_spike_gun
-              elif equippedguntype == 5:
-                equippedgun = yellow_blade_gun
-              elif equippedguntype == 6:
-                equippedgun = yellow_ancient_gun
-              elif equippedguntype == 7:
-                equippedgun = yellow_modern_gun
-            if pos[0] >= 1395 and pos[0] <= 1465 and pos[1] >= 650 and pos[1] <= 720 and gamestatus == 0 and customization == 1:
-              if equippedguntype == 1:
-                equippedgun = green_default_gun
-              elif equippedguntype == 2:
-                equippedgun = green_short_gun
-              elif equippedguntype == 3:
-                equippedgun = green_long_gun
-              elif equippedguntype == 4:
-                equippedgun = green_spike_gun
-              elif equippedguntype == 5:
-                equippedgun = green_blade_gun
-              elif equippedguntype == 6:
-                equippedgun = green_ancient_gun
-              elif equippedguntype == 7:
-                equippedgun = green_modern_gun
-            if pos[0] >= 1485 and pos[0] <= 1555 and pos[1] >= 650 and pos[1] <= 720 and gamestatus == 0 and customization == 1:
-              if equippedguntype == 1:
-                equippedgun = teal_default_gun
-              elif equippedguntype == 2:
-                equippedgun = teal_short_gun
-              elif equippedguntype == 3:
-                equippedgun = teal_long_gun
-              elif equippedguntype == 4:
-                equippedgun = teal_spike_gun
-              elif equippedguntype == 5:
-                equippedgun = teal_blade_gun
-              elif equippedguntype == 6:
-                equippedgun = teal_ancient_gun
-              elif equippedguntype == 7:
-                equippedgun = teal_modern_gun
-            if pos[0] >= 1125 and pos[0] <= 1195 and pos[1] >= 740 and pos[1] <= 810 and gamestatus == 0 and customization == 1:
-              if equippedguntype == 1:
-                equippedgun = blue_default_gun
-              elif equippedguntype == 2:
-                equippedgun = blue_short_gun
-              elif equippedguntype == 3:
-                equippedgun = blue_long_gun
-              elif equippedguntype == 4:
-                equippedgun = blue_spike_gun
-              elif equippedguntype == 5:
-                equippedgun = blue_blade_gun
-              elif equippedguntype == 6:
-                equippedgun = blue_ancient_gun
-              elif equippedguntype == 7:
-                equippedgun = blue_modern_gun
-            if pos[0] >= 1215 and pos[0] <= 1285 and pos[1] >= 740 and pos[1] <= 810 and gamestatus == 0 and customization == 1:
-              if equippedguntype == 1:
-                equippedgun = purple_default_gun
-              elif equippedguntype == 2:
-                equippedgun = purple_short_gun
-              elif equippedguntype == 3:
-                equippedgun = purple_long_gun
-              elif equippedguntype == 4:
-                equippedgun = purple_spike_gun
-              elif equippedguntype == 5:
-                equippedgun = purple_blade_gun
-              elif equippedguntype == 6:
-                equippedgun = purple_ancient_gun
-              elif equippedguntype == 7:
-                equippedgun = purple_modern_gun
-            if pos[0] >= 1305 and pos[0] <= 1375 and pos[1] >= 740 and pos[1] <= 810 and gamestatus == 0 and customization == 1:
-              if equippedguntype == 1:
-                equippedgun = pink_default_gun
-              elif equippedguntype == 2:
-                equippedgun = pink_short_gun
-              elif equippedguntype == 3:
-                equippedgun = pink_long_gun
-              elif equippedguntype == 4:
-                equippedgun = pink_spike_gun
-              elif equippedguntype == 5:
-                equippedgun = pink_blade_gun
-              elif equippedguntype == 6:
-                equippedgun = pink_ancient_gun
-              elif equippedguntype == 7:
-                equippedgun = pink_modern_gun
-            if pos[0] >= 1395 and pos[0] <= 1465 and pos[1] >= 740 and pos[1] <= 810 and gamestatus == 0 and customization == 1:
-              if equippedguntype == 1:
-                equippedgun = brown_default_gun
-              elif equippedguntype == 2:
-                equippedgun = brown_short_gun
-              elif equippedguntype == 3:
-                equippedgun = brown_long_gun
-              elif equippedguntype == 4:
-                equippedgun = brown_spike_gun
-              elif equippedguntype == 5:
-                equippedgun = brown_blade_gun
-              elif equippedguntype == 6:
-                equippedgun = brown_ancient_gun
-              elif equippedguntype == 7:
-                equippedgun = brown_modern_gun
-            if pos[0] >= 1485 and pos[0] <= 1555 and pos[1] >= 740 and pos[1] <= 810 and gamestatus == 0 and customization == 1:
-              if equippedguntype == 1:
-                equippedgun = white_default_gun
-              elif equippedguntype == 2:
-                equippedgun = white_short_gun
-              elif equippedguntype == 3:
-                equippedgun = white_long_gun
-              elif equippedguntype == 4:
-                equippedgun = white_spike_gun
-              elif equippedguntype == 5:
-                equippedgun = white_blade_gun
-              elif equippedguntype == 6:
-                equippedgun = white_ancient_gun
-              elif equippedguntype == 7:
-                equippedgun = white_modern_gun
-            if pos[0] >= 1125 and pos[0] <= 1195 and pos[1] >= 830 and pos[1] <= 900 and gamestatus == 0 and customization == 1:
-              if equippedguntype == 1:
-                equippedgun = black_default_gun
-              elif equippedguntype == 2:
-                equippedgun = black_short_gun
-              elif equippedguntype == 3:
-                equippedgun = black_long_gun
-              elif equippedguntype == 4:
-                equippedgun = black_spike_gun
-              elif equippedguntype == 5:
-                equippedgun = black_blade_gun
-              elif equippedguntype == 6:
-                equippedgun = black_ancient_gun
-              elif equippedguntype == 7:
-                equippedgun = black_modern_gun
-            if pos[0] >= 1215 and pos[0] <= 1285 and pos[1] >= 830 and pos[1] <= 900 and gamestatus == 0 and customization == 1:
-              if equippedguntype == 1:
-                equippedgun = bronze_default_gun
-              elif equippedguntype == 2:
-                equippedgun = bronze_short_gun
-              elif equippedguntype == 3:
-                equippedgun = bronze_long_gun
-              elif equippedguntype == 4:
-                equippedgun = bronze_spike_gun
-              elif equippedguntype == 5:
-                equippedgun = bronze_blade_gun
-              elif equippedguntype == 6:
-                equippedgun = bronze_ancient_gun
-              elif equippedguntype == 7:
-                equippedgun = bronze_modern_gun
-            if pos[0] >= 1305 and pos[0] <= 1375 and pos[1] >= 830 and pos[1] <= 900 and gamestatus == 0 and customization == 1:
-              if equippedguntype == 1:
-                equippedgun = silver_default_gun
-              elif equippedguntype == 2:
-                equippedgun = silver_short_gun
-              elif equippedguntype == 3:
-                equippedgun = silver_long_gun
-              elif equippedguntype == 4:
-                equippedgun = silver_spike_gun
-              elif equippedguntype == 5:
-                equippedgun = silver_blade_gun
-              elif equippedguntype == 6:
-                equippedgun = silver_ancient_gun
-              elif equippedguntype == 7:
-                equippedgun = silver_modern_gun
-            if pos[0] >= 1395 and pos[0] <= 1465 and pos[1] >= 830 and pos[1] <= 900 and gamestatus == 0 and customization == 1:
-              if equippedguntype == 1:
-                equippedgun = gold_default_gun
-              elif equippedguntype == 2:
-                equippedgun = gold_short_gun
-              elif equippedguntype == 3:
-                equippedgun = gold_long_gun
-              elif equippedguntype == 4:
-                equippedgun = gold_spike_gun
-              elif equippedguntype == 5:
-                equippedgun = gold_blade_gun
-              elif equippedguntype == 6:
-                equippedgun = gold_ancient_gun
-              elif equippedguntype == 7:
-                equippedgun = gold_modern_gun
-            if pos[0] >= 1485 and pos[0] <= 1555 and pos[1] >= 830 and pos[1] <= 900 and gamestatus == 0 and customization == 1:
-              if equippedguntype == 1:
-                equippedgun = diamond_default_gun
-              elif equippedguntype == 2:
-                equippedgun = diamond_short_gun
-              elif equippedguntype == 3:
-                equippedgun = diamond_long_gun
-              elif equippedguntype == 4:
-                equippedgun = diamond_spike_gun
-              elif equippedguntype == 5:
-                equippedgun = diamond_blade_gun
-              elif equippedguntype == 6:
-                equippedgun = diamond_ancient_gun
-              elif equippedguntype == 7:
-                equippedgun = diamond_modern_gun
-            if pos[0] >= 315 and pos[0] <= 435 and pos[1] >= 140 and pos[1] <= 190 and signed_in == False:
+              equipped_gun_type = 7
+              equipped_gun = guns["ModernGuns"]["Red"]
+              damage_gun = 2
+              speed_gun = 0.5
+            if ((pos[0] >= 315 and pos[0] <= 435 and pos[1] >= 140 and pos[1] <= 190) or (pos[0] >= 445 and pos[0] <= 540 and pos[1] >= 140 and pos[1] <= 190)) and signed_in == False:
               signing_up = True
               logging_in = False
-              username_text = ""
-              password_text = ""
-              username_typing = False
-              password_typing = False
-              password_text_hide = ""
-            if pos[0] >= 445 and pos[0] <= 540 and pos[1] >= 140 and pos[1] <= 190 and signed_in == False:
-              logging_in = True
-              signing_up == False
               username_text = ""
               password_text = ""
               username_typing = False
@@ -1307,8 +609,8 @@ while run:
       text1 = font3.render("PLAY SOLO", False, pygame.Color(0, 0, 0))
       text2 = font3.render("PLAY RANKED", False, pygame.Color(0, 0, 0))
       text3 = font3.render("PLAY SQUADS", False, pygame.Color(0, 0, 0))
-      text4 = font3.render("Damage Buff: X" + str(DamageGun), False, pygame.Color(0, 0, 0))
-      text5 = font3.render("Speed Buff: X" + str(SpeedGun), False, pygame.Color(0, 0, 0))
+      text4 = font3.render("Damage Buff: X" + str(damage_gun), False, pygame.Color(0, 0, 0))
+      text5 = font3.render("Speed Buff: X" + str(speed_gun), False, pygame.Color(0, 0, 0))
       text6 = font3.render("Cash: " + str(cash), False, pygame.Color(0, 0, 0))
       text7 = font3.render(str(level), False, pygame.Color(255, 255, 255))
       text8 = font3.render("Sign Up", False, (0, 0, 0))
@@ -1384,19 +686,19 @@ while run:
         display.blit(equippedtankpreview, (1265, 490))
       if customization == 1:
         pygame.draw.rect(display, pygame.Color(colors["Silver"]), (960, 0, 960, 972))
-        if equippedguntype == 1:
+        if equipped_gun_type == 1:
           pygame.draw.rect(display, pygame.Color(255, 255, 255), (1000, 140, 170, 170))
-        elif equippedguntype == 2:
+        elif equipped_gun_type == 2:
           pygame.draw.rect(display, pygame.Color(255, 255, 255), (1170, 140, 170, 170))
-        elif equippedguntype == 3:
+        elif equipped_gun_type == 3:
           pygame.draw.rect(display, pygame.Color(255, 255, 255), (1340, 140, 170, 170))
-        elif equippedguntype == 4:
+        elif equipped_gun_type == 4:
           pygame.draw.rect(display, pygame.Color(255, 255, 255), (1510, 140, 170, 170))
-        elif equippedguntype == 5:
+        elif equipped_gun_type == 5:
           pygame.draw.rect(display, pygame.Color(255, 255, 255), (1000, 310, 170, 170))
-        elif equippedguntype == 6:
+        elif equipped_gun_type == 6:
           pygame.draw.rect(display, pygame.Color(255, 255, 255), (1170, 310, 170, 170))
-        elif equippedguntype == 7:
+        elif equipped_gun_type == 7:
           pygame.draw.rect(display, pygame.Color(255, 255, 255), (1340, 310, 170, 170))
         pygame.draw.rect(display, pygame.Color(0, 0, 0), (220, 345, 210, 410))
         pygame.draw.rect(display, pygame.Color(0, 0, 0), (470, 345, 210, 410))
@@ -1460,14 +762,14 @@ while run:
         display.blit(text6, (1475, 515))
         display.blit(text7, (243, 153))
         display.blit(text15, (1435, 580))
-        display.blit(red_default_gun, (985, 130))
-        display.blit(red_short_gun, (1155, 130))
-        display.blit(red_long_gun, (1325, 130))
-        display.blit(red_spike_gun, (1495, 130))
-        display.blit(red_blade_gun, (985, 300))
-        display.blit(red_ancient_gun, (1155, 300))
-        display.blit(red_modern_gun, (1325, 300))
-        display.blit(equippedgun, (1250, 470))
+        display.blit(guns["DefaultGuns"]["Red"], (985, 130))
+        display.blit(guns["ShortGuns"]["Red"], (1155, 130))
+        display.blit(guns["LongGuns"]["Red"], (1325, 130))
+        display.blit(guns["SpikeGuns"]["Red"], (1495, 130))
+        display.blit(guns["BladeGuns"]["Red"], (985, 300))
+        display.blit(guns["AncientGuns"]["Red"], (1155, 300))
+        display.blit(guns["ModernGuns"]["Red"], (1325, 300))
+        display.blit(equipped_gun, (1250, 470))
       if signed_in == False:
         pygame.draw.rect(display, pygame.Color(0, 0, 0), (313, 138, 124, 54))
         pygame.draw.rect(display, pygame.Color(0, 0, 0), (443, 138, 99, 54))
