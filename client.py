@@ -18,6 +18,7 @@ thread = threading.Thread(target = receive_data)
 thread.start()
 pygame.init()
 pygame.font.init()
+clock = pygame.time.Clock()
 font1 = pygame.font.SysFont("Lexend", 20)
 font2 = pygame.font.SysFont("Lexend", 30)
 font3 = pygame.font.SysFont("Lexend", 40)
@@ -27,7 +28,7 @@ font6 = pygame.font.SysFont("Lexend", 100)
 display = pygame.display.set_mode((1920, 1080))
 gamestatus = 0
 customization = 0
-playergravity = 1
+playergravity = 25
 bulletgravity = 0.1
 speedX = 0
 speedY = 0
@@ -403,7 +404,8 @@ while run:
       text20 = font2.render("Players Remaining: 12", False, (0, 0, 0))
       display.blit(text19, (220, 155))
       display.blit(text20, (470, 155))
-      positionY += playergravity
+      delta_time = clock.tick(60)/1000
+      positionY += playergravity * delta_time
       if positionX >= 300 and positionX <= 1575 and positionY >= 868:
         positionY = 868
       if shieldactive == True:
