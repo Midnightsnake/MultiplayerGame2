@@ -174,8 +174,10 @@ for i in range(1, 4):
   
 levels_icons = {}
 for i in range(0, 10):
-  levels_icons[i * 10 + 1] = pygame.image.load(f"LevelIcons/Levels{i * 10 + 1}-{i * 10 + 10}.png")
-  levels_icons[i * 10 + 1] = pygame.transform.scale(levels_icons[i * 10 + 1], (100, 100))
+  levels_icons[i] = pygame.image.load(f"LevelIcons/Levels{i * 10 + 1}-{i * 10 + 10}.png")
+  levels_icons[i] = pygame.transform.scale(levels_icons[i], (100, 100))
+levels_icons[10] = pygame.image.load("LevelIcons/Level100.png")
+levels_icons[10] = pygame.transform.scale(levels_icons[10], (100, 100))
 
 lobby_maps = {}
 
@@ -211,7 +213,8 @@ for t in tank_types:
   tanks[t] = {}
   tanks[t][0] = pygame.image.load(f"Tanks/{t}Tank.png")
   tanks[t][0] = pygame.transform.scale(tanks[t][0], (40, 40))
-  tanks[t][1] = pygame.transform.scale(tanks[t][0], (150, 150))
+  tanks[t][1] = pygame.image.load(f"Tanks/{t}Tank.png")
+  tanks[t][1] = pygame.transform.scale(tanks[t][1], (150, 150))
 
 equippedtank = tanks["Earth"][0]
 equippedtankpreview = tanks["Earth"][1]
@@ -439,7 +442,7 @@ while run:
       text16 = font2.render("Gun Customization", False, (0, 0, 0))
       text17 = font4.render("Exit Game", False, (0, 0, 0))
       text18 = font3.render("Exit Game", False, (0, 0, 0))
-      display.blit(levels_icons[1], (200, 115))
+      display.blit(levels_icons[level_number // 10], (200, 115))
       if customization == 0:
         pygame.draw.rect(display, pygame.Color(colors["Bronze"]), (960, 0, 960, 972))
         if equippedtank == tanks["Earth"][0]:
@@ -488,7 +491,9 @@ while run:
         display.blit(text2, (475, 525))
         display.blit(text3, (725, 525))
         display.blit(text6, (1475, 515))
-        if level_number > 9:
+        if level_number > 99:
+          level_number_positionX = 227
+        elif level_number > 9:
           level_number_positionX = 235
         display.blit(text7, (level_number_positionX, 153))
         display.blit(text16, (1435, 580))
@@ -577,7 +582,9 @@ while run:
         display.blit(text4, (1020, 505))
         display.blit(text5, (1020, 545))
         display.blit(text6, (1475, 515))
-        if level_number > 9:
+        if level_number > 99:
+          level_number_positionX = 227
+        elif level_number > 9:
           level_number_positionX = 235
         display.blit(text7, (level_number_positionX, 153))
         display.blit(text15, (1435, 580))
