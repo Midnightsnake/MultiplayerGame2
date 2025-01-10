@@ -68,7 +68,8 @@ ancientbulletactive = False
 ancientbulletkey = pygame.K_7
 flakactive = False
 flakkey = pygame.K_8
-level = 1
+level_number = 1
+level_number_positionX = 243
 xp = 0
 signed_in = False
 damage_gun = 1
@@ -101,8 +102,6 @@ colors = {"Red": "#ff0000",
 "Diamond": "#99ebff",
 "Light Diamond": "#b9f2ff",
 }
-
-import pygame
 
 # Define bullet colors and levels
 colors_names = [
@@ -428,7 +427,7 @@ while run:
       text4 = font3.render("Damage Buff: X" + str(damage_gun), False, pygame.Color(0, 0, 0))
       text5 = font3.render("Speed Buff: X" + str(speed_gun), False, pygame.Color(0, 0, 0))
       text6 = font3.render("Cash: " + str(cash), False, pygame.Color(0, 0, 0))
-      text7 = font3.render(str(level), False, pygame.Color(255, 255, 255))
+      text7 = font3.render(str(level_number), False, pygame.Color(255, 255, 255))
       text8 = font3.render("Sign Up", False, (0, 0, 0))
       text9 = font3.render("Log In", False, (0, 0, 0))
       text10 = font3.render("You must be signed in to play a game!", False, (0, 0, 0))
@@ -489,7 +488,9 @@ while run:
         display.blit(text2, (475, 525))
         display.blit(text3, (725, 525))
         display.blit(text6, (1475, 515))
-        display.blit(text7, (243, 153))
+        if level_number > 9:
+          level_number_positionX = 235
+        display.blit(text7, (level_number_positionX, 153))
         display.blit(text16, (1435, 580))
         display.blit(tanks["Earth"][1], (1010, 150))
         display.blit(tanks["Electric"][1], (1180, 150))
@@ -576,7 +577,9 @@ while run:
         display.blit(text4, (1020, 505))
         display.blit(text5, (1020, 545))
         display.blit(text6, (1475, 515))
-        display.blit(text7, (243, 153))
+        if level_number > 9:
+          level_number_positionX = 235
+        display.blit(text7, (level_number_positionX, 153))
         display.blit(text15, (1435, 580))
         display.blit(guns["DefaultGuns"]["Red"], (985, 130))
         display.blit(guns["ShortGuns"]["Red"], (1155, 130))
