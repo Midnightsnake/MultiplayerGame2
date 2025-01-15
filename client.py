@@ -110,6 +110,9 @@ colors_names = [
     "Purple", "Pink", "Brown", "White", "Black", 
     "Bronze", "Silver", "Gold", "Diamond"
 ]
+# Define tank/material types
+tank_types = ["Earth", "Electric", "Fire", "Grass", "Ice", "Plasma", "Water", "Wind"]
+
 levels = ["One", "Two", "Three", "Four", "Five"]
 
 # Dictionary to store bullets
@@ -195,6 +198,21 @@ top_left_earth_map = pygame.transform.scale(top_left_earth_map, (625, 625))
 top_right_earth_map = pygame.image.load("Maps/EarthMaps/TopRightEarthMap.png")
 top_right_earth_map = pygame.transform.scale(top_right_earth_map, (625, 625))
 
+# Dictionary to store rapidfires
+rapidfires = {}
+
+# Load and scale rapidfires
+for t in tank_types:
+    rapidfires[t] = {}
+    for level in levels:
+        filename = f"Rapidfires/{t}Rapidfires/{t}RapidfireLevel{level}.png"
+        rapidfire_image = pygame.image.load(filename)
+        scaled_rapidfire = pygame.transform.scale(rapidfire_image, (200, 200))
+        rapidfires[t][level] = scaled_rapidfire
+
+# Example of equipping a specific rapidfire
+equipped_rapidfire = rapidfires["Earth"]["One"]
+
 shields = {}
 
 # Load and scale shields
@@ -208,7 +226,6 @@ for color in colors_names:
 
 equippedshield = shields["Red"]["One"]
 
-tank_types = ["Earth", "Electric", "Fire", "Grass", "Ice", "Plasma", "Water", "Wind"]
 tanks = {}
 for t in tank_types:
   tanks[t] = {}
