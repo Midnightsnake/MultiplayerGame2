@@ -104,6 +104,7 @@ colors = {"Red": "#ff0000",
 "Light Diamond": "#b9f2ff",
 }
 
+
 # Define bullet colors and levels
 colors_names = [
     "Red", "Orange", "Yellow", "Green", "Teal", "Blue", 
@@ -114,6 +115,18 @@ colors_names = [
 tank_types = ["Earth", "Electric", "Fire", "Grass", "Ice", "Plasma", "Water", "Wind"]
 
 levels = ["One", "Two", "Three", "Four", "Five"]
+
+# Dictionary to store ancient bullets
+ancient_bullets = {}
+
+# Load and scale ancient bullets
+for t in tank_types:
+    ancient_bullets[t] = {}
+    for level in levels:
+        filename = f"AncientBullets/{t}AncientBullets/{t}AncientBulletLevel{level}.png"
+        ancient_bullet_image = pygame.image.load(filename)
+        scaled_ancient_bullet = pygame.transform.scale(ancient_bullet_image, (200, 200))
+        ancient_bullets[t][level] = scaled_ancient_bullet
 
 # Dictionary to store bullets
 bullets = {}
@@ -176,6 +189,18 @@ for i in range(1, 4):
       health_bars[i].append(pygame.image.load("HealthBars/HealthBarsType" + str(i) + "/HealthBars" + str(i) + "-" + str(j) + ".png"))
   h += 10
   
+# Dictionary to store homings
+homings = {}
+
+# Load and scale homings
+for t in tank_types:
+    homings[t] = {}
+    for level in levels:
+        filename = f"Homings/{t}Homings/{t}HomingLevel{level}.png"
+        homing_image = pygame.image.load(filename)
+        scaled_homing = pygame.transform.scale(homing_image, (200, 200))
+        homings[t][level] = scaled_homing
+
 levels_icons = {}
 for i in range(0, 10):
   levels_icons[i] = pygame.image.load(f"LevelIcons/Levels{i * 10 + 1}-{i * 10 + 10}.png")
@@ -197,6 +222,18 @@ top_left_earth_map = pygame.image.load("Maps/EarthMaps/TopLeftEarthMap.png")
 top_left_earth_map = pygame.transform.scale(top_left_earth_map, (625, 625))
 top_right_earth_map = pygame.image.load("Maps/EarthMaps/TopRightEarthMap.png")
 top_right_earth_map = pygame.transform.scale(top_right_earth_map, (625, 625))
+
+# Dictionary to store nukes
+nukes = {}
+
+# Load and scale nukes
+for t in tank_types:
+    nukes[t] = {}
+    for level in levels:
+        filename = f"Nukes/{t}Nukes/{t}NukeLevel{level}.png"
+        nuke_image = pygame.image.load(filename)
+        scaled_nuke = pygame.transform.scale(nuke_image, (200, 200))
+        nukes[t][level] = scaled_nuke
 
 # Dictionary to store rapidfires
 rapidfires = {}
