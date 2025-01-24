@@ -19,6 +19,7 @@ def new_client(client_socket, client_address):
                 break
             data = data.strip()
             player_id, positionX, positionY = map(int, data.split(","))
+            player_id = len(clients) + 1
             positions[player_id] = (positionX, positionY)
             for client in clients:
                 client.sendall(str(positions).encode("utf-8"))
