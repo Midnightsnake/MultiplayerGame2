@@ -472,8 +472,9 @@ while run:
       bulletpositionX += bulletspeedX
       bulletpositionY += bulletspeedY
       display.blit(health_bars[healthtype][health - 1],(positionX - 12, positionY - 35))
-      #for player, (x, y) in positions.items():
-        #display.blit(equippedtank, (x, y))
+      for player, (x, y) in positions.items():
+        if player != player_id:
+          display.blit(equippedtank, (x, y))
       display.blit(equippedtank,(positionX, positionY))
       positionX += speedX
       positionY += speedY

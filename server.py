@@ -17,12 +17,13 @@ def new_client(client_socket, client_address):
             data = client_socket.recv(1024).decode("utf-8")
             if not data:
                 break
+            data = data.strip()
             player_id, positionX, positionY = map(int, data.split(","))
             positions[player_id] = (positionX, positionY)
             for client in clients:
                 client.sendall(str(positions).encode("utf-8"))
-        except:
-            clients.removed(client_socket)
+        except BrokenPipeError:
+            clients.remove(client)
             break
     client_socket.close()
 while True:
