@@ -173,7 +173,7 @@ health_bars = {
 h = 40
 for i in range(1, 4):
   for j in range(0, h + 1):
-      health_bars[i].append(pygame.image.load("HealthBars/HealthBarsType" + str(i) + "/HealthBars" + str(i) + "-" + str(j) + ".png.png"))
+      health_bars[i].append(pygame.image.load("HealthBars/HealthBarsType" + str(i) + "/HealthBars" + str(i) + "-" + str(j) + ".png"))
   h += 10
   
 levels_icons = {}
