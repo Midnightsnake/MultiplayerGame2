@@ -483,7 +483,7 @@ while run:
         else:
           display.blit(equippedshield, (positionX - 10, positionY - 10))
       for bullet in active_bullets:
-        bullet["x"] += bullet_speedX
+        bullet["x"] += bullet["speedX"]
         bullet["y"] += bullet["speedY"]
         bullet["speedY"] += bullet_gravity
         if bullet["x"] > 1920 or bullet["x"] < 0:
