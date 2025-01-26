@@ -1,8 +1,11 @@
+#need to change bullets, flaks, guns, shields
+
 import pygame
 import pygame.draw_py
 import socket
 import threading
 import time
+import math
 player_id = 1
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect(("127.0.0.1", 12345))
@@ -29,16 +32,18 @@ display = pygame.display.set_mode((1920, 1080))
 gamestatus = 0
 customization = 0
 playergravity = 25
-bulletgravity = 0.1
+bulletgravity = 4
 speedX = 0
 speedY = 0
 speed1 = 1
 positionX = 1000
 positionY = 700
+
+active_bullets = []
+bullet_speedX = 5
+bullet_gravity = 0.2
 bulletpositionX = -1000
 bulletpositionY = -1000
-bulletspeedX = 0
-bulletspeedY = 0
 lavaY = 950
 health = 40
 healthtype = 1
@@ -285,6 +290,15 @@ while run:
           if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
             speedX = speed1
           if event.key == bulletkey:
+            bullet_X = positionX
+            bullet_Y = positionY
+            mouse_X, mouse_Y = pygame.mouse.get_pos()
+            direction_X = mouse_X - bullet_X
+            direction_Y = mouse_Y - bullet_Y
+            magnitude = math.sqrt(direction_X ** 2 + direction_Y ** 2)
+            direction_X = (direction_X / magnitude) * 10
+            direction_Y = (direction_Y / magnitude) * 10
+            active_bullets.append({"x":bullet_X, "y":bullet_Y, "speedX":direction_X, "speedY":direction_Y})
             bulletactive = True
             shieldactive = False
           if event.key == rapidfirekey:
@@ -345,10 +359,10 @@ while run:
             if gamestatus == 1:
               bulletpositionX = positionX + 5
               bulletpositionY = positionY - 35
-              bulletspeedX = 5
-              bulletspeedY = -5
+              bulletspeedX = 1
+              bulletspeedY = -1
               if bulletpositionX > -100 and bulletpositionY > -100:
-                bulletspeedY - bulletgravity
+                bulletspeedY += bulletgravity
             if pos[0] >= 1010 and pos[0] <= 1160 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 0:
               equippedtank = tanks["Earth"][0]
               equippedtankpreview = tanks["Earth"][1]
@@ -468,9 +482,14 @@ while run:
           shieldactive = False
         else:
           display.blit(equippedshield, (positionX - 10, positionY - 10))
-      display.blit(equippedbullet, (bulletpositionX, bulletpositionY))
-      bulletpositionX += bulletspeedX
-      bulletpositionY += bulletspeedY
+      for bullet in active_bullets:
+        bullet["x"] += bullet_speedX
+        bullet["y"] += bullet["speedY"]
+        bullet["speedY"] += bullet_gravity
+        if bullet["x"] > 1920 or bullet["x"] < 0:
+          active_bullets.remove(bullet)
+      for bullet in active_bullets:
+        display.blit(equippedbullet, (bullet["x"], bullet["y"]))
       display.blit(health_bars[healthtype][health - 1],(positionX - 12, positionY - 35))
       for player, (x, y) in positions.items():
         if player != player_id:
