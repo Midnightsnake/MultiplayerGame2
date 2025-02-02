@@ -33,6 +33,8 @@ gamestatus = 0
 customization = 0
 playergravity = 25
 bulletgravity = 4
+bullet_shooting_time = time.time()
+bullets_remaining = 100
 speedX = 0
 speedY = 0
 speed1 = 1
@@ -289,7 +291,8 @@ while run:
             speedX = -speed1
           if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
             speedX = speed1
-          if event.key == bulletkey:
+          if event.key == bulletkey and time.time() - bullet_shooting_time >= 2 and bullets_remaining >= 1:
+            bullet_shooting_time = time.time()
             bullet_X = positionX
             bullet_Y = positionY
             mouse_X, mouse_Y = pygame.mouse.get_pos()
@@ -301,6 +304,7 @@ while run:
             active_bullets.append({"x":bullet_X, "y":bullet_Y, "speedX":direction_X, "speedY":direction_Y})
             bulletactive = True
             shieldactive = False
+            bullets_remaining -= 1
           if event.key == rapidfirekey:
             rapidfireactive = True
           if event.key == shieldkey and shieldactive == False:
@@ -465,17 +469,33 @@ while run:
         s.fill((255, 255, 255))
         display.blit(s, (400, 200))
         text21 = font4.render("Game Over", False, (0, 0, 0))
+        text23 = font2.render("Play another game", False, (0, 0, 0))
+        text24 = font2.render("Return to home screen", False, (0, 0, 0))
+        text25 = font2.render("Placement:", False, (0, 0, 0))
+        text26 = font2.render("Kills:", False, (0, 0, 0))
         display.blit(text21, (700, 250))
-      pygame.draw.rect(display, pygame.Color(0, 0, 0), (200, 130, 610, 70))
-      pygame.draw.rect(display, pygame.Color(colors["White"]), (205, 135, 600, 60))
+        display.blit(text23, (400, 650))
+        display.blit(text24, (700, 650))
+        display.blit(text25, (1200, 650))
+        display.blit(text26, (1500, 650))
+      pygame.draw.rect(display, pygame.Color(0, 0, 0), (200, 130, 1110, 70))
+      pygame.draw.rect(display, pygame.Color(colors["White"]), (205, 135, 1100, 60))
       delta_time = clock.tick(60)/1000
       time_remaining -= delta_time
       minutes_remaining = int(time_remaining//60)
       seconds_remaining = int(time_remaining % 60)
-      text19 = font2.render(f"Time Remaining: {minutes_remaining}:{seconds_remaining}", False, (0, 0, 0))
+      text19 = font2.render(f"Time Remaining: {minutes_remaining}:{seconds_remaining:02d}", False, (0, 0, 0))
       text20 = font2.render("Players Remaining: 12", False, (0, 0, 0))
+      cooldown = time.time() - bullet_shooting_time
+      if 2 - cooldown > 0:
+        text21 = font2.render(f"Bullet Cooldown: {(2 - cooldown):.1f} seconds", False, (0, 0, 0))
+      else:
+        text21 = font2.render(f"Bullet Cooldown: 0.0 seconds", False, (0, 0, 0))
+      text22 = font2.render(f"Bullets Remaining: {bullets_remaining}", False, (0, 0, 0))
       display.blit(text19, (220, 155))
       display.blit(text20, (470, 155))
+      display.blit(text21, (720, 155))
+      display.blit(text22, (1070, 155))
       positionY += playergravity * delta_time
       if positionX >= 300 and positionX <= 1575 and positionY >= 868:
         positionY = 868
