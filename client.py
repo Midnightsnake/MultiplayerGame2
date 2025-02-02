@@ -38,7 +38,7 @@ speedY = 0
 speed1 = 1
 positionX = 1000
 positionY = 700
-
+time_remaining = 300
 active_bullets = []
 bullet_speedX = 5
 bullet_gravity = 0.2
@@ -468,11 +468,14 @@ while run:
         display.blit(text21, (700, 250))
       pygame.draw.rect(display, pygame.Color(0, 0, 0), (200, 130, 610, 70))
       pygame.draw.rect(display, pygame.Color(colors["White"]), (205, 135, 600, 60))
-      text19 = font2.render("Time Remaining: 5:00", False, (0, 0, 0))
+      delta_time = clock.tick(60)/1000
+      time_remaining -= delta_time
+      minutes_remaining = int(time_remaining//60)
+      seconds_remaining = int(time_remaining % 60)
+      text19 = font2.render(f"Time Remaining: {minutes_remaining}:{seconds_remaining}", False, (0, 0, 0))
       text20 = font2.render("Players Remaining: 12", False, (0, 0, 0))
       display.blit(text19, (220, 155))
       display.blit(text20, (470, 155))
-      delta_time = clock.tick(60)/1000
       positionY += playergravity * delta_time
       if positionX >= 300 and positionX <= 1575 and positionY >= 868:
         positionY = 868
