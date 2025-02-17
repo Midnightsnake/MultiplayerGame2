@@ -1,24 +1,74 @@
 #need to change bullets, flaks, guns, shields
 
 import pygame
-import pygame.draw_py
 import socket
 import threading
 import time
 import math
+import pickle
+import sys
 player_id = 1
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect(("127.0.0.1", 12345))
 def receive_data():
-  global positions
-  while True:
+    global players, bullets, time_remaining
+
+    while True:
+        try:
+            data = client_socket.recv(4096)
+            if not data:
+                break
+            msg = pickle.loads(data)
+
+            # Special messages (server_full, handshake, etc.)
+            if "action" in msg:
+                if msg["action"] == "server_full":
+                    print("Server is full. Exiting.")
+                    pygame.quit()
+                    sys.exit()
+
+            # Normal game state broadcast
+            if "players" in msg and "bullets" in msg:
+                with lock:
+                    players = msg["players"]
+                    bullets = msg["bullets"]
+                    time_remaining = msg.get("time_left", 300)
+
+        except:
+            break
+
+def send_to_server(message_dict):
     try:
-      data = client_socket.recv(1024).decode("utf-8")
-      positions = eval(data)
+        data = pickle.dumps(message_dict)
+        client_socket.sendall(data)
     except:
-      break
-thread = threading.Thread(target = receive_data)
-thread.start()
+        pass
+
+def draw_leaderboard(screen):
+    """
+    Draw a simple leaderboard in the top-right corner,
+    listing all players by kills descending, or by ID for a simpler approach.
+    """
+    # Sort players by kills descending
+    sorted_players = sorted(players.items(), key=lambda p: p[1]["kills"], reverse=True)
+    # Start from some top-right position
+    x_start = 1720
+    y_start = 20
+    line_height = 30
+
+    label = font2.render("Leaderboard", True, (255,255,255))
+    screen.blit(label, (x_start, y_start))
+    y_offset = y_start + line_height
+
+    for pid, pdata in sorted_players:
+        kills = pdata["kills"]
+        text_str = f"Player {pid}: {kills} kills"
+        text_surf = font2.render(text_str, True, (255, 255, 255))
+        screen.blit(text_surf, (x_start, y_offset))
+        y_offset += line_height
+
+lock = threading.Thread(target = receive_data)
+lock.start()
 pygame.init()
 pygame.font.init()
 clock = pygame.time.Clock()
@@ -281,6 +331,20 @@ for t in tank_types:
 equippedtank = tanks["Earth"][0]
 equippedtankpreview = tanks["Earth"][1]
 
+# Receive initial handshake
+initial_data = client_socket.recv(4096)
+handshake = pickle.loads(initial_data)
+
+if handshake.get("action") == "server_full":
+  print("Server is full. Exiting.")
+  client_socket.close()
+if handshake.get("action") == "handshake":
+  my_id = handshake.get("player_id")
+  print(f"[HANDSHAKE] My ID is {my_id}")
+else:
+  print("Did not receive a proper handshake. Exiting.")
+  client_socket.close()
+
 run = True
 while run:
     for event in pygame.event.get():
@@ -292,19 +356,23 @@ while run:
           if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
             speedX = speed1
           if event.key == bulletkey and time.time() - bullet_shooting_time >= 2 and bullets_remaining >= 1:
-            bullet_shooting_time = time.time()
-            bullet_X = positionX
-            bullet_Y = positionY
-            mouse_X, mouse_Y = pygame.mouse.get_pos()
-            direction_X = mouse_X - bullet_X
-            direction_Y = mouse_Y - bullet_Y
-            magnitude = math.sqrt(direction_X ** 2 + direction_Y ** 2)
-            direction_X = (direction_X / magnitude) * 10
-            direction_Y = (direction_Y / magnitude) * 10
-            active_bullets.append({"x":bullet_X, "y":bullet_Y, "speedX":direction_X, "speedY":direction_Y})
-            bulletactive = True
-            shieldactive = False
-            bullets_remaining -= 1
+            # Shoot
+            mouse_x, mouse_y = pygame.mouse.get_pos()
+            with lock:
+              if my_id in players:
+                px, py = players[my_id]["pos"]
+            dir_x = mouse_x - px
+            dir_y = mouse_y - py
+            length = math.hypot(dir_x, dir_y)
+            if length != 0:
+              dir_x /= length
+              dir_y /= length
+            send_to_server({
+            "action": "shoot",
+            "player_id": my_id,
+            "dx": dir_x,
+            "dy": dir_y
+                    })
           if event.key == rapidfirekey:
             rapidfireactive = True
           if event.key == shieldkey and shieldactive == False:
@@ -453,12 +521,23 @@ while run:
             if pos[0] >= 890 and pos[0] <= 945 and pos[1] >= 185 and pos[1] <= 265 and (logging_in == True or signing_up == True):
               signed_in = True
     if gamestatus == 1:
-      client_socket.sendall(f"{player_id}, {positionX}, {positionY}".encode("utf-8"))
+      # Send movement if alive
+      with lock:
+        if my_id in players and not players[my_id]["is_dead"]:
+          if speedX != 0 or speedY != 0:
+              send_to_server({
+                "action": "move",
+                "player_id": my_id,
+                "dx": speedX,
+                "dy": speedY
+              })
       display.fill((0, 255, 255))
       display.blit(bottom_left_earth_map, (330, 345))
       display.blit(bottom_right_earth_map, (955, 345))
       display.blit(top_left_earth_map, (330, 110))
       display.blit(top_right_earth_map, (955, 110))
+      # Draw leaderboard (top-right)
+      draw_leaderboard(display)
       pygame.draw.rect(display, pygame.Color(colors["Blue"]), (190, lavaY, 1550, 1100))
       lavaY -= 0.06
       if positionY >= lavaY - 35:
@@ -480,8 +559,7 @@ while run:
         display.blit(text26, (1500, 650))
       pygame.draw.rect(display, pygame.Color(0, 0, 0), (200, 130, 1110, 70))
       pygame.draw.rect(display, pygame.Color(colors["White"]), (205, 135, 1100, 60))
-      delta_time = clock.tick(60)/1000
-      time_remaining -= delta_time
+      delta_time = clock.tick(60)/100
       minutes_remaining = int(time_remaining//60)
       seconds_remaining = int(time_remaining % 60)
       text19 = font2.render(f"Time Remaining: {minutes_remaining}:{seconds_remaining:02d}", False, (0, 0, 0))
@@ -505,21 +583,51 @@ while run:
           shieldactive = False
         else:
           display.blit(equippedshield, (positionX - 10, positionY - 10))
-      for bullet in active_bullets:
-        bullet["x"] += bullet["speedX"]
-        bullet["y"] += bullet["speedY"]
-        bullet["speedY"] += bullet_gravity
-        if bullet["x"] > 1920 or bullet["x"] < 0:
-          active_bullets.remove(bullet)
-      for bullet in active_bullets:
-        display.blit(equippedbullet, (bullet["x"], bullet["y"]))
-      display.blit(health_bars[healthtype][health - 1],(positionX - 12, positionY - 35))
-      for player, (x, y) in positions.items():
-        if player != player_id:
-          display.blit(equippedtank, (x, y))
-      display.blit(equippedtank,(positionX, positionY))
-      positionX += speedX
-      positionY += speedY
+      with lock:
+            # Draw players
+            for pid, pdata in players.items():
+                px, py = pdata["pos"]
+                element = pdata["element"]
+                health = pdata["health"]
+                is_dead = pdata["is_dead"]
+
+                # If dead, optionally skip drawing the player, or draw them differently
+                if is_dead:
+                    # Let's not draw a dead player at all
+                    continue
+
+                # Draw the player's 20x20 rect
+                
+                # spawn each player's image
+                pygame.draw.rect(screen, color, (px - 10, py - 10, 20, 20))
+
+                # Health bar above the player
+                
+                # instead of health rectangles we have health images
+                bar_width = 20
+                bar_height = 5
+                health_ratio = max(0, health) / 100.0
+                pygame.draw.rect(screen, (0, 255, 0),
+                                 (px - 10, py - 20, int(bar_width * health_ratio), bar_height))
+                # Red background for missing portion
+                pygame.draw.rect(screen, (255, 0, 0),
+                                 (px - 10 + int(bar_width * health_ratio),
+                                  py - 20,
+                                  int(bar_width * (1 - health_ratio)),
+                                  bar_height))
+
+            # Draw bullets
+            
+            # bullet custom images 
+            for b in bullets:
+                bx, by = b["x"], b["y"]
+                pygame.draw.rect(screen, (255, 0, 0), (bx - 4, by - 4, 8, 8))
+
+            # If we're dead, show the gray box with "YOU DIED!"
+            if my_id in players and players[my_id]["is_dead"]:
+                dead_surf = font.render("YOU DIED!", True, (255, 0, 0))
+                rect = dead_surf.get_rect(center=(WIDTH//2, HEIGHT//2))
+                screen.blit(dead_surf, rect)
     else:
       display.fill((255, 255, 255))
       pygame.draw.rect(display, pygame.Color(colors["Gold"]), (0, 0, 960, 972))
