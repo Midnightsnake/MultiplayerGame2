@@ -5,7 +5,7 @@ import time
 import random
 
 HOST = "127.0.0.1"
-PORT = 12345
+PORT = 5555
 MAX_PLAYERS = 12
 
 # Each player's data:

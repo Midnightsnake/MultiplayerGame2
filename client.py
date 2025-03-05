@@ -1,5 +1,3 @@
-#need to change bullets, flaks, guns, shields
-
 import pygame
 import socket
 import threading
@@ -8,18 +6,23 @@ import math
 import pickle
 import sys
 player_id = 1
-client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client_socket.connect(("127.0.0.1", 12345))
+
+players = {}
+bullets = []
+
+client_socket = None
+
 def receive_data():
     global players, bullets, time_remaining
 
     while True:
         try:
             data = client_socket.recv(4096)
+            print("Hello")
             if not data:
                 break
             msg = pickle.loads(data)
-
+            print("Hey")
             # Special messages (server_full, handshake, etc.)
             if "action" in msg:
                 if msg["action"] == "server_full":
@@ -28,12 +31,13 @@ def receive_data():
                     sys.exit()
 
             # Normal game state broadcast
+            print("Hi")
             if "players" in msg and "bullets" in msg:
                 with lock:
                     players = msg["players"]
                     bullets = msg["bullets"]
                     time_remaining = msg.get("time_left", 300)
-
+                    print("Bye")
         except:
             break
 
@@ -67,8 +71,7 @@ def draw_leaderboard(screen):
         screen.blit(text_surf, (x_start, y_offset))
         y_offset += line_height
 
-lock = threading.Thread(target = receive_data)
-lock.start()
+lock = threading.Lock()
 pygame.init()
 pygame.font.init()
 clock = pygame.time.Clock()
@@ -332,6 +335,10 @@ equippedtank = tanks["Earth"][0]
 equippedtankpreview = tanks["Earth"][1]
 
 # Receive initial handshake
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client_socket.connect(("127.0.0.1", 5555))
+client_socket.setblocking(True)
+
 initial_data = client_socket.recv(4096)
 handshake = pickle.loads(initial_data)
 
@@ -344,6 +351,8 @@ if handshake.get("action") == "handshake":
 else:
   print("Did not receive a proper handshake. Exiting.")
   client_socket.close()
+
+threading.Thread(target=receive_data, daemon=True).start()
 
 run = True
 while run:
@@ -361,6 +370,8 @@ while run:
             with lock:
               if my_id in players:
                 px, py = players[my_id]["pos"]
+              else:
+                px, py = (1920//2, 1080//2)
             dir_x = mouse_x - px
             dir_y = mouse_y - py
             length = math.hypot(dir_x, dir_y)
@@ -587,7 +598,7 @@ while run:
             # Draw players
             for pid, pdata in players.items():
                 px, py = pdata["pos"]
-                element = pdata["element"]
+                #element = pdata["element"]
                 health = pdata["health"]
                 is_dead = pdata["is_dead"]
 
@@ -599,7 +610,7 @@ while run:
                 # Draw the player's 20x20 rect
                 
                 # spawn each player's image
-                pygame.draw.rect(screen, color, (px - 10, py - 10, 20, 20))
+                pygame.draw.rect(display, (255, 255, 255), (px - 10, py - 10, 20, 20))
 
                 # Health bar above the player
                 
@@ -607,10 +618,10 @@ while run:
                 bar_width = 20
                 bar_height = 5
                 health_ratio = max(0, health) / 100.0
-                pygame.draw.rect(screen, (0, 255, 0),
+                pygame.draw.rect(display, (0, 255, 0),
                                  (px - 10, py - 20, int(bar_width * health_ratio), bar_height))
                 # Red background for missing portion
-                pygame.draw.rect(screen, (255, 0, 0),
+                pygame.draw.rect(display, (255, 0, 0),
                                  (px - 10 + int(bar_width * health_ratio),
                                   py - 20,
                                   int(bar_width * (1 - health_ratio)),
@@ -621,13 +632,13 @@ while run:
             # bullet custom images 
             for b in bullets:
                 bx, by = b["x"], b["y"]
-                pygame.draw.rect(screen, (255, 0, 0), (bx - 4, by - 4, 8, 8))
+                pygame.draw.rect(display, (255, 0, 0), (bx - 4, by - 4, 8, 8))
 
             # If we're dead, show the gray box with "YOU DIED!"
             if my_id in players and players[my_id]["is_dead"]:
-                dead_surf = font.render("YOU DIED!", True, (255, 0, 0))
-                rect = dead_surf.get_rect(center=(WIDTH//2, HEIGHT//2))
-                screen.blit(dead_surf, rect)
+                dead_surf = font4.render("YOU DIED!", True, (255, 0, 0))
+                rect = dead_surf.get_rect(center=(1920//2, 1080//2))
+                display.blit(dead_surf, rect)
     else:
       display.fill((255, 255, 255))
       pygame.draw.rect(display, pygame.Color(colors["Gold"]), (0, 0, 960, 972))
