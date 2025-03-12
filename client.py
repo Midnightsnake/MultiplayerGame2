@@ -18,11 +18,9 @@ def receive_data():
     while True:
         try:
             data = client_socket.recv(4096)
-            print("Hello")
             if not data:
                 break
             msg = pickle.loads(data)
-            print("Hey")
             # Special messages (server_full, handshake, etc.)
             if "action" in msg:
                 if msg["action"] == "server_full":
@@ -31,13 +29,12 @@ def receive_data():
                     sys.exit()
 
             # Normal game state broadcast
-            print("Hi")
             if "players" in msg and "bullets" in msg:
                 with lock:
                     players = msg["players"]
                     bullets = msg["bullets"]
                     time_remaining = msg.get("time_left", 300)
-                    print("Bye")
+
         except:
             break
 
