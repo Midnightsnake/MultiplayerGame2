@@ -30,6 +30,7 @@ player_connections = {}  # map player_id -> socket for direct messages
 # Game timer: starts (5 minutes = 300s) once we have at least 2 players
 game_start_time = None
 GAME_DURATION = 300  # 5 minutes in seconds
+lavaY = 950
 
 # A lock for thread-safe updates
 lock = threading.Lock()
@@ -95,18 +96,20 @@ def broadcast_game_state():
     Sends the entire game state (players, bullets) plus
     the countdown timer (time_left) to all clients.
     """
-    global game_start_time
+    global game_start_time, lavaY
     # Calculate time_left if we have at least 2 players and the timer started
     if game_start_time is not None:
         elapsed = time.time() - game_start_time
         time_left = max(0, GAME_DURATION - elapsed)
     else:
         time_left = GAME_DURATION  # or just 0, if you prefer not showing a timer until it starts
-
+    lavaY -= 0.06
+    print(lavaY)
     game_state = {
         "players": players,   # includes positions, elements, health, kills, is_dead, etc.
         "bullets": bullets,
-        "time_left": time_left
+        "time_left": time_left,
+        "lavaY": lavaY
     }
     data = pickle.dumps(game_state)
 
@@ -254,7 +257,7 @@ def main():
             player_connections[player_id] = conn
 
             # If we now have at least 2 players, and the timer hasn't started, start it
-            if game_start_time is None and len(players) >= 4:
+            if game_start_time is None and len(players) >= 2:
                 game_start_time = time.time()
 
         # Send handshake

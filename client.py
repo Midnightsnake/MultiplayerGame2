@@ -34,7 +34,7 @@ def receive_data():
                     players = msg["players"]
                     bullets = msg["bullets"]
                     time_remaining = msg.get("time_left", 300)
-
+                    lavaY = msg.get("lavaY")
         except:
             break
 
@@ -91,12 +91,12 @@ speed1 = 1
 positionX = 1000
 positionY = 700
 time_remaining = 300
+lavaY = 950
 active_bullets = []
 bullet_speedX = 5
 bullet_gravity = 0.2
 bulletpositionX = -1000
 bulletpositionY = -1000
-lavaY = 950
 health = 40
 healthtype = 1
 bullettype = 1
@@ -547,7 +547,6 @@ while run:
       # Draw leaderboard (top-right)
       draw_leaderboard(display)
       pygame.draw.rect(display, pygame.Color(colors["Blue"]), (190, lavaY, 1550, 1100))
-      lavaY -= 0.06
       if positionY >= lavaY - 35:
         health = 0
         pygame.draw.rect(display, pygame.Color(colors["Silver"]), (400, 200, 1200, 700))
