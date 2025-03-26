@@ -99,12 +99,11 @@ def broadcast_game_state():
     global game_start_time, lavaY
     # Calculate time_left if we have at least 2 players and the timer started
     if game_start_time is not None:
+        lavaY -= 0.03
         elapsed = time.time() - game_start_time
         time_left = max(0, GAME_DURATION - elapsed)
     else:
         time_left = GAME_DURATION  # or just 0, if you prefer not showing a timer until it starts
-    lavaY -= 0.06
-    print(lavaY)
     game_state = {
         "players": players,   # includes positions, elements, health, kills, is_dead, etc.
         "bullets": bullets,
@@ -166,7 +165,7 @@ def check_bullet_collisions():
                 bullet_bottom >= player_top and
                 bullet_top <= player_bottom):
                 # We have a collision
-                pdata["health"] -= 25
+                pdata["health"] -= 2.5
                 hit_something = True
 
                 if pdata["health"] <= 0:

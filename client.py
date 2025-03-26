@@ -1,3 +1,4 @@
+#change bullets, flaks, and shields
 import pygame
 import socket
 import threading
@@ -13,7 +14,7 @@ bullets = []
 client_socket = None
 
 def receive_data():
-    global players, bullets, time_remaining
+    global players, bullets, time_remaining, lavaY
 
     while True:
         try:
@@ -368,7 +369,7 @@ while run:
               if my_id in players:
                 px, py = players[my_id]["pos"]
               else:
-                px, py = (1920//2, 1080//2)
+                px, py = (0, 0)
             dir_x = mouse_x - px
             dir_y = mouse_y - py
             length = math.hypot(dir_x, dir_y)
@@ -547,23 +548,6 @@ while run:
       # Draw leaderboard (top-right)
       draw_leaderboard(display)
       pygame.draw.rect(display, pygame.Color(colors["Blue"]), (190, lavaY, 1550, 1100))
-      if positionY >= lavaY - 35:
-        health = 0
-        pygame.draw.rect(display, pygame.Color(colors["Silver"]), (400, 200, 1200, 700))
-        s = pygame.Surface((1200,700), pygame.SRCALPHA)
-        s.set_alpha(128)
-        s.fill((255, 255, 255))
-        display.blit(s, (400, 200))
-        text21 = font4.render("Game Over", False, (0, 0, 0))
-        text23 = font2.render("Play another game", False, (0, 0, 0))
-        text24 = font2.render("Return to home screen", False, (0, 0, 0))
-        text25 = font2.render("Placement:", False, (0, 0, 0))
-        text26 = font2.render("Kills:", False, (0, 0, 0))
-        display.blit(text21, (700, 250))
-        display.blit(text23, (400, 650))
-        display.blit(text24, (700, 650))
-        display.blit(text25, (1200, 650))
-        display.blit(text26, (1500, 650))
       pygame.draw.rect(display, pygame.Color(0, 0, 0), (200, 130, 1110, 70))
       pygame.draw.rect(display, pygame.Color(colors["White"]), (205, 135, 1100, 60))
       delta_time = clock.tick(60)/100
@@ -632,9 +616,18 @@ while run:
 
             # If we're dead, show the gray box with "YOU DIED!"
             if my_id in players and players[my_id]["is_dead"]:
-                dead_surf = font4.render("YOU DIED!", True, (255, 0, 0))
-                rect = dead_surf.get_rect(center=(1920//2, 1080//2))
-                display.blit(dead_surf, rect)
+                pygame.draw.rect(display, pygame.Color(0, 0, 0), (445, 245, 1010, 610))
+                pygame.draw.rect(display, pygame.Color(colors["Bronze"]), (450, 250, 1000, 600))
+                text27 = font4.render("Game Over", False, (0, 0, 0))
+                text23 = font2.render("Play another game", False, (0, 0, 0))
+                text24 = font2.render("Return to home screen", False, (0, 0, 0))
+                text25 = font2.render("Placement:", False, (0, 0, 0))
+                text26 = font2.render("Kills:", False, (0, 0, 0))
+                display.blit(text27, (700, 250))
+                display.blit(text23, (400, 650))
+                display.blit(text24, (700, 650))
+                display.blit(text25, (1200, 650))
+                display.blit(text26, (1500, 650))
     else:
       display.fill((255, 255, 255))
       pygame.draw.rect(display, pygame.Color(colors["Gold"]), (0, 0, 960, 972))
