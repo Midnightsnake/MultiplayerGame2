@@ -54,8 +54,8 @@ def draw_leaderboard(screen):
     # Sort players by kills descending
     sorted_players = sorted(players.items(), key=lambda p: p[1]["kills"], reverse=True)
     # Start from some top-right position
-    x_start = 1720
-    y_start = 20
+    x_start = 200
+    y_start = 200
     line_height = 30
 
     label = font2.render("Leaderboard", True, (255,255,255))
@@ -547,7 +547,7 @@ while run:
       display.blit(top_right_earth_map, (955, 110))
       # Draw leaderboard (top-right)
       draw_leaderboard(display)
-      pygame.draw.rect(display, pygame.Color(colors["Blue"]), (0, lavaY, 2000, 1100))
+      pygame.draw.rect(display, pygame.Color(colors["Blue"]), (0, lavaY, 2000, 2000))
       pygame.draw.rect(display, pygame.Color(0, 0, 0), (200, 130, 1110, 70))
       pygame.draw.rect(display, pygame.Color(colors["White"]), (205, 135, 1100, 60))
       delta_time = clock.tick(60)/100
@@ -642,7 +642,7 @@ while run:
                   gamestatus = 0
     else:
       display.fill((255, 255, 255))
-      pygame.draw.rect(display, pygame.Color(colors["Gold"]), (0, 0, 960, 972))
+      pygame.draw.rect(display, pygame.Color(colors["Gold"]), (0, 0, 960, 1200))
       text1 = font3.render("PLAY SOLO", False, pygame.Color(0, 0, 0))
       text2 = font3.render("PLAY RANKED", False, pygame.Color(0, 0, 0))
       text3 = font3.render("PLAY SQUADS", False, pygame.Color(0, 0, 0))
