@@ -547,7 +547,7 @@ while run:
       display.blit(top_right_earth_map, (955, 110))
       # Draw leaderboard (top-right)
       draw_leaderboard(display)
-      pygame.draw.rect(display, pygame.Color(colors["Blue"]), (190, lavaY, 1550, 1100))
+      pygame.draw.rect(display, pygame.Color(colors["Blue"]), (0, lavaY, 2000, 1100))
       pygame.draw.rect(display, pygame.Color(0, 0, 0), (200, 130, 1110, 70))
       pygame.draw.rect(display, pygame.Color(colors["White"]), (205, 135, 1100, 60))
       delta_time = clock.tick(60)/100
@@ -638,6 +638,8 @@ while run:
                 display.blit(text23, (500, 775))
                 display.blit(text24, (500, 675))
                 display.blit(text25, (1200, 775))
+                if pos[0] >= 480 and pos[0] <= 750 and pos[1] >= 660 and pos[1] <= 710 and gamestatus == 1:
+                  gamestatus = 0
     else:
       display.fill((255, 255, 255))
       pygame.draw.rect(display, pygame.Color(colors["Gold"]), (0, 0, 960, 972))
@@ -661,7 +663,7 @@ while run:
       text18 = font3.render("Exit Game", False, (0, 0, 0))
       display.blit(levels_icons[level_number // 10], (200, 115))
       if customization == 0:
-        pygame.draw.rect(display, pygame.Color(colors["Bronze"]), (960, 0, 960, 972))
+        pygame.draw.rect(display, pygame.Color(colors["Bronze"]), (960, 0, 1200, 1200))
         if equippedtank == tanks["Earth"][0]:
           pygame.draw.rect(display, pygame.Color(255, 255, 255), (1000, 140, 170, 170))
         elif equippedtank == tanks["Electric"][0]:
@@ -724,7 +726,7 @@ while run:
         display.blit(tanks["Wind"][1], (1520, 320))
         display.blit(equippedtankpreview, (1265, 490))
       if customization == 1:
-        pygame.draw.rect(display, pygame.Color(colors["Silver"]), (960, 0, 960, 972))
+        pygame.draw.rect(display, pygame.Color(colors["Silver"]), (960, 0, 1200, 1200))
         if equipped_gun_type == 1:
           pygame.draw.rect(display, pygame.Color(255, 255, 255), (1000, 140, 170, 170))
         elif equipped_gun_type == 2:
