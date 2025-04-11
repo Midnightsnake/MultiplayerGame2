@@ -429,16 +429,17 @@ while run:
             if pos[0] >= 225 and pos[0] <= 425 and pos[1] >= 350 and pos[1] <= 750 and signed_in == True:
               gamestatus = 1
               send_to_server({
+                 "action": "skin",
                  "player_id": my_id,
                  "skin": equippedtank
               })
               print("Solo Game")
             if pos[0] >= 475 and pos[0] <= 675 and pos[1] >= 350 and pos[1] <= 750:
               print("Ranked Game")
-            if pos[0] >= 725 and pos[0] <= 925 and pos[1] >= 350 and pos[1] <= 750:
-              print("Squads Game")
-            if pos[0] >= 1430 and pos[0] <= 2000 and pos[1] >= 570 and pos[1] <= 610 and customization == 0:
-              customization = 1
+              if pos[0] >= 725 and pos[0] <= 925 and pos[1] >= 350 and pos[1] <= 750:
+                print("Squads Game")
+              if pos[0] >= 1430 and pos[0] <= 2000 and pos[1] >= 570 and pos[1] <= 610 and customization == 0:
+                customization = 1
             elif pos[0] >= 1430 and pos[0] <= 2000 and pos[1] >= 570 and pos[1] <= 610 and customization == 1:
               customization = 0
             if gamestatus == 1:
@@ -449,29 +450,23 @@ while run:
               if bulletpositionX > -100 and bulletpositionY > -100:
                 bulletspeedY += bulletgravity
             if pos[0] >= 1010 and pos[0] <= 1160 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 0:
-              equippedtank = tanks["Earth"][0]
-              equippedtankpreview = tanks["Earth"][1]
+              element = "Earth"
             if pos[0] >= 1180 and pos[0] <= 1330 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 0:
-              equippedtank = tanks["Electric"][0]
-              equippedtankpreview = tanks["Electric"][1]
+              element = "Electric"
             if pos[0] >= 1350 and pos[0] <= 1500 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 0:
-              equippedtank = tanks["Fire"][0]
-              equippedtankpreview = tanks["Fire"][1]
+              element = "Fire"
             if pos[0] >= 1520 and pos[0] <= 1670 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 0:
-              equippedtank = tanks["Grass"][0]
-              equippedtankpreview = tanks["Grass"][1]
+              element = "Grass"
             if pos[0] >= 1010 and pos[0] <= 1160 and pos[1] >= 320 and pos[1] <= 470 and gamestatus == 0 and customization == 0:
-              equippedtank = tanks["Ice"][0]
-              equippedtankpreview = tanks["Ice"][1]
+              element = "Ice"
             if pos[0] >= 1180 and pos[0] <= 1330 and pos[1] >= 320 and pos[1] <= 470 and gamestatus == 0 and customization == 0:
-              equippedtank = tanks["Plasma"][0]
-              equippedtankpreview = tanks["Plasma"][1]
+              element = "Plasma"
             if pos[0] >= 1350 and pos[0] <= 1500 and pos[1] >= 320 and pos[1] <= 470 and gamestatus == 0 and customization == 0:
-              equippedtank = tanks["Water"][0]
-              equippedtankpreview = tanks["Water"][1]
+              element = "Water"
             if pos[0] >= 1520 and pos[0] <= 1670 and pos[1] >= 320 and pos[1] <= 470 and gamestatus == 0 and customization == 0:
-              equippedtank = tanks["Wind"][0]
-              equippedtankpreview = tanks["Wind"][1]
+              element = "Wind"
+            equippedtank = tanks[element][0]
+            equippedtankpreview = tanks[element][1]
             if pos[0] >= 1010 and pos[0] <= 1160 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 1:
               equipped_gun_type = 1
               equipped_gun = guns["DefaultGuns"]["Red"]
@@ -582,7 +577,7 @@ while run:
             # Draw players
             for pid, pdata in players.items():
                 px, py = pdata["pos"]
-                #element = pdata["element"]
+                element = pdata["element"]
                 health = pdata["health"]
                 is_dead = pdata["is_dead"]
 
@@ -594,6 +589,12 @@ while run:
                 # Draw the player's 20x20 rect
                 
                 # spawn each player's image
+                send_to_server({
+                 "action": "skin",
+                 "player_id": my_id,
+                 "skin": equippedtank
+
+              })
                 display.blit(pdata["skin"], (px - 10, py - 10))
 
                 # Health bar above the player
