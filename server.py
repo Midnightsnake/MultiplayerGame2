@@ -243,12 +243,15 @@ def main():
                 random.randint(50, 255)
             )
             element = "Earth"
+            skin = pygame.image.load(f"Tanks/{t}Tank.png")
+            skin = pygame.transform.scale(skin, (40, 40))
             # Initialize the new player
             players[player_id] = {
                 "pos": (400, 300), # random between  50 too 950 for x and 600 to 700 for y
                 "element": element, # equipped element
                 "health": 100,
                 "kills": 0,
+                "skin": skin,
                 "is_dead": False,
             }
 

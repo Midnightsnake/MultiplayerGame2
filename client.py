@@ -428,6 +428,10 @@ while run:
               run = False
             if pos[0] >= 225 and pos[0] <= 425 and pos[1] >= 350 and pos[1] <= 750 and signed_in == True:
               gamestatus = 1
+              send_to_server({
+                 "player_id": my_id,
+                 "skin": equippedtank
+              })
               print("Solo Game")
             if pos[0] >= 475 and pos[0] <= 675 and pos[1] >= 350 and pos[1] <= 750:
               print("Ranked Game")
@@ -590,7 +594,7 @@ while run:
                 # Draw the player's 20x20 rect
                 
                 # spawn each player's image
-                pygame.draw.rect(display, (255, 255, 255), (px - 10, py - 10, 20, 20))
+                display.blit(pdata["skin"], (px - 10, py - 10))
 
                 # Health bar above the player
                 
