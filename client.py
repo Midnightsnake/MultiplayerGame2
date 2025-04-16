@@ -330,6 +330,7 @@ for t in tank_types:
   tanks[t][1] = pygame.transform.scale(tanks[t][1], (150, 150))
 
 equippedtank = tanks["Earth"][0]
+element = "Earth"
 equippedtankpreview = tanks["Earth"][1]
 
 # Receive initial handshake
@@ -428,11 +429,6 @@ while run:
               run = False
             if pos[0] >= 225 and pos[0] <= 425 and pos[1] >= 350 and pos[1] <= 750 and signed_in == True:
               gamestatus = 1
-              send_to_server({
-                 "action": "skin",
-                 "player_id": my_id,
-                 "skin": equippedtank
-              })
               print("Solo Game")
             if pos[0] >= 475 and pos[0] <= 675 and pos[1] >= 350 and pos[1] <= 750:
               print("Ranked Game")
@@ -451,20 +447,60 @@ while run:
                 bulletspeedY += bulletgravity
             if pos[0] >= 1010 and pos[0] <= 1160 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 0:
               element = "Earth"
+              send_to_server({
+                 "action": "element",
+                 "player_id": my_id,
+                 "element": element
+              })
             if pos[0] >= 1180 and pos[0] <= 1330 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 0:
               element = "Electric"
+              send_to_server({
+                 "action": "element",
+                 "player_id": my_id,
+                 "element": element
+              })
             if pos[0] >= 1350 and pos[0] <= 1500 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 0:
               element = "Fire"
+              send_to_server({
+                 "action": "element",
+                 "player_id": my_id,
+                 "element": element
+              })
             if pos[0] >= 1520 and pos[0] <= 1670 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 0:
               element = "Grass"
+              send_to_server({
+                 "action": "element",
+                 "player_id": my_id,
+                 "element": element
+              })
             if pos[0] >= 1010 and pos[0] <= 1160 and pos[1] >= 320 and pos[1] <= 470 and gamestatus == 0 and customization == 0:
               element = "Ice"
+              send_to_server({
+                 "action": "element",
+                 "player_id": my_id,
+                 "element": element
+              })
             if pos[0] >= 1180 and pos[0] <= 1330 and pos[1] >= 320 and pos[1] <= 470 and gamestatus == 0 and customization == 0:
               element = "Plasma"
+              send_to_server({
+                 "action": "element",
+                 "player_id": my_id,
+                 "element": element
+              })
             if pos[0] >= 1350 and pos[0] <= 1500 and pos[1] >= 320 and pos[1] <= 470 and gamestatus == 0 and customization == 0:
               element = "Water"
+              send_to_server({
+                 "action": "element",
+                 "player_id": my_id,
+                 "element": element
+              })
             if pos[0] >= 1520 and pos[0] <= 1670 and pos[1] >= 320 and pos[1] <= 470 and gamestatus == 0 and customization == 0:
               element = "Wind"
+              send_to_server({
+                 "action": "element",
+                 "player_id": my_id,
+                 "element": element
+              })
             equippedtank = tanks[element][0]
             equippedtankpreview = tanks[element][1]
             if pos[0] >= 1010 and pos[0] <= 1160 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 1:
@@ -589,13 +625,7 @@ while run:
                 # Draw the player's 20x20 rect
                 
                 # spawn each player's image
-                send_to_server({
-                 "action": "skin",
-                 "player_id": my_id,
-                 "skin": equippedtank
-
-              })
-                display.blit(pdata["skin"], (px - 10, py - 10))
+                display.blit(tanks[pdata["element"]][0], (px - 10, py - 10))
 
                 # Health bar above the player
                 
