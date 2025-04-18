@@ -1,4 +1,4 @@
-#change bullets, flaks, and shields
+#change shields
 import pygame
 import socket
 import threading
@@ -387,6 +387,10 @@ while run:
             rapidfireactive = True
           if event.key == shieldkey and shieldactive == False:
             shieldactive = True
+            send_to_server({
+                 "action": "shield",
+                 "player_id": my_id
+              })
             shieldtime = time.time()
           if event.key == minekey:
             mineactive = True
@@ -505,37 +509,37 @@ while run:
             equippedtankpreview = tanks[element][1]
             if pos[0] >= 1010 and pos[0] <= 1160 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 1:
               equipped_gun_type = 1
-              equipped_gun = guns["DefaultGuns"]["Red"]
+              equipped_gun = guns["DefaultGuns"][element]
               damage_gun = 1
               speed_gun = 1
             if pos[0] >= 1180 and pos[0] <= 1330 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 1:
               equipped_gun_type = 2
-              equipped_gun = guns["ShortGuns"]["Red"]
+              equipped_gun = guns["ShortGuns"][element]
               damage_gun = 0.75
               speed_gun = 1.25
             if pos[0] >= 1350 and pos[0] <= 1500 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 1:
               equipped_gun_type = 3
-              equipped_gun = guns["LongGuns"]["Red"]
+              equipped_gun = guns["LongGuns"][element]
               damage_gun = 1.25
               speed_gun = 0.75
             if pos[0] >= 1520 and pos[0] <= 1670 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 1:
               equipped_gun_type = 4
-              equipped_gun = guns["SpikeGuns"]["Red"]
+              equipped_gun = guns["SpikeGuns"][element]
               damage_gun = 1.5
               speed_gun = 1.25
             if pos[0] >= 1010 and pos[0] <= 1160 and pos[1] >= 320 and pos[1] <= 470 and gamestatus == 0 and customization == 1:
               equipped_gun_type = 5
-              equipped_gun = guns["BladeGuns"]["Red"]
+              equipped_gun = guns["BladeGuns"][element]
               damage_gun = 1.25
               speed_gun = 1.5
             if pos[0] >= 1180 and pos[0] <= 1330 and pos[1] >= 320 and pos[1] <= 470 and gamestatus == 0 and customization == 1:
               equipped_gun_type = 6
-              equipped_gun = guns["AncientGuns"]["Red"]
+              equipped_gun = guns["AncientGuns"][element]
               damage_gun = 0.5
               speed_gun = 2
             if pos[0] >= 1350 and pos[0] <= 1500 and pos[1] >= 320 and pos[1] <= 470 and gamestatus == 0 and customization == 1:
               equipped_gun_type = 7
-              equipped_gun = guns["ModernGuns"]["Red"]
+              equipped_gun = guns["ModernGuns"][element]
               damage_gun = 2
               speed_gun = 0.5
             if ((pos[0] >= 315 and pos[0] <= 435 and pos[1] >= 140 and pos[1] <= 190) or (pos[0] >= 445 and pos[0] <= 540 and pos[1] >= 140 and pos[1] <= 190)) and signed_in == False:
@@ -607,8 +611,10 @@ while run:
         shieldtimedifference = time.time() - shieldtime
         if shieldtimedifference > shieldduration:
           shieldactive = False
-        else:
-          display.blit(equippedshield, (positionX - 10, positionY - 10))
+          send_to_server({
+                 "action": "shield",
+                 "player_id": my_id
+              })
       with lock:
             # Draw players
             for pid, pdata in players.items():
@@ -626,6 +632,13 @@ while run:
                 
                 # spawn each player's image
                 display.blit(tanks[pdata["element"]][0], (px - 10, py - 10))
+                
+                # show shield
+                if pdata["shield"] == True:
+                  display.blit(equippedshield, (px, py))
+
+                # show weapon
+                display.blit(guns[pdata["element"][0], (px - 10, py - 10)])
 
                 # Health bar above the player
                 

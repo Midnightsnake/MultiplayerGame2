@@ -82,7 +82,9 @@ def handle_client(conn, addr, player_id):
                     element = msg.get("element")
                     if pid in players:
                         players[pid]["element"] = element
-                        print("Hi")
+                elif action == "shield":
+                    if pid in players:
+                        players[pid]["shield"] = not players[pid]["shield"]
     except Exception as e:
         print(f"[EXCEPTION] {e}")
     finally:
@@ -253,9 +255,11 @@ def main():
             players[player_id] = {
                 "pos": (400, 300), # random between  50 too 950 for x and 600 to 700 for y
                 "element": element, # equipped element
+                "guntype": "DefaultGun"
                 "health": 100,
                 "kills": 0,
                 "is_dead": False,
+                "shield": False
             }
 
             client_sockets.append(conn)
