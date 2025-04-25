@@ -1,4 +1,3 @@
-#change shields
 import pygame
 import socket
 import threading
