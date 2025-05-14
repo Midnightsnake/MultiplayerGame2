@@ -692,6 +692,8 @@ while run:
                 display.blit(text25, (1200, 775))
                 if pos[0] >= 480 and pos[0] <= 750 and pos[1] >= 660 and pos[1] <= 710 and gamestatus == 1:
                   gamestatus = 0
+            if players_remaining == 1 and not players[my_id]["is_dead"]:
+                pygame.draw.rect(display,)
     else:
       display.fill((255, 255, 255))
       pygame.draw.rect(display, pygame.Color(colors["Gold"]), (0, 0, 960, 1200))
