@@ -35,7 +35,7 @@ def receive_data():
                     bullets = msg["bullets"]
                     time_remaining = msg.get("time_left", 300)
                     players_remaining = len(players)
-                    for pid, pdata in players.items:
+                    for pid, pdata in players.items():
                        if pdata["is_dead"] == True:
                           players_remaining -= 1
                     lavaY = msg.get("lavaY")
@@ -681,7 +681,7 @@ while run:
                 text27 = font6.render("Game Over", False, (0, 0, 0))
                 text23 = font2.render("Play another game", False, (0, 0, 0))
                 text24 = font2.render("Return to home screen", False, (0, 0, 0))
-                text25 = font2.render("Placement:" + str((players)), False, (0, 0, 0))
+                text25 = font2.render("Placement: " + str(players_remaining + 1), False, (0, 0, 0))
                 kills =  players[my_id]["kills"]
                 text_str = f"Kills: {kills}"
                 text26 = font2.render(text_str, True, (0, 0, 0))
