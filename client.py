@@ -13,7 +13,7 @@ bullets = []
 client_socket = None
 
 def receive_data():
-    global players, bullets, time_remaining, lavaY
+    global players, bullets, time_remaining, players_remaining, lavaY
 
     while True:
         try:
@@ -34,6 +34,10 @@ def receive_data():
                     players = msg["players"]
                     bullets = msg["bullets"]
                     time_remaining = msg.get("time_left", 300)
+                    players_remaining = len(players)
+                    for pid, pdata in players.items:
+                       if pdata["is_dead"] == True:
+                          players_remaining -= 1
                     lavaY = msg.get("lavaY")
         except:
             break
@@ -91,6 +95,7 @@ speed1 = 1
 positionX = 1000
 positionY = 700
 time_remaining = 300
+players_remaining = 0
 lavaY = 950
 active_bullets = []
 bullet_speedX = 5
@@ -592,7 +597,7 @@ while run:
       minutes_remaining = int(time_remaining//60)
       seconds_remaining = int(time_remaining % 60)
       text19 = font2.render(f"Time Remaining: {minutes_remaining}:{seconds_remaining:02d}", False, (0, 0, 0))
-      text20 = font2.render("Players Remaining: 12", False, (0, 0, 0))
+      text20 = font2.render("Players Remaining: " + str(players_remaining), False, (0, 0, 0))
       cooldown = time.time() - bullet_shooting_time
       if 2 - cooldown > 0:
         text21 = font2.render(f"Bullet Cooldown: {(2 - cooldown):.1f} seconds", False, (0, 0, 0))
@@ -637,7 +642,7 @@ while run:
                   display.blit(equippedshield, (px, py))
 
                 # show weapon
-                display.blit(guns[pdata["element"][0], (px - 10, py - 10)])
+                #display.blit(guns[pdata["element"]][0], (px - 20, py - 20))
 
                 # Health bar above the player
                 
@@ -676,7 +681,7 @@ while run:
                 text27 = font6.render("Game Over", False, (0, 0, 0))
                 text23 = font2.render("Play another game", False, (0, 0, 0))
                 text24 = font2.render("Return to home screen", False, (0, 0, 0))
-                text25 = font2.render("Placement:", False, (0, 0, 0))
+                text25 = font2.render("Placement:" + str((players)), False, (0, 0, 0))
                 kills =  players[my_id]["kills"]
                 text_str = f"Kills: {kills}"
                 text26 = font2.render(text_str, True, (0, 0, 0))

@@ -254,7 +254,7 @@ def main():
             players[player_id] = {
                 "pos": (400, 300), # random between  50 too 950 for x and 600 to 700 for y
                 "element": element, # equipped element
-                "guntype": "DefaultGun"
+                "guntype": "DefaultGun",
                 "health": 100,
                 "kills": 0,
                 "is_dead": False,
