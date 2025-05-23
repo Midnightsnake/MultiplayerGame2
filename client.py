@@ -315,15 +315,15 @@ equipped_rapidfire = rapidfires["Earth"]["One"]
 shields = {}
 
 # Load and scale shields
-for color in colors_names:
-    shields[color] = {}
+for t in tank_types:
+    shields[t] = {}
     for level in levels:
-        filename = f"Shields/{color}Shields/{color}ShieldLevel{level}.png"
+        filename = f"Shields/{t}Shields/{t}ShieldLevel{level}.png"
         shield_image = pygame.image.load(filename)
         scaled_shield = pygame.transform.scale(shield_image, (60, 60))
-        shields[color][level] = scaled_shield
+        shields[t][level] = scaled_shield
 
-equippedshield = shields["Red"]["One"]
+equippedshield = shields["Earth"]["One"]
 
 tanks = {}
 for t in tank_types:
@@ -693,7 +693,28 @@ while run:
                 if pos[0] >= 480 and pos[0] <= 750 and pos[1] >= 660 and pos[1] <= 710 and gamestatus == 1:
                   gamestatus = 0
             if players_remaining == 1 and not players[my_id]["is_dead"]:
-                pygame.draw.rect(display,)
+                pygame.draw.rect(display, pygame.Color(0, 0, 0), (445, 245, 1010, 610))
+                pygame.draw.rect(display, pygame.Color(colors["Gold"]), (450, 250, 1000, 600))
+                pygame.draw.rect(display, pygame.Color(0, 0, 0), (475, 655, 280, 60))
+                pygame.draw.rect(display, pygame.Color(colors["Diamond"]), (480, 660, 270, 50))
+                pygame.draw.rect(display, pygame.Color(0, 0, 0), (475, 755, 230, 60))
+                pygame.draw.rect(display, pygame.Color(colors["Diamond"]), (480, 760, 220, 50))
+                pygame.draw.rect(display, pygame.Color(0, 0, 0), (1175, 655, 230, 60))
+                pygame.draw.rect(display, pygame.Color(colors["Silver"]), (1180, 660, 220, 50))
+                pygame.draw.rect(display, pygame.Color(0, 0, 0), (1175, 755, 250, 60))
+                pygame.draw.rect(display, pygame.Color(colors["Silver"]), (1180, 760, 240, 50))
+                text23 = font2.render("Play another game", False, (0, 0, 0))
+                text24 = font2.render("Return to home screen", False, (0, 0, 0))
+                text28 = font6.render("You Won", False, (0, 0, 0))
+                text29 = font2.render("Placement: 1st", False, (0, 0, 0))
+                kills = players[my_id]["kills"]
+                text_str = f"Kills: {kills}"
+                text26 = font2.render(text_str, True, (0, 0, 0))
+                display.blit(text26, (1200, 675))
+                display.blit(text28, (750, 350))
+                display.blit(text23, (500, 775))
+                display.blit(text24, (500, 675))
+                display.blit(text29, (1200, 775))
     else:
       display.fill((255, 255, 255))
       pygame.draw.rect(display, pygame.Color(colors["Gold"]), (0, 0, 960, 1200))
