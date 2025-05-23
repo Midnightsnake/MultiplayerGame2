@@ -86,7 +86,6 @@ display = pygame.display.set_mode((1920, 1080))
 gamestatus = 0
 customization = 0
 playergravity = 25
-bulletgravity = 4
 bullet_shooting_time = time.time()
 bullets_remaining = 100
 speedX = 0
@@ -449,10 +448,6 @@ while run:
             if gamestatus == 1:
               bulletpositionX = positionX + 5
               bulletpositionY = positionY - 35
-              bulletspeedX = 1
-              bulletspeedY = -1
-              if bulletpositionX > -100 and bulletpositionY > -100:
-                bulletspeedY += bulletgravity
             if pos[0] >= 1010 and pos[0] <= 1160 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 0:
               element = "Earth"
               send_to_server({

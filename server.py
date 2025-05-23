@@ -203,11 +203,14 @@ def game_loop():
             for b in bullets:
                 b["x"] += b["dx"]
                 b["y"] += b["dy"]
-
+                b["dy"] += 0.1
+            for pid, pdata in list(players.items()):
+                px, py = pdata["pos"]
+                py += 0.1
             # Remove out-of-bounds bullets
             bullets = [
                 b for b in bullets
-                if 0 <= b["x"] <= 800 and 0 <= b["y"] <= 600
+                if 0 <= b["x"] <= 1920 and 0 <= b["y"] <= 1080
             ]
 
             # Check collisions
