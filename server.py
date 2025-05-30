@@ -179,6 +179,7 @@ def check_bullet_collisions():
                     # Owner gets a kill
                     if owner_id in players:
                         players[owner_id]["kills"] += 1
+                        players[owner_id]["xp"] += 10
 
                     # Mark victim as dead, set 5s respawn
                     pdata["is_dead"] = True
@@ -260,6 +261,7 @@ def main():
                 "guntype": "DefaultGun",
                 "health": 100,
                 "kills": 0,
+                "xp": 0,
                 "is_dead": False,
                 "shield": False
             }
