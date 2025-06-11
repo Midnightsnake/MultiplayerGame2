@@ -238,7 +238,7 @@ for category in categories:
         guns[category][t] = scaled_gun
 
 # Example of equipping a gun
-equippedgun = guns["DefaultGuns"]["Earth"]
+equippedgun = guns[categories[equippedgun_type]][element]
 
 
 health_bars = {
@@ -507,41 +507,39 @@ while run:
               })
             equippedtank = tanks[element][0]
             equippedtankpreview = tanks[element][1]
-            equippedgun = guns["DefaultGuns"][element]
+            equippedgun = guns[categories[equippedgun_type - 1]][element]
             if pos[0] >= 1010 and pos[0] <= 1160 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 1:
-              equippedgun_type = 1
-              equippedgun = guns["DefaultGuns"][element]
+              equippedgun_type = 0
+              #equippedgun = guns["DefaultGuns"][element]
               damage_gun = 1
               speed_gun = 1
             if pos[0] >= 1180 and pos[0] <= 1330 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 1:
-              equippedgun_type = 2
-              equippedgun = guns["ShortGuns"][element]
+              equippedgun_type = 1
+              #equippedgun = guns["ShortGuns"][element]
               damage_gun = 0.75
               speed_gun = 1.25
             if pos[0] >= 1350 and pos[0] <= 1500 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 1:
-              equippedgun_type = 3
-              equippedgun = guns["LongGuns"][element]
+              equippedgun_type = 2
+              #equippedgun = guns["LongGuns"][element]
               damage_gun = 1.25
               speed_gun = 0.75
             if pos[0] >= 1520 and pos[0] <= 1670 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 1:
-              equippedgun_type = 4
-              equippedgun = guns["SpikeGuns"][element]
+              equippedgun_type = 3
+              #equippedgun = guns["SpikeGuns"][element]
               damage_gun = 1.5
               speed_gun = 1.25
             if pos[0] >= 1010 and pos[0] <= 1160 and pos[1] >= 320 and pos[1] <= 470 and gamestatus == 0 and customization == 1:
-              equippedgun_type = 5
-              equippedgun = guns["BladeGuns"][element]
-              equippedpreview = guns["BladeGuns"][element]
+              equippedgun_type = 4
+              #equippedgun = guns["BladeGuns"][element]
               damage_gun = 1.25
               speed_gun = 1.5
             if pos[0] >= 1180 and pos[0] <= 1330 and pos[1] >= 320 and pos[1] <= 470 and gamestatus == 0 and customization == 1:
-              equippedgun_type = 6
-              equippedgun = guns["AncientGuns"][element]
-              equippedpreview = guns["AncientGuns"][element]
+              equippedgun_type = 5
+              #equippedgun = guns["AncientGuns"][element]
               damage_gun = 0.5
               speed_gun = 2
             if pos[0] >= 1350 and pos[0] <= 1500 and pos[1] >= 320 and pos[1] <= 470 and gamestatus == 0 and customization == 1:
-              equippedgun_type = 7
+              equippedgun_type = 6
               equippedgun = guns["ModernGuns"][element]
               damage_gun = 2
               speed_gun = 0.5
@@ -820,19 +818,19 @@ while run:
         pygame.draw.rect(display, pygame.Color(colors["Silver"]), (960, 0, 1200, 1200))
         pygame.draw.rect(display, pygame.Color(0, 0, 0), (192, 108, 768, 864))
         pygame.draw.rect(display, pygame.Color(colors["Diamond"]), (197, 113, 758, 854))
-        if equippedgun_type == 1:
+        if equippedgun_type == 0:
           pygame.draw.rect(display, pygame.Color(255, 255, 255), (1000, 140, 170, 170))
-        elif equippedgun_type == 2:
+        elif equippedgun_type == 1:
           pygame.draw.rect(display, pygame.Color(255, 255, 255), (1170, 140, 170, 170))
-        elif equippedgun_type == 3:
+        elif equippedgun_type == 2:
           pygame.draw.rect(display, pygame.Color(255, 255, 255), (1340, 140, 170, 170))
-        elif equippedgun_type == 4:
+        elif equippedgun_type == 3:
           pygame.draw.rect(display, pygame.Color(255, 255, 255), (1510, 140, 170, 170))
-        elif equippedgun_type == 5:
+        elif equippedgun_type == 4:
           pygame.draw.rect(display, pygame.Color(255, 255, 255), (1000, 310, 170, 170))
-        elif equippedgun_type == 6:
+        elif equippedgun_type == 5:
           pygame.draw.rect(display, pygame.Color(255, 255, 255), (1170, 310, 170, 170))
-        elif equippedgun_type == 7:
+        elif equippedgun_type == 6:
           pygame.draw.rect(display, pygame.Color(255, 255, 255), (1340, 310, 170, 170))
         pygame.draw.rect(display, pygame.Color(0, 0, 0), (220, 345, 210, 410))
         pygame.draw.rect(display, pygame.Color(0, 0, 0), (470, 345, 210, 410))
