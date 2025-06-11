@@ -530,11 +530,13 @@ while run:
             if pos[0] >= 1010 and pos[0] <= 1160 and pos[1] >= 320 and pos[1] <= 470 and gamestatus == 0 and customization == 1:
               equippedgun_type = 5
               equippedgun = guns["BladeGuns"][element]
+              equippedpreview = guns["BladeGuns"][element]
               damage_gun = 1.25
               speed_gun = 1.5
             if pos[0] >= 1180 and pos[0] <= 1330 and pos[1] >= 320 and pos[1] <= 470 and gamestatus == 0 and customization == 1:
               equippedgun_type = 6
               equippedgun = guns["AncientGuns"][element]
+              equippedpreview = guns["AncientGuns"][element]
               damage_gun = 0.5
               speed_gun = 2
             if pos[0] >= 1350 and pos[0] <= 1500 and pos[1] >= 320 and pos[1] <= 470 and gamestatus == 0 and customization == 1:
@@ -814,6 +816,7 @@ while run:
         display.blit(tanks["Wind"][1], (1520, 320))
         display.blit(equippedtankpreview, (1265, 490))
       if customization == 1:
+        pygame.draw.rect(display, pygame.Color(colors["Silver"]), (960, 0, 1200, 1200))
         pygame.draw.rect(display, pygame.Color(0, 0, 0), (192, 108, 768, 864))
         pygame.draw.rect(display, pygame.Color(colors["Diamond"]), (197, 113, 758, 854))
         if equippedgun_type == 1:
@@ -882,13 +885,13 @@ while run:
           level_number_positionX = 235
         display.blit(text7, (level_number_positionX, 153))
         display.blit(text15, (1435, 580))
-        display.blit(guns["DefaultGuns"]["Earth"], (985, 130))
-        display.blit(guns["ShortGuns"]["Earth"], (1155, 130))
-        display.blit(guns["LongGuns"]["Earth"], (1325, 130))
-        display.blit(guns["SpikeGuns"]["Earth"], (1495, 130))
-        display.blit(guns["BladeGuns"]["Earth"], (985, 300))
-        display.blit(guns["AncientGuns"]["Earth"], (1155, 300))
-        display.blit(guns["ModernGuns"]["Earth"], (1325, 300))
+        display.blit(guns["DefaultGuns"][element], (985, 130))
+        display.blit(guns["ShortGuns"][element], (1155, 130))
+        display.blit(guns["LongGuns"][element], (1325, 130))
+        display.blit(guns["SpikeGuns"][element], (1495, 130))
+        display.blit(guns["BladeGuns"][element], (985, 300))
+        display.blit(guns["AncientGuns"][element], (1155, 300))
+        display.blit(guns["ModernGuns"][element], (1325, 300))
         display.blit(equippedgun, (1250, 470))
       if signed_in == False:
         pygame.draw.rect(display, pygame.Color(0, 0, 0), (313, 138, 124, 54))
