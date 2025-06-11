@@ -130,6 +130,7 @@ ancientbulletactive = False
 ancientbulletkey = pygame.K_7
 flakactive = False
 flakkey = pygame.K_8
+element = "Earth"
 level_number = 1
 level_number_positionX = 243
 xp = 0
@@ -334,7 +335,6 @@ for t in tank_types:
   tanks[t][1] = pygame.transform.scale(tanks[t][1], (150, 150))
 
 equippedtank = tanks["Earth"][0]
-element = "Earth"
 equippedtankpreview = tanks["Earth"][1]
 
 # Receive initial handshake
@@ -507,6 +507,7 @@ while run:
               })
             equippedtank = tanks[element][0]
             equippedtankpreview = tanks[element][1]
+            equippedgun = guns["DefaultGuns"][element]
             if pos[0] >= 1010 and pos[0] <= 1160 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 1:
               equippedgun_type = 1
               equippedgun = guns["DefaultGuns"][element]
