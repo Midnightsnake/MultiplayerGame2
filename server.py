@@ -64,6 +64,11 @@ def handle_client(conn, addr, player_id):
                         px, py = players[pid]["pos"]
                         players[pid]["pos"] = (px + dx, py + dy)
 
+                elif action == "jump":
+                    if pid in players:
+                        px, py = players[pid]["pos"]
+                        players[pid]["pos"] = (px, py - 20)
+
                 elif action == "shoot":
                     dx = msg.get("dx", 0)
                     dy = msg.get("dy", 0)

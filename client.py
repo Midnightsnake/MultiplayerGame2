@@ -21,14 +21,11 @@ def receive_data():
             if not data:
                 break
             msg = pickle.loads(data)
-            # Special messages (server_full, handshake, etc.)
             if "action" in msg:
                 if msg["action"] == "server_full":
-                    print("Server is full. Exiting.")
                     pygame.quit()
                     sys.exit()
 
-            # Normal game state broadcast
             if "players" in msg and "bullets" in msg:
                 with lock:
                     players = msg["players"]
@@ -54,9 +51,7 @@ def draw_leaderboard(screen):
     Draw a simple leaderboard in the top-right corner,
     listing all players by kills descending, or by ID for a simpler approach.
     """
-    # Sort players by kills descending
     sorted_players = sorted(players.items(), key=lambda p: p[1]["kills"], reverse=True)
-    # Start from some top-right position
     x_start = 200
     y_start = 200
     line_height = 30
@@ -98,7 +93,6 @@ players_remaining = 0
 lavaY = 950
 active_bullets = []
 bullet_speedX = 5
-bullet_gravity = 0.2
 bulletpositionX = -1000
 bulletpositionY = -1000
 health = 40
@@ -168,21 +162,17 @@ colors = {"Red": "#ff0000",
 }
 
 
-# Define bullet colors and levels
 colors_names = [
     "Red", "Orange", "Yellow", "Green", "Teal", "Blue", 
     "Purple", "Pink", "Brown", "White", "Black", 
     "Bronze", "Silver", "Gold", "Diamond"
 ]
-# Define tank/material types
 tank_types = ["Earth", "Electric", "Fire", "Grass", "Ice", "Plasma", "Water", "Wind"]
 
 levels = ["One", "Two", "Three", "Four", "Five"]
 
-# Dictionary to store ancient bullets
 ancient_bullets = {}
 
-# Load and scale ancient bullets
 for t in tank_types:
     ancient_bullets[t] = {}
     for level in levels:
@@ -191,10 +181,8 @@ for t in tank_types:
         scaled_ancient_bullet = pygame.transform.scale(ancient_bullet_image, (200, 200))
         ancient_bullets[t][level] = scaled_ancient_bullet
 
-# Dictionary to store bullets
 bullets = {}
 
-# Load and scale bullets
 for t in tank_types:
     bullets[t] = {}
     for level in levels:
@@ -205,10 +193,8 @@ for t in tank_types:
 
 equippedbullet = bullets["Earth"]["One"]
 
-# Dictionary to store flaks
 flaks = {}
 
-# Load and scale flaks
 for t in tank_types:
     flaks[t] = {}
     for level in levels:
@@ -217,7 +203,6 @@ for t in tank_types:
         scaled_flak = pygame.transform.scale(flak_image, (200, 200))
         flaks[t][level] = scaled_flak
 
-# Example of equipping a specific flak
 equipped_flak = flaks["Earth"]["One"]
 
 categories = [
@@ -225,10 +210,8 @@ categories = [
     "BladeGuns", "AncientGuns", "ModernGuns"
 ]
 
-# Dictionary to store guns
 guns = {}
 
-# Load and scale guns
 for category in categories:
     guns[category] = {}
     for t in tank_types:
@@ -237,7 +220,6 @@ for category in categories:
         scaled_gun = pygame.transform.scale(gun_image, (200, 200))
         guns[category][t] = scaled_gun
 
-# Example of equipping a gun
 equippedgun = guns[categories[equippedgun_type]][element]
 
 
@@ -252,10 +234,8 @@ for i in range(1, 4):
       health_bars[i].append(pygame.image.load("HealthBars/HealthBarsType" + str(i) + "/HealthBars" + str(i) + "-" + str(j) + ".png"))
   h += 10
   
-# Dictionary to store homings
 homings = {}
 
-# Load and scale homings
 for t in tank_types:
     homings[t] = {}
     for level in levels:
@@ -286,10 +266,8 @@ top_left_earth_map = pygame.transform.scale(top_left_earth_map, (625, 625))
 top_right_earth_map = pygame.image.load("Maps/EarthMaps/TopRightEarthMap.png")
 top_right_earth_map = pygame.transform.scale(top_right_earth_map, (625, 625))
 
-# Dictionary to store nukes
 nukes = {}
 
-# Load and scale nukes
 for t in tank_types:
     nukes[t] = {}
     for level in levels:
@@ -298,10 +276,8 @@ for t in tank_types:
         scaled_nuke = pygame.transform.scale(nuke_image, (200, 200))
         nukes[t][level] = scaled_nuke
 
-# Dictionary to store rapidfires
 rapidfires = {}
 
-# Load and scale rapidfires
 for t in tank_types:
     rapidfires[t] = {}
     for level in levels:
@@ -310,12 +286,10 @@ for t in tank_types:
         scaled_rapidfire = pygame.transform.scale(rapidfire_image, (200, 200))
         rapidfires[t][level] = scaled_rapidfire
 
-# Example of equipping a specific rapidfire
 equipped_rapidfire = rapidfires["Earth"]["One"]
 
 shields = {}
 
-# Load and scale shields
 for t in tank_types:
     shields[t] = {}
     for level in levels:
@@ -337,7 +311,6 @@ for t in tank_types:
 equippedtank = tanks["Earth"][0]
 equippedtankpreview = tanks["Earth"][1]
 
-# Receive initial handshake
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect(("127.0.0.1", 5555))
 client_socket.setblocking(True)
@@ -346,7 +319,6 @@ initial_data = client_socket.recv(4096)
 handshake = pickle.loads(initial_data)
 
 if handshake.get("action") == "server_full":
-  print("Server is full. Exiting.")
   client_socket.close()
 if handshake.get("action") == "handshake":
   my_id = handshake.get("player_id")
@@ -367,8 +339,12 @@ while run:
             speedX = -speed1
           if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
             speedX = speed1
+          if event.key == pygame.K_w or event.key == pygame.K_UP:
+            send_to_server({
+              "action": "jump",
+              "player_id": my_id
+            })
           if event.key == bulletkey and time.time() - bullet_shooting_time >= 2 and bullets_remaining >= 1:
-            # Shoot
             mouse_x, mouse_y = pygame.mouse.get_pos()
             with lock:
               if my_id in players:
@@ -466,100 +442,57 @@ while run:
               element = "Water"
             if pos[0] >= 1520 and pos[0] <= 1670 and pos[1] >= 320 and pos[1] <= 470 and gamestatus == 0 and customization == 0:
               element = "Wind"
-
             if pos[0] >= 1067 and pos[0] <= 1157 and pos[1] >= 680 and pos[1] <= 770 and gamestatus == 0:
               element = "Earth"
-              send_to_server({
-                 "action": "element",
-                 "player_id": my_id,
-                 "element": element
-              })
-
             if pos[0] >= 1219 and pos[0] <= 1309 and pos[1] >= 680 and pos[1] <= 770 and gamestatus == 0:
               element = "Electric"
-              send_to_server({
-                 "action": "element",
-                 "player_id": my_id,
-                 "element": element
-              })
             if pos[0] >= 1371 and pos[0] <= 1461 and pos[1] >= 680 and pos[1] <= 770 and gamestatus == 0:
               element = "Fire"
-              send_to_server({
-                 "action": "element",
-                 "player_id": my_id,
-                 "element": element
-              })
             if pos[0] >= 1523 and pos[0] <= 1613 and pos[1] >= 680 and pos[1] <= 770 and gamestatus == 0:
               element = "Grass"
-              send_to_server({
-                 "action": "element",
-                 "player_id": my_id,
-                 "element": element
-              })
             if pos[0] >= 1067 and pos[0] <= 1157 and pos[1] >= 810 and pos[1] <= 900 and gamestatus == 0:
               element = "Ice"
-              send_to_server({
-                 "action": "element",
-                 "player_id": my_id,
-                 "element": element
-              })
             if pos[0] >= 1219 and pos[0] <= 1309 and pos[1] >= 810 and pos[1] <= 900 and gamestatus == 0:
               element = "Plasma"
-              send_to_server({
-                 "action": "element",
-                 "player_id": my_id,
-                 "element": element
-              })
             if pos[0] >= 1371 and pos[0] <= 1461 and pos[1] >= 810 and pos[1] <= 900 and gamestatus == 0:
               element = "Water"
-              send_to_server({
-                 "action": "element",
-                 "player_id": my_id,
-                 "element": element
-              })
             if pos[0] >= 1523 and pos[0] <= 1613 and pos[1] >= 810 and pos[1] <= 900 and gamestatus == 0:
               element = "Wind"
-              send_to_server({
+            send_to_server({
                  "action": "element",
                  "player_id": my_id,
                  "element": element
               })
+            
             equippedtank = tanks[element][0]
             equippedtankpreview = tanks[element][1]
             equippedgun = guns[categories[equippedgun_type - 1]][element]
             if pos[0] >= 1010 and pos[0] <= 1160 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 1:
               equippedgun_type = 0
-              #equippedgun = guns["DefaultGuns"][element]
               damage_gun = 1
               speed_gun = 1
             if pos[0] >= 1180 and pos[0] <= 1330 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 1:
               equippedgun_type = 1
-              #equippedgun = guns["ShortGuns"][element]
               damage_gun = 0.75
               speed_gun = 1.25
             if pos[0] >= 1350 and pos[0] <= 1500 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 1:
               equippedgun_type = 2
-              #equippedgun = guns["LongGuns"][element]
               damage_gun = 1.25
               speed_gun = 0.75
             if pos[0] >= 1520 and pos[0] <= 1670 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 1:
               equippedgun_type = 3
-              #equippedgun = guns["SpikeGuns"][element]
               damage_gun = 1.5
               speed_gun = 1.25
             if pos[0] >= 1010 and pos[0] <= 1160 and pos[1] >= 320 and pos[1] <= 470 and gamestatus == 0 and customization == 1:
               equippedgun_type = 4
-              #equippedgun = guns["BladeGuns"][element]
               damage_gun = 1.25
               speed_gun = 1.5
             if pos[0] >= 1180 and pos[0] <= 1330 and pos[1] >= 320 and pos[1] <= 470 and gamestatus == 0 and customization == 1:
               equippedgun_type = 5
-              #equippedgun = guns["AncientGuns"][element]
               damage_gun = 0.5
               speed_gun = 2
             if pos[0] >= 1350 and pos[0] <= 1500 and pos[1] >= 320 and pos[1] <= 470 and gamestatus == 0 and customization == 1:
               equippedgun_type = 6
-              equippedgun = guns["ModernGuns"][element]
               damage_gun = 2
               speed_gun = 0.5
             if ((pos[0] >= 315 and pos[0] <= 435 and pos[1] >= 140 and pos[1] <= 190) or (pos[0] >= 445 and pos[0] <= 540 and pos[1] >= 140 and pos[1] <= 190)) and signed_in == False:
@@ -589,7 +522,6 @@ while run:
             if pos[0] >= 890 and pos[0] <= 945 and pos[1] >= 185 and pos[1] <= 265 and (logging_in == True or signing_up == True):
               signed_in = True
     if gamestatus == 1:
-      # Send movement if alive
       with lock:
         if my_id in players and not players[my_id]["is_dead"]:
           if speedX != 0 or speedY != 0:
@@ -604,7 +536,6 @@ while run:
       display.blit(bottom_right_earth_map, (955, 345))
       display.blit(top_left_earth_map, (330, 110))
       display.blit(top_right_earth_map, (955, 110))
-      # Draw leaderboard (top-right)
       draw_leaderboard(display)
       pygame.draw.rect(display, pygame.Color(colors["Blue"]), (0, lavaY, 2000, 2000))
       pygame.draw.rect(display, pygame.Color(0, 0, 0), (200, 130, 1110, 70))
@@ -636,53 +567,35 @@ while run:
                  "player_id": my_id
               })
       with lock:
-            # Draw players
             for pid, pdata in players.items():
                 px, py = pdata["pos"]
                 element = pdata["element"]
                 health = pdata["health"]
                 is_dead = pdata["is_dead"]
 
-                # If dead, optionally skip drawing the player, or draw them differently
                 if is_dead:
-                    # Let's not draw a dead player at all
                     continue
 
-                # Draw the player's 20x20 rect
-                
-                # spawn each player's image
                 display.blit(tanks[pdata["element"]][0], (px - 10, py - 10))
                 
-                # show shield
                 if pdata["shield"] == True:
                   display.blit(equippedshield, (px, py))
 
-                # show weapon
-                #display.blit(guns[pdata["element"]][0], (px - 20, py - 20))
-
-                # Health bar above the player
-                
-                # instead of health rectangles we have health images
                 bar_width = 20
                 bar_height = 5
                 health_ratio = max(0, health) / 100.0
                 pygame.draw.rect(display, (0, 255, 0),
                                  (px - 10, py - 20, int(bar_width * health_ratio), bar_height))
-                # Red background for missing portion
                 pygame.draw.rect(display, (255, 0, 0),
                                  (px - 10 + int(bar_width * health_ratio),
                                   py - 20,
                                   int(bar_width * (1 - health_ratio)),
                                   bar_height))
 
-            # Draw bullets
-            
-            # bullet custom images 
             for b in bullets:
                 bx, by = b["x"], b["y"]
                 pygame.draw.rect(display, (255, 0, 0), (bx - 4, by - 4, 8, 8))
 
-            # If we're dead, show the gray box with "YOU DIED!"
             if my_id in players and players[my_id]["is_dead"]:
                 pygame.draw.rect(display, pygame.Color(0, 0, 0), (445, 245, 1010, 610))
                 pygame.draw.rect(display, pygame.Color(colors["Bronze"]), (450, 250, 1000, 600))
