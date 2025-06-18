@@ -449,6 +449,24 @@ while run:
             if gamestatus == 1:
               bulletpositionX = positionX + 5
               bulletpositionY = positionY - 35
+            
+            if pos[0] >= 1010 and pos[0] <= 1160 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 0:
+              element = "Earth"
+            if pos[0] >= 1180 and pos[0] <= 1330 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 0:
+              element = "Electric"
+            if pos[0] >= 1350 and pos[0] <= 1500 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 0:
+              element = "Fire"
+            if pos[0] >= 1520 and pos[0] <= 1670 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 0:
+              element = "Grass"
+            if pos[0] >= 1010 and pos[0] <= 1160 and pos[1] >= 320 and pos[1] <= 470 and gamestatus == 0 and customization == 0:
+              element = "Ice"
+            if pos[0] >= 1180 and pos[0] <= 1330 and pos[1] >= 320 and pos[1] <= 470 and gamestatus == 0 and customization == 0:
+              element = "Plasma"
+            if pos[0] >= 1350 and pos[0] <= 1500 and pos[1] >= 320 and pos[1] <= 470 and gamestatus == 0 and customization == 0:
+              element = "Water"
+            if pos[0] >= 1520 and pos[0] <= 1670 and pos[1] >= 320 and pos[1] <= 470 and gamestatus == 0 and customization == 0:
+              element = "Wind"
+
             if pos[0] >= 1067 and pos[0] <= 1157 and pos[1] >= 680 and pos[1] <= 770 and gamestatus == 0:
               element = "Earth"
               send_to_server({
@@ -456,6 +474,7 @@ while run:
                  "player_id": my_id,
                  "element": element
               })
+
             if pos[0] >= 1219 and pos[0] <= 1309 and pos[1] >= 680 and pos[1] <= 770 and gamestatus == 0:
               element = "Electric"
               send_to_server({
@@ -714,8 +733,8 @@ while run:
                 display.blit(text29, (1200, 775))
     else:
       display.fill((255, 255, 255))
-      pygame.draw.rect(display, pygame.Color(0, 0, 0), (192, 108, 768, 864))
-      pygame.draw.rect(display, pygame.Color(colors["Gold"]), (197, 113, 758, 854))
+      pygame.draw.rect(display, pygame.Color(0, 0, 0), (192, 108, 771, 864))
+      pygame.draw.rect(display, pygame.Color(colors["Gold"]), (197, 113, 761, 854))
       text1 = font3.render("PLAY SOLO", False, pygame.Color(0, 0, 0))
       text2 = font3.render("PLAY RANKED", False, pygame.Color(0, 0, 0))
       text3 = font3.render("PLAY SQUADS", False, pygame.Color(0, 0, 0))
@@ -734,9 +753,9 @@ while run:
       text16 = font2.render("Gun Customization", False, (0, 0, 0))
       text17 = font4.render("Exit Game", False, (0, 0, 0))
       text18 = font3.render("Exit Game", False, (0, 0, 0))
-      display.blit(levels_icons[level_number // 10], (200, 115))
       if customization == 0:
-        pygame.draw.rect(display, pygame.Color(colors["Bronze"]), (960, 0, 1200, 1200))
+        pygame.draw.rect(display, pygame.Color(0, 0, 0), (958, 108, 771, 864))
+        pygame.draw.rect(display, pygame.Color(colors["Bronze"]), (963, 113, 761, 854))
         if equippedtank == tanks["Earth"][0]:
           pygame.draw.rect(display, pygame.Color(255, 255, 255), (1000, 140, 170, 170))
         elif equippedtank == tanks["Electric"][0]:
@@ -795,6 +814,7 @@ while run:
         pygame.draw.rect(display, pygame.Color(colors["Blue"]), (1371, 810, 90, 90))
         pygame.draw.rect(display, pygame.Color(0, 0, 0), (1518, 805, 100, 100))
         pygame.draw.rect(display, pygame.Color(colors["Gray"]), (1523, 810, 90, 90))
+        display.blit(levels_icons[level_number // 10], (200, 115))
         display.blit(text1, (250, 525))
         display.blit(text2, (475, 525))
         display.blit(text3, (725, 525))
@@ -815,9 +835,10 @@ while run:
         display.blit(tanks["Wind"][1], (1520, 320))
         display.blit(equippedtankpreview, (1265, 490))
       if customization == 1:
-        pygame.draw.rect(display, pygame.Color(colors["Silver"]), (960, 0, 1200, 1200))
-        pygame.draw.rect(display, pygame.Color(0, 0, 0), (192, 108, 768, 864))
-        pygame.draw.rect(display, pygame.Color(colors["Diamond"]), (197, 113, 758, 854))
+        pygame.draw.rect(display, pygame.Color(0, 0, 0), (192, 108, 771, 864))
+        pygame.draw.rect(display, pygame.Color(colors["Diamond"]), (197, 113, 761, 854))
+        pygame.draw.rect(display, pygame.Color(0, 0, 0), (958, 108, 771, 864))
+        pygame.draw.rect(display, pygame.Color(colors["Silver"]), (963, 113, 761, 854))
         if equippedgun_type == 0:
           pygame.draw.rect(display, pygame.Color(255, 255, 255), (1000, 140, 170, 170))
         elif equippedgun_type == 1:
@@ -872,6 +893,7 @@ while run:
         pygame.draw.rect(display, pygame.Color(colors["Blue"]), (1371, 810, 90, 90))
         pygame.draw.rect(display, pygame.Color(0, 0, 0), (1518, 805, 100, 100))
         pygame.draw.rect(display, pygame.Color(colors["Gray"]), (1523, 810, 90, 90))
+        display.blit(levels_icons[level_number // 10], (200, 115))
         display.blit(text1, (250, 525))
         display.blit(text2, (475, 525))
         display.blit(text3, (725, 525))
