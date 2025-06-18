@@ -67,7 +67,7 @@ def handle_client(conn, addr, player_id):
                 elif action == "jump":
                     if pid in players:
                         px, py = players[pid]["pos"]
-                        players[pid]["pos"] = (px, py - 20)
+                        players[pid]["pos"] = (px, py - 50)
 
                 elif action == "shoot":
                     dx = msg.get("dx", 0)
@@ -203,7 +203,7 @@ def game_loop():
     """
     global bullets
     while True:
-        time.sleep(0.016)  # ~60 updates per second
+        time.sleep(0.008)  # ~125 updates per second
         with lock:
             # Move bullets
             for b in bullets:
@@ -212,7 +212,8 @@ def game_loop():
                 b["dy"] += 0.1
             for pid, pdata in list(players.items()):
                 px, py = pdata["pos"]
-                py += 0.1
+                py += 0.5
+                pdata["pos"] = (px, py)
             # Remove out-of-bounds bullets
             bullets = [
                 b for b in bullets
