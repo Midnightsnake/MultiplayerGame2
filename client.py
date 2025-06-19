@@ -71,12 +71,12 @@ lock = threading.Lock()
 pygame.init()
 pygame.font.init()
 clock = pygame.time.Clock()
-font1 = pygame.font.SysFont("Lexend", 20)
-font2 = pygame.font.SysFont("Lexend", 30)
-font3 = pygame.font.SysFont("Lexend", 40)
-font4 = pygame.font.SysFont("Lexend", 50)
-font5 = pygame.font.SysFont("Lexend", 65)
-font6 = pygame.font.SysFont("Lexend", 100)
+font1 = pygame.font.SysFont("Cascadia Code", 20)
+font2 = pygame.font.SysFont("Cascadia Code", 30)
+font3 = pygame.font.SysFont("Cascadia Code", 40)
+font4 = pygame.font.SysFont("Cascadia Code", 50)
+font5 = pygame.font.SysFont("Cascadia Code", 65)
+font6 = pygame.font.SysFont("Cascadia Code", 100)
 display = pygame.display.set_mode((1920, 1080))
 gamestatus = 0
 customization = 0
@@ -98,32 +98,29 @@ bulletpositionY = -1000
 health = 40
 healthtype = 1
 bullettype = 1
-rapidfiretype = 1
+multiattacktype = 1
 shieldtype = 1
 shieldtime = 0
 shieldduration = 10
-minetype = 1
 nuketype = 1
-homingtype = 1
+trackertype = 1
 ancientbullettype = 1
-flaktype = 1
+blastertype = 1
 equippedgun_type = 1
 bulletactive = True
 bulletkey = pygame.K_1
-rapidfireactive = False
-rapidfirekey = pygame.K_2
+multiattackactive = False
+multiattackkey = pygame.K_2
 shieldactive = False
 shieldkey = pygame.K_3
-mineactive = False
-minekey = pygame.K_4
 nukeactive = False
 nukekey = pygame.K_5
-homingactive = False
-homingkey = pygame.K_6
+trackeractive = False
+trackerkey = pygame.K_6
 ancientbulletactive = False
 ancientbulletkey = pygame.K_7
-flakactive = False
-flakkey = pygame.K_8
+blasteractive = False
+blasterkey = pygame.K_8
 element = "Earth"
 level_number = 1
 level_number_positionX = 243
@@ -193,17 +190,17 @@ for t in tank_types:
 
 equippedbullet = bullets["Earth"]["One"]
 
-flaks = {}
+blasters = {}
 
 for t in tank_types:
-    flaks[t] = {}
+    blasters[t] = {}
     for level in levels:
-        filename = f"Flaks/{t}Flaks/{t}FlakLevel{level}.png"
-        flak_image = pygame.image.load(filename)
-        scaled_flak = pygame.transform.scale(flak_image, (200, 200))
-        flaks[t][level] = scaled_flak
+        filename = f"Blasters/{t}Blasters/{t}BlasterLevel{level}.png"
+        blaster_image = pygame.image.load(filename)
+        scaled_blaster = pygame.transform.scale(blaster_image, (200, 200))
+        blasters[t][level] = scaled_blaster
 
-equipped_flak = flaks["Earth"]["One"]
+equipped_blaster = blasters["Earth"]["One"]
 
 categories = [
     "DefaultGuns", "ShortGuns", "LongGuns", "SpikeGuns",
@@ -234,15 +231,15 @@ for i in range(1, 4):
       health_bars[i].append(pygame.image.load("HealthBars/HealthBarsType" + str(i) + "/HealthBars" + str(i) + "-" + str(j) + ".png"))
   h += 10
   
-homings = {}
+trackers = {}
 
 for t in tank_types:
-    homings[t] = {}
+    trackers[t] = {}
     for level in levels:
-        filename = f"Homings/{t}Homings/{t}HomingLevel{level}.png"
-        homing_image = pygame.image.load(filename)
-        scaled_homing = pygame.transform.scale(homing_image, (200, 200))
-        homings[t][level] = scaled_homing
+        filename = f"Trackers/{t}Trackers/{t}TrackerLevel{level}.png"
+        tracker_image = pygame.image.load(filename)
+        scaled_tracker = pygame.transform.scale(tracker_image, (200, 200))
+        trackers[t][level] = scaled_tracker
 
 levels_icons = {}
 for i in range(0, 10):
@@ -276,17 +273,17 @@ for t in tank_types:
         scaled_nuke = pygame.transform.scale(nuke_image, (200, 200))
         nukes[t][level] = scaled_nuke
 
-rapidfires = {}
+multiattacks = {}
 
 for t in tank_types:
-    rapidfires[t] = {}
+    multiattacks[t] = {}
     for level in levels:
-        filename = f"Rapidfires/{t}Rapidfires/{t}RapidfireLevel{level}.png"
-        rapidfire_image = pygame.image.load(filename)
-        scaled_rapidfire = pygame.transform.scale(rapidfire_image, (200, 200))
-        rapidfires[t][level] = scaled_rapidfire
+        filename = f"MultiAttacks/{t}MultiAttacks/{t}MultiAttackLevel{level}.png"
+        multiattack_image = pygame.image.load(filename)
+        scaled_multiattack = pygame.transform.scale(multiattack_image, (200, 200))
+        multiattacks[t][level] = scaled_multiattack
 
-equipped_rapidfire = rapidfires["Earth"]["One"]
+equipped_multiattack = multiattacks["Earth"]["One"]
 
 shields = {}
 
@@ -363,8 +360,8 @@ while run:
             "dx": dir_x,
             "dy": dir_y
                     })
-          if event.key == rapidfirekey:
-            rapidfireactive = True
+          if event.key == multiattackkey:
+            multiattackactive = True
           if event.key == shieldkey and shieldactive == False:
             shieldactive = True
             send_to_server({
@@ -372,16 +369,14 @@ while run:
                  "player_id": my_id
               })
             shieldtime = time.time()
-          if event.key == minekey:
-            mineactive = True
           if event.key == nukekey:
             nukeactive = True
-          if event.key == homingkey:
-            homingactive = True
+          if event.key == trackerkey:
+            trackeractive = True
           if event.key == ancientbulletkey:
             ancientbulletactive = True
-          if event.key == flakkey:
-            flakactive = True
+          if event.key == blasterkey:
+            blasteractive = True
           if username_typing == True:
             if event.key == pygame.K_BACKSPACE:
               username_text = username_text[:-1]
