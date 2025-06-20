@@ -74,13 +74,42 @@ def handle_client(conn, addr, player_id):
                     dy = msg.get("dy", 0)
                     if pid in players:
                         px, py = players[pid]["pos"]
-                        bullet_speed = 10
+                        bullet_speed_x = 5
+                        bullet_speed_y = 6
                         bullets.append({
                             "x": px,
                             "y": py,
-                            "dx": dx * bullet_speed,
-                            "dy": dy * bullet_speed,
-                            "owner_id": pid
+                            "dx": dx * bullet_speed_x,
+                            "dy": dy * bullet_speed_y,
+                            "owner_id": pid  
+                        })
+                elif action == "multibullet":
+                    dx = msg.get("dx", 0)
+                    dy = msg.get("dy", 0)
+                    if pid in players:
+                        px, py = players[pid]["pos"]
+                        multibullet_speed_x = 5
+                        multibullet_speed_y = 2
+                        bullets.append({
+                            "x": px + 40,
+                            "y": py + 40,
+                            "dx": dx * multibullet_speed_x,
+                            "dy": dy * multibullet_speed_y,
+                            "owner_id": pid  
+                        })
+                        bullets.append({
+                            "x": px,
+                            "y": py,
+                            "dx": dx * multibullet_speed_x,
+                            "dy": dy * multibullet_speed_y,
+                            "owner_id": pid  
+                        })
+                        bullets.append({
+                            "x": px - 40,
+                            "y": py - 40,
+                            "dx": dx * multibullet_speed_x,
+                            "dy": dy * multibullet_speed_y,
+                            "owner_id": pid  
                         })
                 elif action == "element":
                     element = msg.get("element")

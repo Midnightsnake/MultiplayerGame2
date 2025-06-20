@@ -98,7 +98,7 @@ bulletpositionY = -1000
 health = 40
 healthtype = 1
 bullettype = 1
-multiattacktype = 1
+multibullettype = 1
 shieldtype = 1
 shieldtime = 0
 shieldduration = 10
@@ -107,20 +107,18 @@ trackertype = 1
 ancientbullettype = 1
 blastertype = 1
 equippedgun_type = 1
-bulletactive = True
 bulletkey = pygame.K_1
-multiattackactive = False
-multiattackkey = pygame.K_2
+multibulletkey = pygame.K_2
 shieldactive = False
 shieldkey = pygame.K_3
 nukeactive = False
-nukekey = pygame.K_5
+nukekey = pygame.K_4
 trackeractive = False
-trackerkey = pygame.K_6
+trackerkey = pygame.K_5
 ancientbulletactive = False
-ancientbulletkey = pygame.K_7
+ancientbulletkey = pygame.K_6
 blasteractive = False
-blasterkey = pygame.K_8
+blasterkey = pygame.K_7
 element = "Earth"
 level_number = 1
 level_number_positionX = 243
@@ -273,17 +271,17 @@ for t in tank_types:
         scaled_nuke = pygame.transform.scale(nuke_image, (200, 200))
         nukes[t][level] = scaled_nuke
 
-multiattacks = {}
+multibullets = {}
 
 for t in tank_types:
-    multiattacks[t] = {}
+    multibullets[t] = {}
     for level in levels:
-        filename = f"MultiAttacks/{t}MultiAttacks/{t}MultiAttackLevel{level}.png"
-        multiattack_image = pygame.image.load(filename)
-        scaled_multiattack = pygame.transform.scale(multiattack_image, (200, 200))
-        multiattacks[t][level] = scaled_multiattack
+        filename = f"MultiBullets/{t}MultiBullets/{t}MultiBulletLevel{level}.png"
+        multibullet_image = pygame.image.load(filename)
+        scaled_multibullet = pygame.transform.scale(multibullet_image, (200, 200))
+        multibullets[t][level] = scaled_multibullet
 
-equipped_multiattack = multiattacks["Earth"]["One"]
+equipped_multibullet = multibullets["Earth"]["One"]
 
 shields = {}
 
@@ -360,8 +358,25 @@ while run:
             "dx": dir_x,
             "dy": dir_y
                     })
-          if event.key == multiattackkey:
-            multiattackactive = True
+          if event.key == multibulletkey:
+            mouse_x, mouse_y = pygame.mouse.get_pos()
+            with lock:
+              if my_id in players:
+                px, py = players[my_id]["pos"]
+              else:
+                px, py = (0, 0)
+            dir_x = mouse_x - px
+            dir_y = mouse_y - py
+            length = math.hypot(dir_x, dir_y)
+            if length != 0:
+              dir_x /= length
+              dir_y /= length
+            send_to_server({
+            "action": "multibullet",
+            "player_id": my_id,
+            "dx": dir_x,
+            "dy": dir_y
+                    })
           if event.key == shieldkey and shieldactive == False:
             shieldactive = True
             send_to_server({
