@@ -81,7 +81,8 @@ def handle_client(conn, addr, player_id):
                             "y": py,
                             "dx": dx * bullet_speed_x,
                             "dy": dy * bullet_speed_y,
-                            "owner_id": pid  
+                            "owner_id": pid,
+                            "type": "bullet"
                         })
                 elif action == "multibullet":
                     dx = msg.get("dx", 0)
@@ -95,21 +96,24 @@ def handle_client(conn, addr, player_id):
                             "y": py + 40,
                             "dx": dx * multibullet_speed_x,
                             "dy": dy * multibullet_speed_y,
-                            "owner_id": pid  
+                            "owner_id": pid,
+                            "type": "multibullet"
                         })
                         bullets.append({
                             "x": px,
                             "y": py,
                             "dx": dx * multibullet_speed_x,
                             "dy": dy * multibullet_speed_y,
-                            "owner_id": pid  
+                            "owner_id": pid,
+                            "type": "multibullet"
                         })
                         bullets.append({
                             "x": px - 40,
                             "y": py - 40,
                             "dx": dx * multibullet_speed_x,
                             "dy": dy * multibullet_speed_y,
-                            "owner_id": pid  
+                            "owner_id": pid,
+                            "type": "multibullet"
                         })
                 elif action == "element":
                     element = msg.get("element")

@@ -183,10 +183,10 @@ for t in tank_types:
     for level in levels:
         filename = f"Bullets/{t}Bullets/{t}BulletLevel{level}.png"
         bullet_image = pygame.image.load(filename)
-        scaled_bullet = pygame.transform.scale(bullet_image, (30, 30))
+        scaled_bullet = pygame.transform.scale(bullet_image, (50, 50))
         bullets[t][level] = scaled_bullet
 
-equippedbullet = bullets["Earth"]["One"]
+equippedbullet = bullets[element]["One"]
 
 blasters = {}
 
@@ -198,7 +198,7 @@ for t in tank_types:
         scaled_blaster = pygame.transform.scale(blaster_image, (200, 200))
         blasters[t][level] = scaled_blaster
 
-equipped_blaster = blasters["Earth"]["One"]
+equipped_blaster = blasters[element]["One"]
 
 categories = [
     "DefaultGuns", "ShortGuns", "LongGuns", "SpikeGuns",
@@ -281,7 +281,7 @@ for t in tank_types:
         scaled_multibullet = pygame.transform.scale(multibullet_image, (200, 200))
         multibullets[t][level] = scaled_multibullet
 
-equipped_multibullet = multibullets["Earth"]["One"]
+equipped_multibullet = multibullets[element]["One"]
 
 shields = {}
 
@@ -293,7 +293,7 @@ for t in tank_types:
         scaled_shield = pygame.transform.scale(shield_image, (60, 60))
         shields[t][level] = scaled_shield
 
-equippedshield = shields["Earth"]["One"]
+equippedshield = shields[element]["One"]
 
 tanks = {}
 for t in tank_types:
@@ -604,7 +604,7 @@ while run:
 
             for b in bullets:
                 bx, by = b["x"], b["y"]
-                pygame.draw.rect(display, (255, 0, 0), (bx - 4, by - 4, 8, 8))
+                display.blit(equippedbullet, (bx - 4, by - 4, 8, 8))
 
             if my_id in players and players[my_id]["is_dead"]:
                 pygame.draw.rect(display, pygame.Color(0, 0, 0), (445, 245, 1010, 610))
