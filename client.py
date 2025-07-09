@@ -8,7 +8,7 @@ import sys
 player_id = 1
 
 players = {}
-bullets = []
+bullets_images = []
 
 client_socket = None
 
@@ -156,14 +156,12 @@ colors = {"Red": "#ff0000",
 "Light Diamond": "#b9f2ff",
 }
 
-
 colors_names = [
     "Red", "Orange", "Yellow", "Green", "Teal", "Blue", 
     "Purple", "Pink", "Brown", "White", "Black", 
     "Bronze", "Silver", "Gold", "Diamond"
 ]
 tank_types = ["Earth", "Electric", "Fire", "Grass", "Ice", "Plasma", "Water", "Wind"]
-
 levels = ["One", "Two", "Three", "Four", "Five"]
 
 ancient_bullets = {}
@@ -176,17 +174,17 @@ for t in tank_types:
         scaled_ancient_bullet = pygame.transform.scale(ancient_bullet_image, (200, 200))
         ancient_bullets[t][level] = scaled_ancient_bullet
 
-bullets = {}
+bullets_images = {}
 
 for t in tank_types:
-    bullets[t] = {}
+    bullets_images[t] = {}
     for level in levels:
         filename = f"Bullets/{t}Bullets/{t}BulletLevel{level}.png"
         bullet_image = pygame.image.load(filename)
         scaled_bullet = pygame.transform.scale(bullet_image, (50, 50))
-        bullets[t][level] = scaled_bullet
+        bullets_images[t][level] = scaled_bullet
 
-equippedbullet = bullets[element]["One"]
+equippedbullet = bullets_images[element]["One"]
 
 blasters = {}
 
@@ -477,6 +475,8 @@ while run:
             equippedtank = tanks[element][0]
             equippedtankpreview = tanks[element][1]
             equippedgun = guns[categories[equippedgun_type - 1]][element]
+            equippedbullet = bullets_images[element]["One"]
+
             if pos[0] >= 1010 and pos[0] <= 1160 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 1:
               equippedgun_type = 0
               damage_gun = 1
