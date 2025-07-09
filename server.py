@@ -115,6 +115,21 @@ def handle_client(conn, addr, player_id):
                             "owner_id": pid,
                             "type": "multibullet"
                         })
+                elif action == "nuke":
+                    dx = msg.get("dx", 0)
+                    dy = msg.get("dy", 0)
+                    if pid in players:
+                        px, py = players[pid]["pos"]
+                        nuke_speed_x = 3
+                        nuke_speed_y = 4
+                        bullets.append({
+                            "x": px,
+                            "y": py,
+                            "dx": dx * nuke_speed_x,
+                            "dy": dy * nuke_speed_y,
+                            "owner_id": pid,
+                            "type": "nuke"
+                        })
                 elif action == "element":
                     element = msg.get("element")
                     if pid in players:
@@ -176,7 +191,7 @@ def send_msg_to_player(pid, msg_dict):
 def check_bullet_collisions():
     """
     For each bullet, check if it collides with any *alive* player (besides its owner).
-    If collision: reduce health by 25. If health <= 0 -> record a kill, set dead status, schedule respawn.
+    If collision: reduce health by 5. If health <= 0 -> record a kill, set dead status, schedule respawn.
     Remove the bullet on collision (no piercing).
     """
     global bullets
@@ -210,7 +225,10 @@ def check_bullet_collisions():
                 bullet_bottom >= player_top and
                 bullet_top <= player_bottom):
                 # We have a collision
-                pdata["health"] -= 2.5
+                if b["type"] == "bullet" or b["type"] == "multibullet":
+                    pdata["health"] -= 5
+                elif b["type"] == "nuke":
+                    pdata["health"] -= 15
                 hit_something = True
 
                 if pdata["health"] <= 0:

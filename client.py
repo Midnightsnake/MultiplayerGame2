@@ -106,7 +106,7 @@ nuketype = 1
 trackertype = 1
 ancientbullettype = 1
 blastertype = 1
-equippedgun_type = 1
+equipped_gun_type = 1
 bulletkey = pygame.K_1
 multibulletkey = pygame.K_2
 shieldactive = False
@@ -184,7 +184,7 @@ for t in tank_types:
         scaled_bullet = pygame.transform.scale(bullet_image, (50, 50))
         bullets_images[t][level] = scaled_bullet
 
-equippedbullet = bullets_images[element]["One"]
+equipped_bullet = bullets_images[element]["One"]
 
 blasters = {}
 
@@ -213,7 +213,7 @@ for category in categories:
         scaled_gun = pygame.transform.scale(gun_image, (200, 200))
         guns[category][t] = scaled_gun
 
-equippedgun = guns[categories[equippedgun_type]][element]
+equipped_gun = guns[categories[equipped_gun_type]][element]
 
 
 health_bars = {
@@ -269,6 +269,8 @@ for t in tank_types:
         scaled_nuke = pygame.transform.scale(nuke_image, (200, 200))
         nukes[t][level] = scaled_nuke
 
+equipped_nuke = nukes[element]["One"]
+
 multibullets = {}
 
 for t in tank_types:
@@ -291,7 +293,7 @@ for t in tank_types:
         scaled_shield = pygame.transform.scale(shield_image, (60, 60))
         shields[t][level] = scaled_shield
 
-equippedshield = shields[element]["One"]
+equipped_shield = shields[element]["One"]
 
 tanks = {}
 for t in tank_types:
@@ -301,8 +303,8 @@ for t in tank_types:
   tanks[t][1] = pygame.image.load(f"Tanks/{t}Tank.png")
   tanks[t][1] = pygame.transform.scale(tanks[t][1], (150, 150))
 
-equippedtank = tanks["Earth"][0]
-equippedtankpreview = tanks["Earth"][1]
+equipped_tank = tanks["Earth"][0]
+equipped_tankpreview = tanks["Earth"][1]
 
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect(("127.0.0.1", 5555))
@@ -384,6 +386,24 @@ while run:
             shieldtime = time.time()
           if event.key == nukekey:
             nukeactive = True
+            mouse_x, mouse_y = pygame.mouse.get_pos()
+            with lock:
+              if my_id in players:
+                px, py = players[my_id]["pos"]
+              else:
+                px, py = (0, 0)
+            dir_x = mouse_x - px
+            dir_y = mouse_y - py
+            length = math.hypot(dir_x, dir_y)
+            if length != 0:
+              dir_x /= length
+              dir_y /= length
+            send_to_server({
+            "action": "nuke",
+            "player_id": my_id,
+            "dx": dir_x,
+            "dy": dir_y
+                    })
           if event.key == trackerkey:
             trackeractive = True
           if event.key == ancientbulletkey:
@@ -472,37 +492,37 @@ while run:
                  "element": element
               })
             
-            equippedtank = tanks[element][0]
-            equippedtankpreview = tanks[element][1]
-            equippedgun = guns[categories[equippedgun_type - 1]][element]
-            equippedbullet = bullets_images[element]["One"]
+            equipped_tank = tanks[element][0]
+            equipped_tankpreview = tanks[element][1]
+            equipped_gun = guns[categories[equipped_gun_type - 1]][element]
+            equipped_bullet = bullets_images[element]["One"]
 
             if pos[0] >= 1010 and pos[0] <= 1160 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 1:
-              equippedgun_type = 0
+              equipped_gun_type = 0
               damage_gun = 1
               speed_gun = 1
             if pos[0] >= 1180 and pos[0] <= 1330 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 1:
-              equippedgun_type = 1
+              equipped_gun_type = 1
               damage_gun = 0.75
               speed_gun = 1.25
             if pos[0] >= 1350 and pos[0] <= 1500 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 1:
-              equippedgun_type = 2
+              equipped_gun_type = 2
               damage_gun = 1.25
               speed_gun = 0.75
             if pos[0] >= 1520 and pos[0] <= 1670 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 1:
-              equippedgun_type = 3
+              equipped_gun_type = 3
               damage_gun = 1.5
               speed_gun = 1.25
             if pos[0] >= 1010 and pos[0] <= 1160 and pos[1] >= 320 and pos[1] <= 470 and gamestatus == 0 and customization == 1:
-              equippedgun_type = 4
+              equipped_gun_type = 4
               damage_gun = 1.25
               speed_gun = 1.5
             if pos[0] >= 1180 and pos[0] <= 1330 and pos[1] >= 320 and pos[1] <= 470 and gamestatus == 0 and customization == 1:
-              equippedgun_type = 5
+              equipped_gun_type = 5
               damage_gun = 0.5
               speed_gun = 2
             if pos[0] >= 1350 and pos[0] <= 1500 and pos[1] >= 320 and pos[1] <= 470 and gamestatus == 0 and customization == 1:
-              equippedgun_type = 6
+              equipped_gun_type = 6
               damage_gun = 2
               speed_gun = 0.5
             if ((pos[0] >= 315 and pos[0] <= 435 and pos[1] >= 140 and pos[1] <= 190) or (pos[0] >= 445 and pos[0] <= 540 and pos[1] >= 140 and pos[1] <= 190)) and signed_in == False:
@@ -589,7 +609,7 @@ while run:
                 display.blit(tanks[pdata["element"]][0], (px - 10, py - 10))
                 
                 if pdata["shield"] == True:
-                  display.blit(equippedshield, (px, py))
+                  display.blit(equipped_shield, (px, py))
 
                 bar_width = 20
                 bar_height = 5
@@ -604,7 +624,12 @@ while run:
 
             for b in bullets:
                 bx, by = b["x"], b["y"]
-                display.blit(equippedbullet, (bx - 4, by - 4, 8, 8))
+                if b["type"] == "bullet":
+                  display.blit(equipped_bullet, (bx - 4, by - 4, 8, 8))
+                elif b["type"] == "multibullet":
+                  display.blit(equipped_multibullet, (bx - 4, by - 4, 8, 8))
+                elif b["type"] == "nuke":
+                  display.blit(equipped_nuke, (bx, by, 12, 12))
 
             if my_id in players and players[my_id]["is_dead"]:
                 pygame.draw.rect(display, pygame.Color(0, 0, 0), (445, 245, 1010, 610))
@@ -679,21 +704,21 @@ while run:
       if customization == 0:
         pygame.draw.rect(display, pygame.Color(0, 0, 0), (958, 108, 771, 864))
         pygame.draw.rect(display, pygame.Color(colors["Bronze"]), (963, 113, 761, 854))
-        if equippedtank == tanks["Earth"][0]:
+        if equipped_tank == tanks["Earth"][0]:
           pygame.draw.rect(display, pygame.Color(255, 255, 255), (1000, 140, 170, 170))
-        elif equippedtank == tanks["Electric"][0]:
+        elif equipped_tank == tanks["Electric"][0]:
           pygame.draw.rect(display, pygame.Color(255, 255, 255), (1170, 140, 170, 170))
-        elif equippedtank == tanks["Fire"][0]:
+        elif equipped_tank == tanks["Fire"][0]:
           pygame.draw.rect(display, pygame.Color(255, 255, 255), (1340, 140, 170, 170))
-        elif equippedtank == tanks["Grass"][0]:
+        elif equipped_tank == tanks["Grass"][0]:
           pygame.draw.rect(display, pygame.Color(255, 255, 255), (1510, 140, 170, 170))
-        elif equippedtank == tanks["Ice"][0]:
+        elif equipped_tank == tanks["Ice"][0]:
           pygame.draw.rect(display, pygame.Color(255, 255, 255), (1000, 310, 170, 170))
-        elif equippedtank == tanks["Plasma"][0]:
+        elif equipped_tank == tanks["Plasma"][0]:
           pygame.draw.rect(display, pygame.Color(255, 255, 255), (1170, 310, 170, 170))
-        elif equippedtank == tanks["Water"][0]:
+        elif equipped_tank == tanks["Water"][0]:
           pygame.draw.rect(display, pygame.Color(255, 255, 255), (1340, 310, 170, 170))
-        elif equippedtank == tanks["Wind"][0]:
+        elif equipped_tank == tanks["Wind"][0]:
           pygame.draw.rect(display, pygame.Color(255, 255, 255), (1510, 310, 170, 170))
         pygame.draw.rect(display, pygame.Color(0, 0, 0), (220, 345, 210, 410))
         pygame.draw.rect(display, pygame.Color(0, 0, 0), (470, 345, 210, 410))
@@ -756,25 +781,25 @@ while run:
         display.blit(tanks["Plasma"][1], (1180, 320))
         display.blit(tanks["Water"][1], (1350, 320))
         display.blit(tanks["Wind"][1], (1520, 320))
-        display.blit(equippedtankpreview, (1265, 490))
+        display.blit(equipped_tankpreview, (1265, 490))
       if customization == 1:
         pygame.draw.rect(display, pygame.Color(0, 0, 0), (192, 108, 771, 864))
         pygame.draw.rect(display, pygame.Color(colors["Diamond"]), (197, 113, 761, 854))
         pygame.draw.rect(display, pygame.Color(0, 0, 0), (958, 108, 771, 864))
         pygame.draw.rect(display, pygame.Color(colors["Silver"]), (963, 113, 761, 854))
-        if equippedgun_type == 0:
+        if equipped_gun_type == 0:
           pygame.draw.rect(display, pygame.Color(255, 255, 255), (1000, 140, 170, 170))
-        elif equippedgun_type == 1:
+        elif equipped_gun_type == 1:
           pygame.draw.rect(display, pygame.Color(255, 255, 255), (1170, 140, 170, 170))
-        elif equippedgun_type == 2:
+        elif equipped_gun_type == 2:
           pygame.draw.rect(display, pygame.Color(255, 255, 255), (1340, 140, 170, 170))
-        elif equippedgun_type == 3:
+        elif equipped_gun_type == 3:
           pygame.draw.rect(display, pygame.Color(255, 255, 255), (1510, 140, 170, 170))
-        elif equippedgun_type == 4:
+        elif equipped_gun_type == 4:
           pygame.draw.rect(display, pygame.Color(255, 255, 255), (1000, 310, 170, 170))
-        elif equippedgun_type == 5:
+        elif equipped_gun_type == 5:
           pygame.draw.rect(display, pygame.Color(255, 255, 255), (1170, 310, 170, 170))
-        elif equippedgun_type == 6:
+        elif equipped_gun_type == 6:
           pygame.draw.rect(display, pygame.Color(255, 255, 255), (1340, 310, 170, 170))
         pygame.draw.rect(display, pygame.Color(0, 0, 0), (220, 345, 210, 410))
         pygame.draw.rect(display, pygame.Color(0, 0, 0), (470, 345, 210, 410))
@@ -836,7 +861,7 @@ while run:
         display.blit(guns["BladeGuns"][element], (985, 300))
         display.blit(guns["AncientGuns"][element], (1155, 300))
         display.blit(guns["ModernGuns"][element], (1325, 300))
-        display.blit(equippedgun, (1250, 470))
+        display.blit(equipped_gun, (1250, 470))
       if signed_in == False:
         pygame.draw.rect(display, pygame.Color(0, 0, 0), (313, 138, 124, 54))
         pygame.draw.rect(display, pygame.Color(0, 0, 0), (443, 138, 99, 54))
