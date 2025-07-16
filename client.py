@@ -171,8 +171,22 @@ for t in tank_types:
     for level in levels:
         filename = f"AncientBullets/{t}AncientBullets/{t}AncientBulletLevel{level}.png"
         ancient_bullet_image = pygame.image.load(filename)
-        scaled_ancient_bullet = pygame.transform.scale(ancient_bullet_image, (200, 200))
+        scaled_ancient_bullet = pygame.transform.scale(ancient_bullet_image, (50, 50))
         ancient_bullets[t][level] = scaled_ancient_bullet
+
+equipped_ancient_bullet = ancient_bullets["Earth"]["One"]
+
+blasters = {}
+
+for t in tank_types:
+    blasters[t] = {}
+    for level in levels:
+        filename = f"Blasters/{t}Blasters/{t}BlasterLevel{level}.png"
+        blaster_image = pygame.image.load(filename)
+        scaled_blaster = pygame.transform.scale(blaster_image, (50, 50))
+        blasters[t][level] = scaled_blaster
+
+equipped_blaster = blasters["Earth"]["One"]
 
 bullets_images = {}
 
@@ -184,19 +198,7 @@ for t in tank_types:
         scaled_bullet = pygame.transform.scale(bullet_image, (50, 50))
         bullets_images[t][level] = scaled_bullet
 
-equipped_bullet = bullets_images[element]["One"]
-
-blasters = {}
-
-for t in tank_types:
-    blasters[t] = {}
-    for level in levels:
-        filename = f"Blasters/{t}Blasters/{t}BlasterLevel{level}.png"
-        blaster_image = pygame.image.load(filename)
-        scaled_blaster = pygame.transform.scale(blaster_image, (200, 200))
-        blasters[t][level] = scaled_blaster
-
-equipped_blaster = blasters[element]["One"]
+equipped_bullet = bullets_images["Earth"]["One"]
 
 categories = [
     "DefaultGuns", "ShortGuns", "LongGuns", "SpikeGuns",
@@ -210,7 +212,7 @@ for category in categories:
     for t in tank_types:
         filename = f"Guns/{category}/{t}{category[:-4]}Gun.png"
         gun_image = pygame.image.load(filename)
-        scaled_gun = pygame.transform.scale(gun_image, (200, 200))
+        scaled_gun = pygame.transform.scale(gun_image, (50, 50))
         guns[category][t] = scaled_gun
 
 equipped_gun = guns[categories[equipped_gun_type]][element]
@@ -226,16 +228,6 @@ for i in range(1, 4):
   for j in range(0, h + 1):
       health_bars[i].append(pygame.image.load("HealthBars/HealthBarsType" + str(i) + "/HealthBars" + str(i) + "-" + str(j) + ".png"))
   h += 10
-  
-trackers = {}
-
-for t in tank_types:
-    trackers[t] = {}
-    for level in levels:
-        filename = f"Trackers/{t}Trackers/{t}TrackerLevel{level}.png"
-        tracker_image = pygame.image.load(filename)
-        scaled_tracker = pygame.transform.scale(tracker_image, (200, 200))
-        trackers[t][level] = scaled_tracker
 
 levels_icons = {}
 for i in range(0, 10):
@@ -266,22 +258,10 @@ for t in tank_types:
     for level in levels:
         filename = f"Nukes/{t}Nukes/{t}NukeLevel{level}.png"
         nuke_image = pygame.image.load(filename)
-        scaled_nuke = pygame.transform.scale(nuke_image, (200, 200))
+        scaled_nuke = pygame.transform.scale(nuke_image, (100, 100))
         nukes[t][level] = scaled_nuke
 
-equipped_nuke = nukes[element]["One"]
-
-multibullets = {}
-
-for t in tank_types:
-    multibullets[t] = {}
-    for level in levels:
-        filename = f"MultiBullets/{t}MultiBullets/{t}MultiBulletLevel{level}.png"
-        multibullet_image = pygame.image.load(filename)
-        scaled_multibullet = pygame.transform.scale(multibullet_image, (200, 200))
-        multibullets[t][level] = scaled_multibullet
-
-equipped_multibullet = multibullets[element]["One"]
+equipped_nuke = nukes["Earth"]["One"]
 
 shields = {}
 
@@ -290,10 +270,10 @@ for t in tank_types:
     for level in levels:
         filename = f"Shields/{t}Shields/{t}ShieldLevel{level}.png"
         shield_image = pygame.image.load(filename)
-        scaled_shield = pygame.transform.scale(shield_image, (60, 60))
+        scaled_shield = pygame.transform.scale(shield_image, (75, 75))
         shields[t][level] = scaled_shield
 
-equipped_shield = shields[element]["One"]
+equipped_shield = shields["Earth"]["One"]
 
 tanks = {}
 for t in tank_types:
@@ -305,6 +285,18 @@ for t in tank_types:
 
 equipped_tank = tanks["Earth"][0]
 equipped_tankpreview = tanks["Earth"][1]
+
+trackers = {}
+
+for t in tank_types:
+    trackers[t] = {}
+    for level in levels:
+        filename = f"Trackers/{t}Trackers/{t}TrackerLevel{level}.png"
+        tracker_image = pygame.image.load(filename)
+        scaled_tracker = pygame.transform.scale(tracker_image, (50, 50))
+        trackers[t][level] = scaled_tracker
+
+equipped_tracker = trackers["Earth"]["One"]
 
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect(("127.0.0.1", 5555))
@@ -348,6 +340,7 @@ while run:
                 px, py = (0, 0)
             dir_x = mouse_x - px
             dir_y = mouse_y - py
+            angle = -math.degrees(math.atan2(dir_y, dir_x)) - 90
             length = math.hypot(dir_x, dir_y)
             if length != 0:
               dir_x /= length
@@ -356,7 +349,8 @@ while run:
             "action": "shoot",
             "player_id": my_id,
             "dx": dir_x,
-            "dy": dir_y
+            "dy": dir_y,
+            "angle": angle
                     })
           if event.key == multibulletkey:
             mouse_x, mouse_y = pygame.mouse.get_pos()
@@ -367,6 +361,7 @@ while run:
                 px, py = (0, 0)
             dir_x = mouse_x - px
             dir_y = mouse_y - py
+            angle = -math.degrees(math.atan2(dir_y, dir_x)) - 90
             length = math.hypot(dir_x, dir_y)
             if length != 0:
               dir_x /= length
@@ -375,7 +370,8 @@ while run:
             "action": "multibullet",
             "player_id": my_id,
             "dx": dir_x,
-            "dy": dir_y
+            "dy": dir_y,
+            "angle": angle
                     })
           if event.key == shieldkey and shieldactive == False:
             shieldactive = True
@@ -496,6 +492,8 @@ while run:
             equipped_tankpreview = tanks[element][1]
             equipped_gun = guns[categories[equipped_gun_type - 1]][element]
             equipped_bullet = bullets_images[element]["One"]
+            equipped_shield = shields[element]["One"]
+            equipped_nuke = nukes[element]["One"]
 
             if pos[0] >= 1010 and pos[0] <= 1160 and pos[1] >= 150 and pos[1] <= 300 and gamestatus == 0 and customization == 1:
               equipped_gun_type = 0
@@ -609,7 +607,7 @@ while run:
                 display.blit(tanks[pdata["element"]][0], (px - 10, py - 10))
                 
                 if pdata["shield"] == True:
-                  display.blit(equipped_shield, (px, py))
+                  display.blit(equipped_shield, (px - 15, py - 10))
 
                 bar_width = 20
                 bar_height = 5
@@ -625,9 +623,11 @@ while run:
             for b in bullets:
                 bx, by = b["x"], b["y"]
                 if b["type"] == "bullet":
-                  display.blit(equipped_bullet, (bx - 4, by - 4, 8, 8))
+                  rotated_bullet = pygame.transform.rotate(equipped_bullet, angle)
+                  display.blit(rotated_bullet, (bx - 15, by - 10, 8, 8))
                 elif b["type"] == "multibullet":
-                  display.blit(equipped_multibullet, (bx - 4, by - 4, 8, 8))
+                  rotated_multibullet = pygame.transform.rotate(equipped_bullet, angle)
+                  display.blit(rotated_multibullet, (bx - 15, by - 10, 8, 8))
                 elif b["type"] == "nuke":
                   display.blit(equipped_nuke, (bx, by, 12, 12))
 
