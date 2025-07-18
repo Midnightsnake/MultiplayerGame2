@@ -324,7 +324,7 @@ def main():
                 "pos": (400, 300), # random between  50 too 950 for x and 600 to 700 for y
                 "element": element, # equipped element
                 "guntype": "DefaultGun",
-                "health": 100,
+                "health": 40,
                 "kills": 0,
                 "xp": 0,
                 "is_dead": False,

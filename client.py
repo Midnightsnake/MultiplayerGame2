@@ -228,6 +228,7 @@ for i in range(1, 4):
   for j in range(0, h + 1):
       health_bars[i].append(pygame.image.load("HealthBars/HealthBarsType" + str(i) + "/HealthBars" + str(i) + "-" + str(j) + ".png"))
   h += 10
+#healthbars[1][40]
 
 levels_icons = {}
 for i in range(0, 10):
@@ -611,27 +612,18 @@ while run:
 
                 display.blit(tanks[pdata["element"]][0], (px - 10, py - 10))
 
-                bar_width = 20
-                bar_height = 5
-                health_ratio = max(0, health) / 100.0
-                pygame.draw.rect(display, (0, 255, 0),
-                                 (px - 10, py - 20, int(bar_width * health_ratio), bar_height))
-                pygame.draw.rect(display, (255, 0, 0),
-                                 (px - 10 + int(bar_width * health_ratio),
-                                  py - 20,
-                                  int(bar_width * (1 - health_ratio)),
-                                  bar_height))
+                display.blit(health_bars[1][health], (px - 23, py - 50))
 
             for b in bullets:
                 bx, by = b["x"], b["y"]
                 if b["type"] == "bullet":
-                  rotated_bullet = pygame.transform.rotate(equipped_bullet, angle)
+                  rotated_bullet = pygame.transform.rotate(equipped_bullet, b["angle"])
                   display.blit(rotated_bullet, (bx - 15, by - 10, 8, 8))
                 elif b["type"] == "multibullet":
-                  rotated_multibullet = pygame.transform.rotate(equipped_bullet, angle)
+                  rotated_multibullet = pygame.transform.rotate(equipped_bullet, b["angle"])
                   display.blit(rotated_multibullet, (bx - 15, by - 10, 8, 8))
                 elif b["type"] == "nuke":
-                  rotated_nuke = pygame.transform.rotate(equipped_nuke, angle)
+                  rotated_nuke = pygame.transform.rotate(equipped_nuke, b["angle"])
                   display.blit(rotated_nuke, (bx - 45, by - 55, 8, 8))
 
             if my_id in players and players[my_id]["is_dead"]:
