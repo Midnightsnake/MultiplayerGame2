@@ -75,7 +75,7 @@ def handle_client(conn, addr, player_id):
                     angle = msg.get("angle", 0)
                     if pid in players:
                         px, py = players[pid]["pos"]
-                        bullet_speed_x = 5
+                        bullet_speed_x = 4
                         bullet_speed_y = 6
                         bullets.append({
                             "x": px,
@@ -92,11 +92,11 @@ def handle_client(conn, addr, player_id):
                     angle = msg.get("angle", 0)
                     if pid in players:
                         px, py = players[pid]["pos"]
-                        multibullet_speed_x = 5
-                        multibullet_speed_y = 2
+                        multibullet_speed_x = 4
+                        multibullet_speed_y = 6
                         bullets.append({
                             "x": px + 40,
-                            "y": py + 40,
+                            "y": py,
                             "dx": dx * multibullet_speed_x,
                             "dy": dy * multibullet_speed_y,
                             "owner_id": pid,
@@ -114,7 +114,7 @@ def handle_client(conn, addr, player_id):
                         })
                         bullets.append({
                             "x": px - 40,
-                            "y": py - 40,
+                            "y": py,
                             "dx": dx * multibullet_speed_x,
                             "dy": dy * multibullet_speed_y,
                             "owner_id": pid,
@@ -124,17 +124,19 @@ def handle_client(conn, addr, player_id):
                 elif action == "nuke":
                     dx = msg.get("dx", 0)
                     dy = msg.get("dy", 0)
+                    angle = msg.get("angle", 0)
                     if pid in players:
                         px, py = players[pid]["pos"]
-                        nuke_speed_x = 3
-                        nuke_speed_y = 4
+                        nuke_speed_x = 4
+                        nuke_speed_y = 6
                         bullets.append({
                             "x": px,
                             "y": py,
                             "dx": dx * nuke_speed_x,
                             "dy": dy * nuke_speed_y,
                             "owner_id": pid,
-                            "type": "nuke"
+                            "type": "nuke",
+                            "angle": angle
                         })
                 elif action == "element":
                     element = msg.get("element")

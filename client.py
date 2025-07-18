@@ -390,6 +390,7 @@ while run:
                 px, py = (0, 0)
             dir_x = mouse_x - px
             dir_y = mouse_y - py
+            angle = -math.degrees(math.atan2(dir_y, dir_x)) - 90
             length = math.hypot(dir_x, dir_y)
             if length != 0:
               dir_x /= length
@@ -398,7 +399,8 @@ while run:
             "action": "nuke",
             "player_id": my_id,
             "dx": dir_x,
-            "dy": dir_y
+            "dy": dir_y,
+            "angle": angle
                     })
           if event.key == trackerkey:
             trackeractive = True
@@ -604,10 +606,10 @@ while run:
                 if is_dead:
                     continue
 
-                display.blit(tanks[pdata["element"]][0], (px - 10, py - 10))
-                
                 if pdata["shield"] == True:
-                  display.blit(equipped_shield, (px - 15, py - 10))
+                  display.blit(equipped_shield, (px - 28, py - 28))
+
+                display.blit(tanks[pdata["element"]][0], (px - 10, py - 10))
 
                 bar_width = 20
                 bar_height = 5
@@ -629,7 +631,8 @@ while run:
                   rotated_multibullet = pygame.transform.rotate(equipped_bullet, angle)
                   display.blit(rotated_multibullet, (bx - 15, by - 10, 8, 8))
                 elif b["type"] == "nuke":
-                  display.blit(equipped_nuke, (bx, by, 12, 12))
+                  rotated_nuke = pygame.transform.rotate(equipped_nuke, angle)
+                  display.blit(rotated_nuke, (bx - 45, by - 55, 8, 8))
 
             if my_id in players and players[my_id]["is_dead"]:
                 pygame.draw.rect(display, pygame.Color(0, 0, 0), (445, 245, 1010, 610))
