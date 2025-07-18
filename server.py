@@ -215,13 +215,19 @@ def check_bullet_collisions():
             if pid == owner_id or pdata["is_dead"]:
                 continue  # skip the bullet's owner and dead players
 
-            # bullet bounding box = (bx-4, by-4, 8x8)
-            bullet_left = bx - 4
-            bullet_right = bx + 4
-            bullet_top = by - 4
-            bullet_bottom = by + 4
+            bullet_left, bullet_right, bullet_top, bullet_bottom = 0, 0, 0, 0
 
-            # player bounding box = (px-10, py-10, 20x20)
+            if b["type"] == "bullet" or b["type"] == "multibullet":
+                bullet_left = bx + 22
+                bullet_right = bx + 29
+                bullet_top = by + 12.5
+                bullet_bottom = by + 32.5
+            if b["type"] == "nuke":
+                bullet_left = bx + 18.5
+                bullet_right = bx + 32.5
+                bullet_top = by + 9.5
+                bullet_bottom = by + 36
+
             px, py = pdata["pos"]
             player_left = px - 10
             player_right = px + 10
