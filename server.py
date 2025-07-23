@@ -19,6 +19,7 @@ MAX_PLAYERS = 12
 #   "is_dead": bool,
 #   "respawn_time": float  (timestamp when they'll respawn),
 # }
+
 players = {}
 # bullets: list of dicts: { "x": float, "y": float, "dx": float, "dy": float, "owner_id": int }
 bullets = []
@@ -27,9 +28,8 @@ next_player_id = 0
 client_sockets = []
 player_connections = {}  # map player_id -> socket for direct messages
 
-# Game timer: starts (5 minutes = 300s) once we have at least 2 players
 game_start_time = None
-GAME_DURATION = 300  # 5 minutes in seconds
+GAME_DURATION = 300
 lavaY = 950
 
 # A lock for thread-safe updates
@@ -63,12 +63,10 @@ def handle_client(conn, addr, player_id):
                     if pid in players:
                         px, py = players[pid]["pos"]
                         players[pid]["pos"] = (px + dx, py + dy)
-
                 elif action == "jump":
                     if pid in players:
                         px, py = players[pid]["pos"]
                         players[pid]["pos"] = (px, py - 100)
-
                 elif action == "shoot":
                     dx = msg.get("dx", 0)
                     dy = msg.get("dy", 0)
@@ -138,6 +136,23 @@ def handle_client(conn, addr, player_id):
                             "type": "nuke",
                             "angle": angle
                         })
+                elif action == "ancient_bullet":
+                    dx = msg.get("dx", 0)
+                    dy = msg.get("dy", 0)
+                    angle = msg.get("angle", 0)
+                    if pid in players:
+                        px, py = players[pid]["pos"]
+                        ancient_bullet_speed_x = 12
+                        ancient_bullet_speed_y = 18
+                        bullets.append({
+                            "x": px,
+                            "y": py,
+                            "dx": dx * ancient_bullet_speed_x,
+                            "dy": dy * ancient_bullet_speed_y,
+                            "owner_id": pid,
+                            "type": "ancient_bullet",
+                            "angle": angle
+                        })
                 elif action == "element":
                     element = msg.get("element")
                     if pid in players:
@@ -185,7 +200,6 @@ def broadcast_game_state():
             cs.sendall(data)
         except:
             pass
-
 def send_msg_to_player(pid, msg_dict):
     """
     Send a specific dictionary message to one player (if connected).
@@ -195,7 +209,6 @@ def send_msg_to_player(pid, msg_dict):
             player_connections[pid].sendall(pickle.dumps(msg_dict))
         except:
             pass
-
 def check_bullet_collisions():
     """
     For each bullet, check if it collides with any *alive* player (besides its owner).
@@ -203,9 +216,7 @@ def check_bullet_collisions():
     Remove the bullet on collision (no piercing).
     """
     global bullets
-
     surviving_bullets = []
-
     for b in bullets:
         bx, by = b["x"], b["y"]
         owner_id = b["owner_id"]
@@ -217,7 +228,7 @@ def check_bullet_collisions():
 
             bullet_left, bullet_right, bullet_top, bullet_bottom = 0, 0, 0, 0
 
-            if b["type"] == "bullet" or b["type"] == "multibullet":
+            if b["type"] == "bullet" or b["type"] == "multibullet" or b["type"] == "ancient_bullet":
                 bullet_left = bx + 22
                 bullet_right = bx + 29
                 bullet_top = by + 12.5
@@ -229,17 +240,16 @@ def check_bullet_collisions():
                 bullet_bottom = by + 36
 
             px, py = pdata["pos"]
-            player_left = px - 10
-            player_right = px + 10
-            player_top = py - 10
-            player_bottom = py + 10
+            player_left = px + 6.5
+            player_right = px + 43.5
+            player_top = py + 6.5
+            player_bottom = py + 43.5
 
             if (bullet_right >= player_left and
                 bullet_left <= player_right and
                 bullet_bottom >= player_top and
                 bullet_top <= player_bottom):
-                # We have a collision
-                if b["type"] == "bullet" or b["type"] == "multibullet":
+                if b["type"] == "bullet" or b["type"] == "multibullet" or b["type"] == "ancient_bullet":
                     pdata["health"] -= 5
                 elif b["type"] == "nuke":
                     pdata["health"] -= 15
@@ -250,7 +260,6 @@ def check_bullet_collisions():
                     if owner_id in players:
                         players[owner_id]["kills"] += 1
                         players[owner_id]["xp"] += 10
-
                     # Mark victim as dead, set 5s respawn
                     pdata["is_dead"] = True
                     pdata["health"] = 0  # just to be sure
@@ -259,7 +268,6 @@ def check_bullet_collisions():
 
         if not hit_something:
             surviving_bullets.append(b)
-
     bullets = surviving_bullets
 
 def game_loop():
@@ -287,7 +295,6 @@ def game_loop():
 
             # Check collisions
             check_bullet_collisions()
-
             # Broadcast state
             broadcast_game_state()
 
@@ -343,16 +350,12 @@ def main():
             # If we now have at least 2 players, and the timer hasn't started, start it
             if game_start_time is None and len(players) >= 2:
                 game_start_time = time.time()
-
-        # Send handshake
         handshake_msg = {
             "action": "handshake",
             "player_id": player_id,
             "max_players": MAX_PLAYERS
         }
         conn.sendall(pickle.dumps(handshake_msg))
-
-        # Spawn thread for this client
         t = threading.Thread(target=handle_client, args=(conn, addr, player_id), daemon=True)
         t.start()
 
