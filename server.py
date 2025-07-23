@@ -285,7 +285,10 @@ def game_loop():
                 b["dy"] += 0.1
             for pid, pdata in list(players.items()):
                 px, py = pdata["pos"]
-                py += 1
+                if px >= 310 and px <= 1580 and py >= 877:
+                    py = 877
+                else:
+                    py += 1
                 pdata["pos"] = (px, py)
             # Remove out-of-bounds bullets
             bullets = [

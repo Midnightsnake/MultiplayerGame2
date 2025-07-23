@@ -85,7 +85,7 @@ bullet_shooting_time = time.time()
 bullets_remaining = 100
 speedX = 0
 speedY = 0
-speed1 = 1
+speed1 = 2
 positionX = 1000
 positionY = 700
 time_remaining = 300
@@ -588,8 +588,6 @@ while run:
       display.blit(text21, (720, 155))
       display.blit(text22, (1070, 155))
       positionY += playergravity * delta_time
-      if positionX >= 300 and positionX <= 1575 and positionY >= 868:
-        positionY = 868
       if shieldactive == True:
         shieldtimedifference = time.time() - shieldtime
         if shieldtimedifference > shieldduration:
