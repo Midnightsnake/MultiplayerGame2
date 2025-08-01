@@ -4,7 +4,7 @@ import pickle
 import time
 import random
 
-HOST = "127.0.0.1"
+HOST = "0.0.0.0"
 PORT = 5555
 MAX_PLAYERS = 12
 
@@ -21,18 +21,16 @@ MAX_PLAYERS = 12
 # }
 
 players = {}
-# bullets: list of dicts: { "x": float, "y": float, "dx": float, "dy": float, "owner_id": int }
 bullets = []
 next_player_id = 0
 
 client_sockets = []
-player_connections = {}  # map player_id -> socket for direct messages
+player_connections = {}
 
 game_start_time = None
 GAME_DURATION = 300
 lavaY = 950
 
-# A lock for thread-safe updates
 lock = threading.Lock()
 
 def handle_client(conn, addr, player_id):
@@ -51,9 +49,8 @@ def handle_client(conn, addr, player_id):
 
             with lock:
                 action = msg.get("action")
-                pid = msg.get("player_id")  # Which client sent it
+                pid = msg.get("player_id")
 
-                # Ignore commands from a dead player
                 if pid in players and players[pid]["is_dead"]:
                     continue
 
@@ -182,11 +179,11 @@ def broadcast_game_state():
     global game_start_time, lavaY
     # Calculate time_left if we have at least 2 players and the timer started
     if game_start_time is not None:
-        lavaY -= 0.03
+        lavaY -= 0.01
         elapsed = time.time() - game_start_time
         time_left = max(0, GAME_DURATION - elapsed)
     else:
-        time_left = GAME_DURATION  # or just 0, if you prefer not showing a timer until it starts
+        time_left = GAME_DURATION
     game_state = {
         "players": players,   # includes positions, elements, health, kills, is_dead, etc.
         "bullets": bullets,
@@ -224,7 +221,7 @@ def check_bullet_collisions():
 
         for pid, pdata in list(players.items()):
             if pid == owner_id or pdata["is_dead"]:
-                continue  # skip the bullet's owner and dead players
+                continue
 
             bullet_left, bullet_right, bullet_top, bullet_bottom = 0, 0, 0, 0
 
@@ -256,13 +253,11 @@ def check_bullet_collisions():
                 hit_something = True
 
                 if pdata["health"] <= 0:
-                    # Owner gets a kill
                     if owner_id in players:
                         players[owner_id]["kills"] += 1
                         players[owner_id]["xp"] += 10
-                    # Mark victim as dead, set 5s respawn
                     pdata["is_dead"] = True
-                    pdata["health"] = 0  # just to be sure
+                    pdata["health"] = 0
 
                 break
 
@@ -278,27 +273,40 @@ def game_loop():
     while True:
         time.sleep(0.00694444)  # ~144 updates per second
         with lock:
-            # Move bullets
             for b in bullets:
                 b["x"] += b["dx"]
                 b["y"] += b["dy"]
                 b["dy"] += 0.1
             for pid, pdata in list(players.items()):
                 px, py = pdata["pos"]
-                if px >= 310 and px <= 1580 and py >= 877:
+                if px >= 305 and px <= 1585 and py >= 877:
                     py = 877
+                elif px >= 325 and px <= 450 and py >= 739 and py <= 744:
+                    py = 739
+                elif px >= 445 and px <= 570 and py >= 739 and py <= 744:
+                    py = 739
+                elif px >= 565 and px <= 690 and py >= 739 and py <= 744:
+                    py = 739
+                elif px >= 685 and px <= 810 and py >= 739 and py <= 744:
+                    py = 739
+                elif px >= 1080 and px <= 1205 and py >= 739 and py <= 744:
+                    py = 739
+                elif px >= 1200 and px <= 1325 and py >= 739 and py <= 744:
+                    py = 739
+                elif px >= 1320 and px <= 1445 and py >= 739 and py <= 744:
+                    py = 739
+                elif px >= 1440 and px <= 1565 and py >= 739 and py <= 744:
+                    py = 739
                 else:
                     py += 1
                 pdata["pos"] = (px, py)
-            # Remove out-of-bounds bullets
+
             bullets = [
                 b for b in bullets
                 if 0 <= b["x"] <= 1920 and 0 <= b["y"] <= 1080
             ]
 
-            # Check collisions
             check_bullet_collisions()
-            # Broadcast state
             broadcast_game_state()
 
 def main():
@@ -335,10 +343,9 @@ def main():
                 random.randint(50, 255)
             )
             element = "Earth"
-            # Initialize the new player
             players[player_id] = {
                 "pos": (400, 300), # random between  50 too 950 for x and 600 to 700 for y
-                "element": element, # equipped element
+                "element": element,
                 "guntype": "DefaultGun",
                 "health": 40,
                 "kills": 0,
