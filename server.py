@@ -277,12 +277,14 @@ def game_loop():
                 b["x"] += b["dx"]
                 b["y"] += b["dy"]
                 b["dy"] += 0.1
-            incline_x1, incline_y1 = 875, 877  # Starting point
-            incline_x2, incline_y2 = 920, 827 # Ending point
+            incline_x1, incline_y1 = 804, 877  # Starting point
+            incline_x2, incline_y2 = 944, 720 # Ending point
             m = (incline_y2 - incline_y1) / (incline_x2 - incline_x1)
-            b = incline_y1 - m * incline_x1
+            b = incline_y1 - (m * incline_x1)
             for pid, pdata in list(players.items()):
                 px, py = pdata["pos"]
+                required_y = m * px + b
+                print(px, py, required_y, incline_y2 - incline_y1, m)
                 if px >= 305 and px <= 1585 and py >= 877:
                     py = 877
                 elif px >= 325 and px <= 450 and py >= 739 and py <= 744:
@@ -301,10 +303,8 @@ def game_loop():
                     py = 739
                 elif px >= 1440 and px <= 1565 and py >= 739 and py <= 744:
                     py = 739
-                elif px >= incline_x1 and px <= incline_x2:
-                    required_y = m * px + b
-                    if py >= required_y:
-                        py = required_y
+                elif px >= incline_x1 and px <= incline_x2 and py >= required_y:
+                    py = required_y
                 else:
                     py += 1
                 pdata["pos"] = (px, py)
