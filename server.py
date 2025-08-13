@@ -306,6 +306,38 @@ def game_loop():
                     py = 739
                 elif px >= 1440 and px <= 1565 and py >= 739 and py <= 744:
                     py = 739
+                elif px >= 549 and px <= 641 and py >= 523 and py <= 528:
+                    py = 523
+                elif px >= 549 and px <= 641 and py >= 573 and py <= 578:
+                    py = 573
+                elif px >= 643 and px <= 735 and py >= 523 and py <= 528:
+                    py = 523
+                elif px >= 643 and px <= 735 and py >= 573 and py <= 578:
+                    py = 573
+                elif px >= 737 and px <= 829 and py >= 523 and py <= 528:
+                    py = 523
+                elif px >= 737 and px <= 829 and py >= 573 and py <= 578:
+                    py = 573
+                elif px >= 831 and px <= 923 and py >= 523 and py <= 528:
+                    py = 523
+                elif px >= 831 and px <= 923 and py >= 573 and py <= 578:
+                    py = 573
+                elif px >= 969 and px <= 1061 and py >= 523 and py <= 528:
+                    py = 523
+                elif px >= 969 and px <= 1061 and py >= 573 and py <= 578:
+                    py = 573
+                elif px >= 1063 and px <= 1155 and py >= 523 and py <= 528:
+                    py = 523
+                elif px >= 1063 and px <= 1155 and py >= 573 and py <= 578:
+                    py = 573
+                elif px >= 1157 and px <= 1249 and py >= 523 and py <= 528:
+                    py = 523
+                elif px >= 1157 and px <= 1249 and py >= 573 and py <= 578:
+                    py = 573
+                elif px >= 1251 and px <= 1343 and py >= 523 and py <= 528:
+                    py = 523
+                elif px >= 1251 and px <= 1343 and py >= 573 and py <= 578:
+                    py = 573
                 elif px >= incline_x1 and px <= incline_x2 and py >= required_y:
                     py = required_y
                 elif py <= incline_x3 and px <= incline_x2 and py >= required_y:

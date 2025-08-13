@@ -624,7 +624,7 @@ while run:
                   rotated_ancient_bullet = pygame.transform.rotate(equipped_ancient_bullet, b["angle"])
                   display.blit(rotated_ancient_bullet, (bx - 15, by - 10, 8, 8))
 
-            if my_id in players and players[my_id]["is_dead"]:
+            if my_id in players and players[my_id]["is_dead"] and cash == 500000:
                 pygame.draw.rect(display, pygame.Color(0, 0, 0), (445, 245, 1010, 610))
                 pygame.draw.rect(display, pygame.Color(colors["Bronze"]), (450, 250, 1000, 600))
                 pygame.draw.rect(display, pygame.Color(0, 0, 0), (475, 655, 280, 60))
@@ -649,7 +649,7 @@ while run:
                 display.blit(text25, (1200, 775))
                 if pos[0] >= 480 and pos[0] <= 750 and pos[1] >= 660 and pos[1] <= 710 and gamestatus == 1:
                   gamestatus = 0
-            if players_remaining == 1 and not players[my_id]["is_dead"]:
+            if players_remaining == 1 and not players[my_id]["is_dead"] and cash == 500000:
                 pygame.draw.rect(display, pygame.Color(0, 0, 0), (445, 245, 1010, 610))
                 pygame.draw.rect(display, pygame.Color(colors["Gold"]), (450, 250, 1000, 600))
                 pygame.draw.rect(display, pygame.Color(0, 0, 0), (475, 655, 280, 60))
