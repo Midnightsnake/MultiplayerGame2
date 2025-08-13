@@ -338,6 +338,10 @@ def game_loop():
                     py = 523
                 elif px >= 1251 and px <= 1343 and py >= 573 and py <= 578:
                     py = 573
+                #elif px >= 549 and px <= 641 and py >= 523 and py <= 528:
+                    #py = 523
+                elif px >= 1343 and px <= 1435 and py >= 460 and py <= 465:
+                    py = 460
                 elif px >= incline_x1 and px <= incline_x2 and py >= required_y:
                     py = required_y
                 elif py <= incline_x3 and px <= incline_x2 and py >= required_y:
