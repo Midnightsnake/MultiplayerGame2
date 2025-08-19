@@ -6,7 +6,7 @@ import random
 
 HOST = "0.0.0.0"
 PORT = 5555
-MAX_PLAYERS = 12
+MAX_PLAYERS = 8
 
 # Each player's data:
 # players[player_id] = {
@@ -338,10 +338,24 @@ def game_loop():
                     py = 523
                 elif px >= 1251 and px <= 1343 and py >= 573 and py <= 578:
                     py = 573
-                #elif px >= 549 and px <= 641 and py >= 523 and py <= 528:
-                    #py = 523
+                elif px >= 457 and px <= 549 and py >= 460 and py <= 465:
+                    py = 460
                 elif px >= 1343 and px <= 1435 and py >= 460 and py <= 465:
                     py = 460
+                elif px >= 363 and px <= 455 and py >= 398 and py <= 403:
+                    py = 398
+                elif px >= 1437 and px <= 1529 and py >= 398 and py <= 403:
+                    py = 398
+                elif px >= 470 and px <= 685 and py >= 304 and py <= 309:
+                    py = 304
+                elif px >= 1205 and px <= 1420 and py >= 304 and py <= 309:
+                    py = 304
+                elif px >= 354 and px <= 463 and py >= 248 and py <= 253:
+                    py = 248
+                elif px >= 1428 and px <= 1537 and py >= 248 and py <= 253:
+                    py = 248
+                elif px >= 821 and px <= 1069 and py >= 379 and py <= 384:
+                    py = 379
                 elif px >= incline_x1 and px <= incline_x2 and py >= required_y:
                     py = required_y
                 elif py <= incline_x3 and px <= incline_x2 and py >= required_y:
@@ -386,11 +400,6 @@ def main():
             player_id = next_player_id
             next_player_id += 1
 
-            color = (
-                random.randint(50, 255),
-                random.randint(50, 255),
-                random.randint(50, 255)
-            )
             element = "Earth"
             players[player_id] = {
                 "pos": (400, 300), # random between  50 too 950 for x and 600 to 700 for y

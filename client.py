@@ -91,6 +91,7 @@ positionY = 700
 time_remaining = 300
 players_remaining = 0
 lavaY = 950
+spawn_points = [(420, 250), (450, 500), (730, 470), (400, 690), (1420, 250), (, 500), (, 470), (, 690)]
 active_bullets = []
 bullet_speedX = 5
 bulletpositionX = -1000
