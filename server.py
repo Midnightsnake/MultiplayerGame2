@@ -30,6 +30,7 @@ player_connections = {}
 game_start_time = None
 GAME_DURATION = 300
 lavaY = 950
+spawn_points = [[400, 250, 0], [1500, 250, 0], [500, 350, 0], [1390, 350, 0], [700, 470, 0], [1110, 470, 0], [520, 700, 0], [1380, 700, 0]]
 
 lock = threading.Lock()
 
@@ -401,8 +402,11 @@ def main():
             next_player_id += 1
 
             element = "Earth"
+            free_spawn = [i for i in spawn_points if i[2] == 0]
+            random_pos = random.randint(0, len(free_spawn) - 1)
+            free_spawn[random_pos][2] = 1
             players[player_id] = {
-                "pos": (400, 300), # random between  50 too 950 for x and 600 to 700 for y
+                "pos": (free_spawn[random_pos][0], free_spawn[random_pos][1]), # random spawnpoint for player
                 "element": element,
                 "guntype": "DefaultGun",
                 "health": 40,
